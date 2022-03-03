@@ -4,10 +4,10 @@ import NavTab from "../NavTab/NavTab";
 
 function App() {
   return (
-    <>
+    <main>
       <Promo />
       <NavTab />
-    </>
+    </main>
   );
 }
 
