@@ -2,6 +2,7 @@ import "./App.css";
 import Promo from "../Promo/Promo.js";
 import NavTab from "../NavTab/NavTab";
 import AboutProject from "../AboutProject/AboutProject.js";
+import Techs from "../Techs/Techs.js";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Promo />
       <NavTab />
       <AboutProject />
+      <Techs />
     </main>
   );
 }
