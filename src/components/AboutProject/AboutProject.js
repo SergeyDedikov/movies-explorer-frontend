@@ -1,9 +1,10 @@
 import "./AboutProject.css";
+import Section from "../Section/Section";
 import SectionTitle from "../SectionTitle/SectionTitle.js";
 
 function AboutProject() {
   return (
-    <section className="project">
+    <Section name={"about-project"}>
       <SectionTitle id={"about-project"} title={"О проекте"} />
       <ul className="description">
         <li className="description__container">
@@ -31,7 +32,7 @@ function AboutProject() {
         <p className="chrono__description">Back-end</p>
         <p className="chrono__description">Front-end</p>
       </div>
-    </section>
+    </Section>
   );
 }
 
