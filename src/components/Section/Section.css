@@ -1,4 +1,5 @@
 .section {
+  position: relative;
   width: calc(100% - 2 * 70px);
   margin: 0 auto;
   padding: 110px 0;
