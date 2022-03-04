@@ -1,8 +1,37 @@
 import "./AboutProject.css";
+import SectionTitle from "../SectionTitle/SectionTitle.js";
 
 function AboutProject() {
-  return(
-    <div className="container">AboutProject</div>
+  return (
+    <section className="project">
+      <SectionTitle title={"О проекте"} />
+      <ul className="description">
+        <li className="description__container">
+          <h3 className="description__title">
+            Дипломный проект включал 5&nbsp;этапов
+          </h3>
+          <p className="description__paragraph">
+            Составление плана, работу над бэкендом, вёрстку, добавление
+            функциональности и&nbsp;финальные доработки.
+          </p>
+        </li>
+        <li className="description__container">
+          <h3 className="description__title">
+            На&nbsp;выполнение диплома ушло 5&nbsp;недель
+          </h3>
+          <p className="description__paragraph">
+            У&nbsp;каждого этапа был мягкий и&nbsp;жёсткий дедлайн, которые
+            нужно было соблюдать, чтобы успешно защититься.
+          </p>
+        </li>
+      </ul>
+      <div className="chrono">
+        <p className="chrono__bar chrono__bar_position_left">1 неделя</p>
+        <p className="chrono__bar chrono__bar_position_rigth">4 недели</p>
+        <p className="chrono__description">Back-end</p>
+        <p className="chrono__description">Front-end</p>
+      </div>
+    </section>
   );
 }
 
