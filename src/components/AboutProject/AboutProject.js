@@ -4,7 +4,7 @@ import SectionTitle from "../SectionTitle/SectionTitle.js";
 function AboutProject() {
   return (
     <section className="project">
-      <SectionTitle title={"О проекте"} />
+      <SectionTitle id={"about-project"} title={"О проекте"} />
       <ul className="description">
         <li className="description__container">
           <h3 className="description__title">
