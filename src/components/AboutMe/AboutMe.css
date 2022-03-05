@@ -1,4 +1,8 @@
 .student {
+  padding: 110px 0 125px;
+}
+
+.student__info {
   position: relative;
   padding-top: 66px;
   width: 100%;

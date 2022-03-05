@@ -5,7 +5,7 @@ import photo from "../../images/student-photo.jpg";
 function AboutMe() {
   return (
     <Section name={"student"} title={"Студент"}>
-      <div className="student">
+      <div className="student__info">
         <img
           src={photo}
           className="student__photo"
