@@ -8,7 +8,7 @@ function AboutMe() {
     <Section name={"student"}>
       <SectionTitle id={"student"} title={"Студент"} />
 
-      <div className="student__info">
+      <div className="student">
         <img
           src={photo}
           className="student__photo"
