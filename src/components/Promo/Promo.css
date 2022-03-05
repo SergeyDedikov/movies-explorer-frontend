@@ -1,6 +1,7 @@
 .landing {
+  position: relative;
   background: url(../../images/landing-logo.svg) no-repeat;
-  background-position: center center;
+  background-position: center 82px;
   background-color: #5c5c5c;
   background-size: 320px 320px;
   width: 100%;
@@ -13,6 +14,7 @@
 
 .landing__title {
   width: 60%;
+  margin: 0 0 40px;
   font-family: Inter;
   font-style: normal;
   font-weight: normal;
