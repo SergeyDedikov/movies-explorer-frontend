@@ -1,11 +1,9 @@
 import "./Techs.css";
 import Section from "../Section/Section";
-import SectionTitle from "../SectionTitle/SectionTitle.js";
 
 function Techs() {
   return (
-    <Section name={"technology"}>
-      <SectionTitle id={"technology"} title={"Технологии"} />
+    <Section name={"technology"} title={"Технологии"}>
       <h3 className="technology__title">7 технологий</h3>
       <p className="technology__subtitle">
         На&nbsp;курсе веб-разработки мы&nbsp;освоили технологии, которые

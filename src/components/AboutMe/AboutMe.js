@@ -1,13 +1,10 @@
 import "./AboutMe.css";
 import Section from "../Section/Section.js";
-import SectionTitle from "../SectionTitle/SectionTitle.js";
 import photo from "../../images/student-photo.jpg";
 
 function AboutMe() {
   return (
-    <Section name={"student"}>
-      <SectionTitle id={"student"} title={"Студент"} />
-
+    <Section name={"student"} title={"Студент"}>
       <div className="student">
         <img
           src={photo}

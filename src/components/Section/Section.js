@@ -1,8 +1,12 @@
 import "./Section.css";
+import SectionTitle from "../SectionTitle/SectionTitle.js";
 
-function Section({ name, children }) {
+function Section({ name, title, children }) {
   return (
-    <section className={`section section_name_${name}`}>{children}</section>
+    <section className={`section section_name_${name}`}>
+      <SectionTitle id={name} title={title} />
+      {children}
+    </section>
   );
 }
 

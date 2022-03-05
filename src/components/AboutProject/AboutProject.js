@@ -1,11 +1,9 @@
 import "./AboutProject.css";
 import Section from "../Section/Section";
-import SectionTitle from "../SectionTitle/SectionTitle.js";
 
 function AboutProject() {
   return (
-    <Section name={"about-project"}>
-      <SectionTitle id={"about-project"} title={"О проекте"} />
+    <Section name={"about-project"} title={"О проекте"}>
       <ul className="description">
         <li className="description__container">
           <p className="description__title">
