@@ -1,0 +1,45 @@
+.footer {
+  width: 100%;
+  min-height: 172px;
+  padding: 80px 70px 0;
+  box-sizing: border-box;
+  background-color: #fafafa;
+}
+
+.footer__underline {
+  min-height: 55px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer__social-links {
+  margin: 0;
+  list-style-type: none;
+  padding-inline-start: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.footer__text {
+  margin: 0;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 16px;
+  color: #000000;
+}
+
+.footer__text_place_description {
+  text-align: center;
+  color: #a0a0a0;
+  border-bottom: 1px solid #e8e8e8;
+  padding-bottom: 20px;
+}
+
+.footer__text_place_social-link {
+  text-align: right;
+  text-decoration: none;
+}
+
+
