@@ -1,6 +1,7 @@
 import "./AboutMe.css";
 import Section from "../Section/Section.js";
 import photo from "../../images/student-photo.jpg";
+import Portfolio from "../Portfolio/Portfolio.js";
 
 function AboutMe() {
   return (
@@ -46,6 +47,7 @@ function AboutMe() {
           </li>
         </ul>
       </div>
+      <Portfolio />
     </Section>
   );
 }
