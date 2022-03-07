@@ -2,15 +2,16 @@ import "./FilterCheckbox.css";
 
 function FilterCheckbox() {
   return (
-    <label className="checkbox-label" for="filter-movies">
+    <label className="checkbox__label" for="filter-movies">
       <input
         name="filter-movies"
         type="checkbox"
-        className="checkbox-invisible"
+        className="checkbox__input-invisible"
         id="filter-movies"
+        checked="true"
       />
-      <span className="checkbox-visible__track">
-        <span className="checkbox-visible__item"></span>
+      <span className="checkbox__input-track">
+        <span className="checkbox__input-item"></span>
       </span>
       Короткометражки
     </label>
