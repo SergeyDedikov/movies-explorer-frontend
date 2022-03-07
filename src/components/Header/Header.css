@@ -5,7 +5,6 @@
   box-sizing: border-box;
   background-color: #5c5c5c;
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
@@ -15,36 +14,4 @@
   border-radius: 50%;
   background: url("../../images/logo.svg") no-repeat center center;
   background-color: #2be080;
-}
-
-.header__nav-links {
-  margin: 0;
-  list-style-type: none;
-  padding-inline-start: 0;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 30px;
-}
-
-.header__link {
-  margin: 0;
-  padding: 0;
-  border: none;
-  box-sizing: border-box;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.33;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.header__link_login {
-  height: 32px;
-  width: 76px;
-  background-color: #2be080;
-  border-radius: 3px;
 }

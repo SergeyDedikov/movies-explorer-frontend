@@ -1,0 +1,38 @@
+.navigation {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navigation__links {
+  margin: 0;
+  list-style-type: none;
+  padding-inline-start: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 30px;
+}
+
+.navigation__link {
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navigation__link_login {
+  height: 32px;
+  width: 76px;
+  background-color: #2be080;
+  border-radius: 3px;
+}
