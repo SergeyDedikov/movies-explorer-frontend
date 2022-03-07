@@ -1,8 +1,11 @@
 import "./MoviesCardList.css";
+import MoviesCard from "../MoviesCard/MoviesCard";
 
 function MoviesCardList() {
   return(
-    <div className="container">MoviesCardList</div>
+    <ul className="movies-card-list">
+      <MoviesCard title={""} image={""} duration={""} />
+    </ul>
   );
 }
 
