@@ -8,6 +8,10 @@
   align-items: center;
 }
 
+.header_background_none {
+  background-color: #fff;
+}
+
 .header__logo {
   position: absolute;
   width: 38px;

@@ -23,7 +23,7 @@ function Navigation() {
           </li>
         </ul>
       </nav>
-      <nav className="navigation__authentication">
+      <nav className="navigation__authentication navigation_hidden">
         <ul className="navigation__links navigation__links_authentication">
           <li>
             <a
@@ -39,6 +39,26 @@ function Navigation() {
               href="#login"
             >
               Войти
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <nav className="navigation__profile">
+        <ul className="navigation__links navigation__links_profile">
+          <li>
+            <a
+              className="navigation__link navigation__link_profile"
+              href="#profile"
+            >
+              Аккаунт
+            </a>
+          </li>
+          <li>
+            <a
+              className="navigation__link navigation__link_profile-button"
+              href="#profile"
+            >
+              {""}
             </a>
           </li>
         </ul>

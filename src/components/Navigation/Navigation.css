@@ -6,11 +6,19 @@
   align-items: center;
 }
 
+.navigation_hidden {
+  display: none;
+}
+
 .navigation__movies {
   grid-column: 2;
 }
 
 .navigation__authentication {
+  grid-column: 3;
+}
+
+.navigation__profile {
   grid-column: 3;
 }
 
@@ -30,6 +38,11 @@
 .navigation__links_authentication {
   justify-content: flex-end;
   gap: 30px;
+}
+
+.navigation__links_profile {
+  justify-content: flex-end;
+  gap: 13px;
 }
 
 .navigation__link {
@@ -67,4 +80,17 @@
   font-weight: normal;
   font-size: 13px;
   line-height: 1.38;
+}
+
+.navigation__link_profile {
+  font-size: 14px;
+  line-height: 1.14;
+}
+
+.navigation__link_profile-button {
+  width: 30px;
+  height: 30px;
+  background: url("../../images/icon-profile.svg") no-repeat center center;
+  background-color: #f9f9f9;
+  border-radius: 6px;
 }
