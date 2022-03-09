@@ -8,7 +8,7 @@ function FilterCheckbox() {
         type="checkbox"
         className="checkbox__input-invisible"
         id="filter-movies"
-        checked="true"
+        checked={true}
       />
       <span className="checkbox__input-track">
         <span className="checkbox__input-item"></span>
