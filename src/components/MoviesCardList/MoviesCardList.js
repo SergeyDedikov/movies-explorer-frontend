@@ -111,6 +111,7 @@ function MoviesCardList() {
           <MoviesCard key={movieItem.movieId} movie={movieItem} />
         ))}
       </ul>
+      <button className="movies-card-list__add button">Ещё</button>
     </section>
   );
 }
