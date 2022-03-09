@@ -46,6 +46,12 @@
   background-color: #2be080;
 }
 
+.movies-card__button-like_delete {
+  background: url("../../images/icon-close.svg") no-repeat
+    center center;
+  background-color: #f9f9f9;
+}
+
 .movies-card__image {
   display: block;
   width: 100%;

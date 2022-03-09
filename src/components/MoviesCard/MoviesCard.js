@@ -1,6 +1,6 @@
 import "./MoviesCard.css";
 
-function MoviesCard({ movie }) {
+function MoviesCard({ movie, isSavedMovies }) {
   // преобразуем длительность фильма в часы с минутами
   function formatMinutes(value) {
     let minuteTime = value; // минуты
@@ -25,10 +25,10 @@ function MoviesCard({ movie }) {
   // временное условие для определения лайка
   const isLiked = movie.owner === 111;
 
-  // Создаём переменную, которую после зададим в `className` для кнопки лайка
+  // переменная в `className` для кнопки лайка и удаления
   const movieLikeButtonClassName = `movies-card__button-like ${
     isLiked && "movies-card__button-like_active"
-  }`;
+  } ${isSavedMovies && "movies-card__button-like_delete"}`;
 
   return (
     <li>
