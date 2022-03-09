@@ -1,5 +1,6 @@
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
+import AddMoreMovies from "../AddMoreMovies/AddMoreMovies";
 
 function MoviesCardList({ movies }) {
   return (
@@ -9,7 +10,7 @@ function MoviesCardList({ movies }) {
           <MoviesCard key={movieItem.movieId} movie={movieItem} />
         ))}
       </ul>
-      <button className="movies-card-list__add button">Ещё</button>
+      <AddMoreMovies movies={movies} />
     </section>
   );
 }

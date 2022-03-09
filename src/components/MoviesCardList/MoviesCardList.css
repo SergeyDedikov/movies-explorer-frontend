@@ -10,18 +10,3 @@
   column-gap: 24px;
   row-gap: 30px;
 }
-
-.movies-card-list__add {
-  margin: 50px auto 80px;
-  width: 320px;
-  height: 36px;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 15px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  border: 1px solid #e8e8e8;
-  border-radius: 6px;
-}
