@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import "./Navigation.css";
 
 function Navigation() {
@@ -6,60 +8,60 @@ function Navigation() {
       <nav className="navigation__movies">
         <ul className="navigation__links navigation__links_movies">
           <li>
-            <a
+            <Link
+              to="/movies"
               className="navigation__link navigation__link_movies"
-              href="#movies"
             >
               Фильмы
-            </a>
+            </Link>
           </li>
           <li>
-            <a
+            <Link
+              to="/saved-movies"
               className="navigation__link navigation__link_saved-movies"
-              href="#saved-movies"
             >
               Сохранённые фильмы
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
       <nav className="navigation__authentication navigation_hidden">
         <ul className="navigation__links navigation__links_authentication">
           <li>
-            <a
+            <Link
+              to="/register"
               className="navigation__link navigation__link_register"
-              href="#register"
             >
               Регистрация
-            </a>
+            </Link>
           </li>
           <li>
-            <a
+            <Link
+              to="/login"
               className="navigation__link navigation__link_login"
-              href="#login"
             >
               Войти
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
       <nav className="navigation__profile">
         <ul className="navigation__links navigation__links_profile">
           <li>
-            <a
+            <Link
+              to="/profile"
               className="navigation__link navigation__link_profile"
-              href="#profile"
             >
               Аккаунт
-            </a>
+            </Link>
           </li>
           <li>
-            <a
+            <Link
+              to="/profile"
               className="navigation__link navigation__link_profile-button"
-              href="#profile"
             >
               {""}
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
