@@ -38,7 +38,7 @@ function Navigation() {
         <ul className="navigation__links navigation__links_authentication">
           <li>
             <Link
-              to="/register"
+              to="/signup"
               className="navigation__link navigation__link_register"
             >
               Регистрация
@@ -46,7 +46,7 @@ function Navigation() {
           </li>
           <li>
             <Link
-              to="/login"
+              to="/signin"
               className="navigation__link navigation__link_login"
             >
               Войти
