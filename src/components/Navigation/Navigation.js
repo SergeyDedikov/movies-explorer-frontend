@@ -1,11 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import "./Navigation.css";
 
 function Navigation() {
+  const { pathname } = useLocation();
+  const isBasePath = pathname === "/";
+
   return (
     <div className="navigation">
-      <nav className="navigation__movies">
+      <nav
+        className={`navigation__movies ${isBasePath && "navigation_hidden"}`}
+      >
         <ul className="navigation__links navigation__links_movies">
           <li>
             <Link
@@ -25,7 +30,11 @@ function Navigation() {
           </li>
         </ul>
       </nav>
-      <nav className="navigation__authentication navigation_hidden">
+      <nav
+        className={`navigation__authentication ${
+          !isBasePath && "navigation_hidden"
+        }`}
+      >
         <ul className="navigation__links navigation__links_authentication">
           <li>
             <Link
@@ -45,7 +54,9 @@ function Navigation() {
           </li>
         </ul>
       </nav>
-      <nav className="navigation__profile">
+      <nav
+        className={`navigation__profile ${isBasePath && "navigation_hidden"}`}
+      >
         <ul className="navigation__links navigation__links_profile">
           <li>
             <Link
