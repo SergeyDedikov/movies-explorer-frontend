@@ -20,10 +20,16 @@ function Profile() {
           <p className="profile__data">{user.email}</p>
         </div>
       </div>
-      <button className="profile__button profile__button_edit button">
+      <button
+        className="profile__button profile__button_edit button"
+        type="button"
+      >
         Редактировать
       </button>
-      <button className="profile__button profile__button_exit button">
+      <button
+        className="profile__button profile__button_exit button"
+        type="button"
+      >
         Выйти из аккаунта
       </button>
     </section>
