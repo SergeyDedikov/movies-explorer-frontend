@@ -8,7 +8,7 @@ function SearchForm() {
         <div className="search-form__icon"></div>
         <input
           className="search-form__input"
-          type="text"
+          type="search"
           name="movie"
           placeholder="Фильм"
         ></input>

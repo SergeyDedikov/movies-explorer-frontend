@@ -10,13 +10,13 @@ import Register from "../Register/Register";
 function App() {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       {/* <Profile /> */}
       <Register />
       {/* <Movies />
       <SavedMovies />
       <Main /> */}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

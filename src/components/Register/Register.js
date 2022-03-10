@@ -52,6 +52,7 @@ function Register() {
           type="password"
           label="Пароль"
           nameform={"register"}
+          message="Что-то пошло не так..."
         />
       </AuthForm>
       <p className="authentication__text">

@@ -13,7 +13,9 @@ export default function InputForm(props) {
         name={props.name}
         required
       />
-      <span id={`${props.name}-error`} className="form__error"></span>
+      <span id={`${props.name}-error`} className="form__error">
+        {props.message}
+      </span>
     </label>
   );
 }
