@@ -47,6 +47,15 @@
 .portfolio__icon-link {
   width: 30px;
   height: 30px;
-  background: url("../../images/icon-link-portfolio.svg") no-repeat center
-    center;
+  background: url("../../images/icon-link-portfolio.svg") no-repeat center 60%;
+}
+
+@media screen and (max-width: 1000px) {
+  .portfolio {
+    padding-top: 90px;
+  }
+  .portfolio__link {
+    font-size: 28px;
+    line-height: 50px;
+  }
 }
