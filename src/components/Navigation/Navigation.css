@@ -46,10 +46,6 @@
 }
 
 .navigation__link {
-  margin: 0;
-  padding: 0;
-  border: none;
-  box-sizing: border-box;
   color: #000;
   text-decoration: none;
   font-weight: 500;

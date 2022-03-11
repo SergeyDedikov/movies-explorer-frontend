@@ -39,7 +39,7 @@ function Navigation() {
           <li>
             <Link
               to="/signup"
-              className="navigation__link navigation__link_register"
+              className="navigation__link navigation__link_register button"
             >
               Регистрация
             </Link>
@@ -47,7 +47,7 @@ function Navigation() {
           <li>
             <Link
               to="/signin"
-              className="navigation__link navigation__link_login"
+              className="navigation__link navigation__link_login button"
             >
               Войти
             </Link>
