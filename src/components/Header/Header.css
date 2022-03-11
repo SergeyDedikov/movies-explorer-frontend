@@ -11,3 +11,9 @@
 .header_background_none {
   background-color: #fff;
 }
+
+@media screen and (max-width: 1000px) {
+  .header {
+    padding: 0 30px;
+  }
+}

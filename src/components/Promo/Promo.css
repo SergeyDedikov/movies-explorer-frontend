@@ -24,3 +24,15 @@
   letter-spacing: -0.04em;
   color: #fff;
 }
+
+@media screen and (max-width: 1000px) {
+  .landing {
+    min-height: 784px;
+    background-position: center 224px;
+  }
+
+  .landing__title {
+    width: 100%;
+    margin-bottom: 18px;
+  }
+}
