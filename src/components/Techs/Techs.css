@@ -23,9 +23,10 @@
 }
 
 .technology__list {
+  width: 100%;
   display: grid;
   margin: 100px auto 0;
-  grid-template-columns: repeat(7, auto);
+  grid-template-columns: repeat(7, 90px);
   gap: 10px;
   list-style-type: none;
   padding-inline-start: 0;
@@ -34,12 +35,13 @@
 }
 
 .technology__name {
+  margin: 0;
+  width: inherit;
+  position: relative;
   align-self: stretch;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0;
-  width: 90px;
   min-height: 60px;
   border-radius: 10px;
   background-color: #e8e8e8;
@@ -48,4 +50,28 @@
   line-height: 17px;
   text-align: center;
   letter-spacing: -0.04em;
+}
+
+@media screen and (max-width: 1000px) {
+  .technology {
+    padding: 90px 0;
+  }
+  .technology__title {
+    margin-top: 80px;
+  }
+  .technology__subtitle {
+    max-width: 60%;
+    margin-top: 22px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .technology__list {
+    margin-top: 83px;
+    grid-template-columns: repeat(7, 84px);
+  }
+  .technology__name {
+    font-size: 12px;
+    line-height: 15px;
+    min-height: 57px;
+  }
 }
