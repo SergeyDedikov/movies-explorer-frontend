@@ -1,7 +1,8 @@
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import "./Header.css";
 import Navigation from "../Navigation/Navigation";
+import Logo from "../Logo/Logo";
 
 function Header() {
   const { pathname } = useLocation();
@@ -16,7 +17,7 @@ function Header() {
   if (isHeaderPath) {
     return (
       <header className={`header ${!isBasePath && "header_background_none"}`}>
-        <Link to="/" className="header__logo"></Link>
+        <Logo place="header" />
         <Navigation />
       </header>
     );
