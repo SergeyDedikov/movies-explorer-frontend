@@ -48,3 +48,9 @@
   .checkbox__input-item {
   background-color: #2be080;
 }
+
+@media screen and (max-width: 1000px) {
+  .checkbox__label {
+    padding: 0 20px;
+  }
+}
