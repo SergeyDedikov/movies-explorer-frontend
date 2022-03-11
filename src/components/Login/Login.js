@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import "./Login.css";
 import PageWithAuthForm from "../PageWithAuthForm/PageWithAuthForm";
@@ -48,9 +49,9 @@ function Login() {
       <p className="authentication__text">
         Ещё не зарегистрированы?{" "}
         <span>
-          <a href="#/sign-up" className="authentication__button button">
+          <Link to="/signup" className="authentication__button button">
             Регистрация
-          </a>
+          </Link>
         </span>
       </p>
     </PageWithAuthForm>

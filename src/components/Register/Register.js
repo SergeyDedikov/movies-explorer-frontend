@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import "./Register.css";
 import PageWithAuthForm from "../PageWithAuthForm/PageWithAuthForm";
@@ -23,7 +24,7 @@ function Register() {
   }
 
   return (
-    <PageWithAuthForm name={"register"} heading={"Добро пожаловать"}>
+    <PageWithAuthForm name={"register"} heading={"Добро пожаловать!"}>
       <AuthForm
         onSubmit={handleSubmit}
         name={"register"}
@@ -58,9 +59,9 @@ function Register() {
       <p className="authentication__text">
         Уже зарегистрированы?{" "}
         <span>
-          <a href="#/sign-in" className="authentication__button button">
+          <Link to="/signin" className="authentication__button button">
             Войти
-          </a>
+          </Link>
         </span>
       </p>
     </PageWithAuthForm>
