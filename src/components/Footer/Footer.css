@@ -27,7 +27,7 @@
   font-weight: normal;
   font-size: 13px;
   line-height: 16px;
-  color: #000000;
+  color: #000;
 }
 
 .footer__text_place_description {
@@ -42,4 +42,9 @@
   text-decoration: none;
 }
 
-
+@media screen and (max-width: 1000px) {
+  .footer {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
