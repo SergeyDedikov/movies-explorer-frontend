@@ -4,3 +4,9 @@
   margin: 0 auto;
   box-sizing: border-box;
 }
+
+@media screen and (max-width: 1000px) {
+  .section {
+    width: calc(100% - 2 * 50px);
+  }
+}

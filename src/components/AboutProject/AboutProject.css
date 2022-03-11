@@ -29,7 +29,7 @@
 .chrono {
   margin-top: 110px;
   display: grid;
-  grid-template-columns: 228px 1fr;
+  grid-template-columns: 20% 1fr;
   grid-template-rows: 36px auto;
   font-weight: normal;
   font-size: 14px;
@@ -58,4 +58,24 @@
   margin-top: 14px;
   font-weight: 500;
   color: #a0a0a0;
+}
+
+@media screen and (max-width: 1000px) {
+  .about-project {
+    padding: 90px 0;
+  }
+
+  .description__paragraph {
+    margin-top: 22px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .description {
+    gap: 30px;
+  }
+  .chrono {
+    margin-top: 93px;
+    grid-template-columns: 21% 1fr;
+  }
 }
