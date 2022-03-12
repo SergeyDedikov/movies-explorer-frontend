@@ -6,8 +6,21 @@
   align-items: center;
 }
 
-.navigation_hidden {
+.navigation-main {
+  width: 100%;
+}
+
+.navigation__overlay {
+  content: "";
+  width: 33vw;
   display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-100%, 0);
+  height: 100vh;
+  background-color: #000;
+  opacity: 0.3;
 }
 
 .navigation__movies {
@@ -89,4 +102,25 @@
   background: url("../../images/icon-profile.svg") no-repeat center center;
   background-color: #f9f9f9;
   border-radius: 6px;
+}
+
+@media screen and (max-width: 1000px) {
+  .navigation {
+    z-index: 999;
+    width: 67vw;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    background-color: #fff;
+  }
+  .navigation__overlay {
+    display: block;
+  }
+}
+
+.navigation_hidden {
+  display: none;
+  visibility: hidden;
 }
