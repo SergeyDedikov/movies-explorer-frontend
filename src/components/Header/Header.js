@@ -15,10 +15,11 @@ function Header() {
     pathname === "/saved-movies" ||
     pathname === "/profile";
 
-  const [isLargeScreen, setIsLargeScreen] = useState(true);
-  console.log(isLargeScreen);
   // созданим переменную для широкого экрана
   const mediaLargeScreen = window.matchMedia("(min-width: 1000px)");
+  
+  const [isLargeScreen, setIsLargeScreen] = useState(mediaLargeScreen.matches);
+  console.log(isLargeScreen);
 
   function handleWidthScreenChange(evt) {
     if (evt.matches) {

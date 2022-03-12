@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import "./Navigation.css";
 
@@ -35,20 +35,37 @@ function Navigation({ isBasePath, isLargeScreen }) {
         <nav className={`navigation__movies`}>
           <ul className="navigation__links navigation__links_movies">
             <li>
-              <Link
-                to="/movies"
-                className="navigation__link navigation__link_movies"
+              <NavLink
+                to="/"
+                className={`navigation__link navigation__link_main wide-medium button ${
+                  isLargeScreen && "navigation__link_hidden"
+                }`}
+                activeClassName="active"
               >
-                Фильмы
-              </Link>
+                Главная
+              </NavLink>
             </li>
             <li>
-              <Link
+              <NavLink
+                to="/movies"
+                className={`navigation__link navigation__link_movies button ${
+                  !isLargeScreen && "wide-medium"
+                }`}
+                activeClassName="active"
+              >
+                Фильмы
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
                 to="/saved-movies"
-                className="navigation__link navigation__link_saved-movies"
+                className={`navigation__link navigation__link_saved-movies button ${
+                  !isLargeScreen && "wide-medium"
+                }`}
+                activeClassName="active"
               >
                 Сохранённые фильмы
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </nav>
@@ -57,17 +74,10 @@ function Navigation({ isBasePath, isLargeScreen }) {
             <li>
               <Link
                 to="/profile"
-                className="navigation__link navigation__link_profile"
+                className="navigation__link navigation__link_profile button"
               >
                 Аккаунт
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/profile"
-                className="navigation__link navigation__link_profile-button"
-              >
-                {""}
+                <div className="navigation__link_profile-button"></div>
               </Link>
             </li>
           </ul>
