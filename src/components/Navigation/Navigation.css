@@ -6,6 +6,27 @@
   align-items: center;
 }
 
+.navigation-icon-close {
+  position: absolute;
+  top: 36px;
+  right: 27px;
+  width: 22px;
+  height: 3px;
+  background-color: #000;
+  transform: rotate(45deg);
+}
+
+.navigation-icon-close::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 22px;
+  height: 3px;
+  background-color: #000;
+  transform: rotate(90deg);
+}
+
 .navigation-main {
   width: 100%;
 }
@@ -13,7 +34,6 @@
 .navigation__overlay {
   content: "";
   width: 32vw;
-  display: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -140,11 +160,13 @@
     gap: 28px;
   }
   .active {
-    border-bottom: 2px solid #000;
+    text-decoration-line: underline;
+    text-underline-offset: 8px;
+    text-decoration-thickness: 2px;
   }
 }
 
-.navigation_hidden {
+.hidden {
   display: none;
   visibility: hidden;
 }

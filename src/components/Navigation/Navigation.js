@@ -31,14 +31,21 @@ function Navigation({ isBasePath, isLargeScreen }) {
   } else {
     return (
       <div className="navigation">
-        <div className="navigation__overlay"></div>
+        <div
+          className={`navigation__overlay ${isLargeScreen ? "hidden" : ""}`}
+        ></div>
+        <button
+          className={`navigation-icon-close button ${
+            isLargeScreen ? "hidden" : ""
+          }`}
+        ></button>
         <nav className={`navigation__movies`}>
           <ul className="navigation__links navigation__links_movies">
             <li>
               <NavLink
                 to="/"
                 className={`navigation__link navigation__link_main wide-medium button ${
-                  isLargeScreen && "navigation__link_hidden"
+                  isLargeScreen ? "hidden" : ""
                 }`}
                 activeClassName="active"
               >
@@ -49,7 +56,7 @@ function Navigation({ isBasePath, isLargeScreen }) {
               <NavLink
                 to="/movies"
                 className={`navigation__link navigation__link_movies button ${
-                  !isLargeScreen && "wide-medium"
+                  !isLargeScreen ? "wide-medium" : ""
                 }`}
                 activeClassName="active"
               >
@@ -60,7 +67,7 @@ function Navigation({ isBasePath, isLargeScreen }) {
               <NavLink
                 to="/saved-movies"
                 className={`navigation__link navigation__link_saved-movies button ${
-                  !isLargeScreen && "wide-medium"
+                  !isLargeScreen ? "wide-medium" : ""
                 }`}
                 activeClassName="active"
               >
