@@ -1,8 +1,15 @@
 import { Link, NavLink } from "react-router-dom";
+import { useState } from "react";
 
 import "./Navigation.css";
 
 function Navigation({ isBasePath, isLargeScreen }) {
+  const [isVisibleMenu, setIsVisibleMenu] = useState(true);
+
+  function handleCloseMenu() {
+    setIsVisibleMenu(!isVisibleMenu);
+  }
+
   if (isBasePath) {
     return (
       <div className="navigation-main">
@@ -30,11 +37,13 @@ function Navigation({ isBasePath, isLargeScreen }) {
     );
   } else {
     return (
-      <div className="navigation">
+      <div className={`navigation ${!isVisibleMenu ? "navigation_hidden" : ""}`}>
         <div
           className={`navigation__overlay ${isLargeScreen ? "hidden" : ""}`}
         ></div>
         <button
+          type="button"
+          onClick={handleCloseMenu}
           className={`navigation-icon-close button ${
             isLargeScreen ? "hidden" : ""
           }`}
@@ -47,7 +56,7 @@ function Navigation({ isBasePath, isLargeScreen }) {
                 className={`navigation__link navigation__link_main wide-medium button ${
                   isLargeScreen ? "hidden" : ""
                 }`}
-                activeClassName="active"
+                activeclassname="active"
               >
                 Главная
               </NavLink>
@@ -58,7 +67,7 @@ function Navigation({ isBasePath, isLargeScreen }) {
                 className={`navigation__link navigation__link_movies button ${
                   !isLargeScreen ? "wide-medium" : ""
                 }`}
-                activeClassName="active"
+                activeclassname="active"
               >
                 Фильмы
               </NavLink>
@@ -69,7 +78,7 @@ function Navigation({ isBasePath, isLargeScreen }) {
                 className={`navigation__link navigation__link_saved-movies button ${
                   !isLargeScreen ? "wide-medium" : ""
                 }`}
-                activeClassName="active"
+                activeclassname="active"
               >
                 Сохранённые фильмы
               </NavLink>

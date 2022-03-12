@@ -4,6 +4,14 @@
   grid-template-columns: 1fr 50% 1fr;
   justify-content: center;
   align-items: center;
+  opacity: 1;
+}
+
+.navigation_hidden {
+  opacity: 0;
+  transition: 0.5s;
+  visibility: hidden;
+  display: none;
 }
 
 .navigation-icon-close {
@@ -33,11 +41,11 @@
 
 .navigation__overlay {
   content: "";
-  width: 32vw;
+  width: 100vw;
   position: absolute;
   top: 0;
   left: 0;
-  transform: translate(-100%, 0);
+  transform: translateX(-100%);
   height: 100%;
   background-color: #000;
   opacity: 0.3;
