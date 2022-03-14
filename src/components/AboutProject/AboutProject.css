@@ -3,7 +3,7 @@
 }
 
 .description {
-  margin: 0;
+  margin-top: 70px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
@@ -12,8 +12,8 @@
 }
 
 .description__title {
-  margin: 70px 0 0;
-  font-weight: normal;
+  margin: 0;
+  font-weight: 400;
   font-size: 20px;
   line-height: 1.2;
   letter-spacing: -0.04em;
@@ -74,8 +74,36 @@
   .description {
     gap: 30px;
   }
+
   .chrono {
     margin-top: 93px;
     grid-template-columns: 21% 1fr;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .about-project {
+    padding: 70px 0;
+  }
+
+  .description {
+    margin-top: 60px;
+    grid-template-columns: 1fr;
+    gap: 56px;
+  }
+
+  .description__title {
+    font-size: 18px;
+  }
+
+  .description__paragraph {
+    margin-top: 16px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .chrono {
+    margin-top: 60px;
+    grid-template-columns: 100px 1fr;
   }
 }
