@@ -9,7 +9,7 @@
 
 .navigation_hidden {
   opacity: 0;
-  
+
   visibility: hidden;
   display: none;
 }
@@ -150,5 +150,15 @@
     text-decoration-line: underline;
     text-underline-offset: 8px;
     text-decoration-thickness: 2px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .navigation__link {
+    font-size: 10px;
+    line-height: 16px;
+  }
+  .navigation__links_authentication {
+    gap: 14px;
   }
 }
