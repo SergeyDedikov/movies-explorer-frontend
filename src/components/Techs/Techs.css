@@ -67,7 +67,7 @@
   }
   .technology__list {
     margin-top: 83px;
-    grid-template-columns: repeat(7, 84px);
+    grid-template-columns: repeat(auto-fill, 84px);
   }
   .technology__name {
     font-size: 12px;
