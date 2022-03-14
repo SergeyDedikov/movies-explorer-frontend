@@ -161,4 +161,8 @@
   .navigation__links_authentication {
     gap: 14px;
   }
+  .navigation__link_login {
+    height: 26px;
+    width: 54px;
+  }
 }
