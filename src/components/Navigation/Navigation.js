@@ -1,15 +1,8 @@
 import { Link, NavLink } from "react-router-dom";
-import { useState } from "react";
 
 import "./Navigation.css";
 
-function Navigation({ isBasePath, isLargeScreen }) {
-  const [isVisibleMenu, setIsVisibleMenu] = useState(true);
-
-  function handleCloseMenu() {
-    setIsVisibleMenu(!isVisibleMenu);
-  }
-
+function Navigation({ isBasePath, isLargeScreen, isVisibleMenu }) {
   if (isBasePath) {
     return (
       <div className="navigation-main">
@@ -35,19 +28,72 @@ function Navigation({ isBasePath, isLargeScreen }) {
         </nav>
       </div>
     );
-  } else {
+  } else if (!isLargeScreen) {
     return (
-      <div className={`navigation ${!isVisibleMenu ? "navigation_hidden" : ""}`}>
+      <div
+        className={`navigation ${!isVisibleMenu ? "navigation_hidden" : ""}`}
+      >
         <div
           className={`navigation__overlay ${isLargeScreen ? "hidden" : ""}`}
         ></div>
-        <button
-          type="button"
-          onClick={handleCloseMenu}
-          className={`navigation__close-button button ${
-            isLargeScreen ? "hidden" : ""
-          }`}
-        ></button>
+        <nav className={`navigation__movies`}>
+          <ul className="navigation__links navigation__links_movies">
+            <li>
+              <NavLink
+                to="/"
+                className={`navigation__link navigation__link_main wide-medium button ${
+                  isLargeScreen ? "hidden" : ""
+                }`}
+                activeclassname="active"
+              >
+                Главная
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/movies"
+                className={`navigation__link navigation__link_movies button ${
+                  !isLargeScreen ? "wide-medium" : ""
+                }`}
+                activeclassname="active"
+              >
+                Фильмы
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/saved-movies"
+                className={`navigation__link navigation__link_saved-movies button ${
+                  !isLargeScreen ? "wide-medium" : ""
+                }`}
+                activeclassname="active"
+              >
+                Сохранённые фильмы
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+        <nav className={`navigation__profile`}>
+          <ul className="navigation__links navigation__links_profile">
+            <li>
+              <Link
+                to="/profile"
+                className="navigation__link navigation__link_profile button"
+              >
+                Аккаунт
+                <div className="navigation__link_profile-button"></div>
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    );
+  } else {
+    return (
+      <div className={`navigation`}>
+        <div
+          className={`navigation__overlay ${isLargeScreen ? "hidden" : ""}`}
+        ></div>
         <nav className={`navigation__movies`}>
           <ul className="navigation__links navigation__links_movies">
             <li>

@@ -17,13 +17,19 @@ function Header() {
 
   // созданим переменную для широкого экрана
   const mediaLargeScreen = window.matchMedia("(min-width: 1000px)");
-  
+
   const [isLargeScreen, setIsLargeScreen] = useState(mediaLargeScreen.matches);
-  console.log(isLargeScreen);
+  const [isVisibleMenu, setIsVisibleMenu] = useState(false);
+  console.log(isVisibleMenu);
+
+  function onChangeVisibleMenu() {
+    setIsVisibleMenu(!isVisibleMenu);
+  }
 
   function handleWidthScreenChange(evt) {
     if (evt.matches) {
       setIsLargeScreen(true);
+      setIsVisibleMenu(false);
     } else {
       setIsLargeScreen(false);
     }
@@ -37,7 +43,18 @@ function Header() {
     return (
       <header className={`header ${!isBasePath && "header_background_none"}`}>
         <Logo place="header" />
-        <Navigation isBasePath={isBasePath} isLargeScreen={isLargeScreen} />
+        <Navigation
+          isBasePath={isBasePath}
+          isLargeScreen={isLargeScreen}
+          isVisibleMenu={isVisibleMenu}
+        />
+        <button
+          onClick={onChangeVisibleMenu}
+          className={`header__burger-menu button ${
+            isLargeScreen ? "hidden" : ""
+          } ${isVisibleMenu ? "header__close-button" : ""}`}
+          type="button"
+        ></button>
       </header>
     );
   } else {

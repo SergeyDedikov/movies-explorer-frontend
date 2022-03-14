@@ -34,3 +34,8 @@
   cursor: pointer;
   transition: opacity 0.2s;
 }
+
+.hidden {
+  display: none;
+  visibility: hidden;
+}
