@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import "./Header.css";
 import Navigation from "../Navigation/Navigation";
@@ -50,7 +50,7 @@ function Header() {
         <button
           onClick={onChangeVisibleMenu}
           className={`header__burger-menu button ${
-            isLargeScreen ? "hidden" : ""
+            isLargeScreen || pathname === "/" ? "hidden" : ""
           } ${isVisibleMenu ? "header__burger-menu_close" : ""}`}
           type="button"
         ></button>

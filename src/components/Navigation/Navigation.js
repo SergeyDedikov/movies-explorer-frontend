@@ -44,7 +44,6 @@ function Navigation({ isBasePath, isLargeScreen, isVisibleMenu }) {
                 className={`navigation__link navigation__link_main wide-medium button ${
                   isLargeScreen ? "hidden" : ""
                 }`}
-                activeclassname="active"
               >
                 Главная
               </NavLink>
@@ -98,22 +97,10 @@ function Navigation({ isBasePath, isLargeScreen, isVisibleMenu }) {
           <ul className="navigation__links navigation__links_movies">
             <li>
               <NavLink
-                to="/"
-                className={`navigation__link navigation__link_main wide-medium button ${
-                  isLargeScreen ? "hidden" : ""
-                }`}
-                activeclassname="active"
-              >
-                Главная
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
                 to="/movies"
                 className={`navigation__link navigation__link_movies button ${
                   !isLargeScreen ? "wide-medium" : ""
                 }`}
-                activeclassname="active"
               >
                 Фильмы
               </NavLink>
@@ -124,7 +111,6 @@ function Navigation({ isBasePath, isLargeScreen, isVisibleMenu }) {
                 className={`navigation__link navigation__link_saved-movies button ${
                   !isLargeScreen ? "wide-medium" : ""
                 }`}
-                activeclassname="active"
               >
                 Сохранённые фильмы
               </NavLink>
