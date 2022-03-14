@@ -75,3 +75,24 @@
     min-height: 57px;
   }
 }
+
+@media screen and (max-width: 500px) {
+  .technology {
+    padding: 70px 0;
+  }
+  .technology__title {
+    margin-top: 60px;
+    font-size: 30px;
+    line-height: 36px;
+  }
+  .technology__subtitle {
+    max-width: 100%;
+    margin-top: 24px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+  .technology__list {
+    margin-top: 50px;
+    grid-template-columns: repeat(2, 84px);
+  }
+}
