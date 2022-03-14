@@ -23,12 +23,8 @@ function Login() {
   }
 
   return (
-    <PageWithAuthForm name={"login"} heading={"Рады видеть!"}>
-      <AuthForm
-        onSubmit={handleSubmit}
-        name={"login"}
-        textButtonSubmit={"Войти"}
-      >
+    <PageWithAuthForm heading={"Рады видеть!"}>
+      <AuthForm onSubmit={handleSubmit} name={"login"}>
         <InputForm
           name="email"
           value={inputValues.email}
@@ -46,14 +42,23 @@ function Login() {
           nameform={"login"}
         />
       </AuthForm>
-      <p className="authentication__text">
-        Ещё не зарегистрированы?{" "}
-        <span>
-          <Link to="/signup" className="authentication__button button">
-            Регистрация
-          </Link>
-        </span>
-      </p>
+      <div className="authentication__footer authentication__footer_login">
+        <button
+          className={`form__button form__button_login button`}
+          type="submit"
+          form="login"
+        >
+          Войти
+        </button>
+        <p className="authentication__text">
+          Ещё не зарегистрированы?{" "}
+          <span>
+            <Link to="/signup" className="authentication__button button">
+              Регистрация
+            </Link>
+          </span>
+        </p>
+      </div>
     </PageWithAuthForm>
   );
 }
