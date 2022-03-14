@@ -20,7 +20,6 @@ function Header() {
 
   const [isLargeScreen, setIsLargeScreen] = useState(mediaLargeScreen.matches);
   const [isVisibleMenu, setIsVisibleMenu] = useState(false);
-  console.log(isVisibleMenu);
 
   function onChangeVisibleMenu() {
     setIsVisibleMenu(!isVisibleMenu);
@@ -52,7 +51,7 @@ function Header() {
           onClick={onChangeVisibleMenu}
           className={`header__burger-menu button ${
             isLargeScreen ? "hidden" : ""
-          } ${isVisibleMenu ? "header__close-button" : ""}`}
+          } ${isVisibleMenu ? "header__burger-menu_close" : ""}`}
           type="button"
         ></button>
       </header>

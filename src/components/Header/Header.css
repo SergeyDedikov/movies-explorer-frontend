@@ -20,30 +20,16 @@
   right: 30px;
   width: 44px;
   height: 44px;
-  background-color: #000;
+  background: url(../../images/icon-burger-menu.svg) no-repeat center center;
+  background-color: #fff;
 }
 
-.header__close-button {
-  z-index: 999;
-  position: absolute;
-  top: 36px;
-  right: 27px;
-  width: 22px;
-  height: 3px;
-  background-color: #000;
-  transform: rotate(45deg);
+.header__burger-menu_close {
+  top: 16px;
+  right: 17px;
+  background-image: url(../../images/icon-close-big.svg);
 }
 
-.header__close-button::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 22px;
-  height: 3px;
-  background-color: #000;
-  transform: rotate(90deg);
-}
 
 @media screen and (max-width: 1000px) {
   .header {
