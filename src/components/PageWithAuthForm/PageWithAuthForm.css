@@ -3,7 +3,7 @@
   max-width: 396px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   height: 100vh;
 }
 
@@ -15,7 +15,6 @@
 .authentication__footer {
   padding: 70px 0;
   box-sizing: border-box;
-  justify-self: flex-end;
 }
 
 .authentication__footer_login {
