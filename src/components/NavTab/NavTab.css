@@ -24,3 +24,13 @@
   text-decoration-line: underline;
   color: #000;
 }
+
+@media screen and (max-width: 500px) {
+  .nav-tab__links {
+    gap: 24px;
+  }
+  .nav-tab__link {
+    font-size: 11px;
+    line-height: 16px;
+  }
+}
