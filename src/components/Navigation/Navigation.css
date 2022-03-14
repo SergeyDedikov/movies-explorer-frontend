@@ -14,7 +14,7 @@
   display: none;
 }
 
-.navigation-icon-close {
+.navigation__close-button {
   position: absolute;
   top: 36px;
   right: 27px;
@@ -24,7 +24,7 @@
   transform: rotate(45deg);
 }
 
-.navigation-icon-close::after {
+.navigation__close-button::after {
   content: "";
   position: absolute;
   top: 0;

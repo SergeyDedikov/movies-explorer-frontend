@@ -44,7 +44,7 @@ function Navigation({ isBasePath, isLargeScreen }) {
         <button
           type="button"
           onClick={handleCloseMenu}
-          className={`navigation-icon-close button ${
+          className={`navigation__close-button button ${
             isLargeScreen ? "hidden" : ""
           }`}
         ></button>
