@@ -24,12 +24,8 @@ function Register() {
   }
 
   return (
-    <PageWithAuthForm name={"register"} heading={"Добро пожаловать!"}>
-      <AuthForm
-        onSubmit={handleSubmit}
-        name={"register"}
-        textButtonSubmit={"Зарегистрироваться"}
-      >
+    <PageWithAuthForm heading={"Добро пожаловать!"}>
+      <AuthForm onSubmit={handleSubmit} name={"register"}>
         <InputForm
           name="name"
           value={inputValues.name}
@@ -56,14 +52,23 @@ function Register() {
           message="Что-то пошло не так..."
         />
       </AuthForm>
-      <p className="authentication__text">
-        Уже зарегистрированы?{" "}
-        <span>
-          <Link to="/signin" className="authentication__button button">
-            Войти
-          </Link>
-        </span>
-      </p>
+      <div className="authentication__footer">
+        <button
+          className={`form__button form__button_register button`}
+          type="submit"
+          form="register"
+        >
+          Зарегистрироваться
+        </button>
+        <p className="authentication__text">
+          Уже зарегистрированы?{" "}
+          <span>
+            <Link to="/signin" className="authentication__button button">
+              Войти
+            </Link>
+          </span>
+        </p>
+      </div>
     </PageWithAuthForm>
   );
 }

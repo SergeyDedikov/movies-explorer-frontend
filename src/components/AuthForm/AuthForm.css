@@ -1,3 +1,8 @@
+.form {
+  margin: 0;
+  justify-self: flex-start;
+}
+
 .form__input-container {
   width: 100%;
   margin: 0 auto;
@@ -8,7 +13,6 @@
 }
 
 .form__button {
-  margin-top: 69px;
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
@@ -18,8 +22,4 @@
   width: 100%;
   background-color: #2be080;
   border-radius: 3px;
-}
-
-.form__button_login {
-  margin-top: 179px;
 }

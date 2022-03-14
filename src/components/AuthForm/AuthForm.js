@@ -8,12 +8,7 @@ export default function AuthForm(props) {
       className={`form form_${props.name}`}
     >
       <fieldset className="form__input-container">{props.children}</fieldset>
-      <button
-        className={`form__button form__button_${props.name} button`}
-        type="submit"
-      >
-        {props.textButtonSubmit}
-      </button>
+      
     </form>
   );
 }
