@@ -63,3 +63,12 @@
   font-weight: 500;
   color: #ee3465;
 }
+
+@media screen and (max-width: 1000px) {
+  .profile {
+    padding-top: 235px;
+  }
+  .profile__info-container {
+    margin: 97px 0 210px;
+  }
+}
