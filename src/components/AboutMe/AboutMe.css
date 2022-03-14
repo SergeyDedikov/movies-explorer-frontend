@@ -100,3 +100,47 @@
     line-height: 18px;
   }
 }
+
+@media screen and (max-width: 700px) {
+  .student__info-container {
+    grid-template-columns: 1fr;
+    row-gap: 40px;
+    padding-top: 60px;
+    width: 292px;
+    margin: 0 auto;
+  }
+  .student__photo {
+    grid-row: 1;
+    height: 358px;
+  }
+  .student__social-links {
+    position: relative;
+    margin-top: 40px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .student__title {
+    font-size: 30px;
+    line-height: 36px;
+  }
+  .student__subtitle {
+    margin-top: 20px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+  .student__paragraph {
+    margin-top: 20px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+}
+
+@media screen and (max-width: 336px) {
+  .student__info-container {
+    width: 100%;
+  }
+  .student__photo {
+    height: 352px;
+  }
+}
