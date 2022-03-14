@@ -8,3 +8,11 @@
   padding-bottom: 23px;
   box-sizing: border-box;
 }
+
+@media screen and (max-width: 500px) {
+  .section-title {
+    font-size: 18px;
+    line-height: 22px;
+    padding-bottom: 28px;
+  }
+}
