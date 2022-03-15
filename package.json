@@ -16,7 +16,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && scp -r ./build/* serega-diplome@62.84.113.139:/home/serega-diplome/movies-explorer-frontend/build"
   },
   "eslintConfig": {
     "extends": [
