@@ -19,3 +19,11 @@
     row-gap: 37px;
   }
 }
+
+@media screen and (max-width: 500px) {
+  .movies__list {
+    width: calc(100% - 2 * 10px);
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+  }
+}

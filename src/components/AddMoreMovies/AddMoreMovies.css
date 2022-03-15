@@ -23,3 +23,12 @@
 .add-more-movies__button_visible {
   display: flex;
 }
+
+@media screen and (max-width: 500px) {
+  .add-more-movies {
+    padding: 50px 40px 80px;
+  }
+  .add-more-movies__button {
+    width: 100%;
+  }
+}

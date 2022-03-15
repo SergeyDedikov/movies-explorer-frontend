@@ -7,17 +7,52 @@ import AddMoreMovies from "../AddMoreMovies/AddMoreMovies";
 function MoviesCardList({ movies, isSavedMovies }) {
   const [moviesList, setMoviesList] = useState(movies);
 
+  // созданим переменную для широкого экрана
+  const mediaLargeScreen = window.matchMedia("(min-width: 1000px)");
+  // созданим переменную для узкого экрана
+  const mediaMobilScreen = window.matchMedia("(max-width: 500px)");
+
+  const [isLargeScreen, setIsLargeScreen] = useState(mediaLargeScreen.matches);
+  const [isMobilScreen, setIsMobilScreen] = useState(mediaMobilScreen.matches);
+
+  function handleLargeScreenChange(evt) {
+    if (evt.matches) {
+      setIsLargeScreen(true);
+    } else {
+      setIsLargeScreen(false);
+    }
+  }
+
+  function handleMobilScreenChange(evt) {
+    if (evt.matches) {
+      setIsMobilScreen(true);
+    } else {
+      setIsMobilScreen(false);
+    }
+  }
+
+  // слушатель переменной для широкого экрана
+  mediaLargeScreen.addEventListener("change", (e) =>
+    handleLargeScreenChange(e)
+  );
+  // слушатель переменной для узкого экрана
+  mediaMobilScreen.addEventListener("change", (e) =>
+    handleMobilScreenChange(e)
+  );
+
   // условие для отображения кнопки Ещё (временное)
   const isMoreMovies = movies.length > 11;
 
-  /* // изменим число отображаемых карточек при разной ширине экрана
+  // изменим число отображаемых карточек при разной ширине экрана
   useEffect(() => {
-    if (window.matchMedia("(min-width: 1000px)").matches) {
+    if (isLargeScreen) {
       setMoviesList(movies.slice(0, 12));
-    } else if (window.matchMedia("(min-width: 500px)").matches) {
+    } else if (!isMobilScreen) {
       setMoviesList(movies.slice(0, 8));
+    } else {
+      setMoviesList(movies.slice(0, 5));
     }
-  }, [isLargeScreen]); */
+  }, [isLargeScreen, isMobilScreen]);
 
   return (
     <section className="movies-card-list" aria-label="Список фильмов">
