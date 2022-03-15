@@ -8,6 +8,7 @@
   border-left: 1px solid #cbcbcb;
   min-height: 40px;
   margin-left: 19px;
+  gap: 14px;
 }
 
 /* делаем невидимым стандартный чек-бокс */
@@ -28,7 +29,7 @@
   height: 20px;
   cursor: pointer;
   display: flex;
-  margin-right: 14px;
+  margin: 0;
 }
 
 .checkbox__input-item {
@@ -52,5 +53,16 @@
 @media screen and (max-width: 1000px) {
   .checkbox__label {
     padding: 0 20px;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .checkbox__label {
+    position: absolute;
+    margin: 0;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: none;
   }
 }
