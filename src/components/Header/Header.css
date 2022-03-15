@@ -30,7 +30,6 @@
   background-image: url(../../images/icon-close-big.svg);
 }
 
-
 @media screen and (max-width: 1000px) {
   .header {
     padding: 0 30px;
@@ -46,5 +45,10 @@
     width: 40px;
     height: 43px;
     background-size: 95%;
+  }
+  .header__burger-menu_close {
+    top: 8px;
+    right: 9px;
+    background-size: 80%;
   }
 }

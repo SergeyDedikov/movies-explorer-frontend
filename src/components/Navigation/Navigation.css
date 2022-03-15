@@ -154,15 +154,27 @@
 }
 
 @media screen and (max-width: 500px) {
-  .navigation__link {
+  .navigation__link_register {
+    font-size: 10px;
+    line-height: 16px;
+  }
+  .navigation__link_login {
+    height: 26px;
+    width: 54px;
     font-size: 10px;
     line-height: 16px;
   }
   .navigation__links_authentication {
     gap: 14px;
   }
-  .navigation__link_login {
-    height: 26px;
-    width: 54px;
+  .navigation {
+    padding: 144px 50px 48px;
+    width: 100%;
+  }
+  .navigation__overlay {
+    display: none;
+  }
+  .navigation__links_movies {
+    gap: 25px;
   }
 }
