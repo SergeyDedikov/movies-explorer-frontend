@@ -60,9 +60,11 @@
   .checkbox__label {
     position: absolute;
     margin: 0;
-    bottom: 30px;
+    bottom: 34px;
     left: 50%;
     transform: translateX(-50%);
     border: none;
+    font-size: 11px;
+    line-height: 18px;
   }
 }

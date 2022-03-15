@@ -79,5 +79,7 @@
   .search-form__input {
     margin-left: 0;
     width: calc(100% - 10px);
+    font-size: 14px;
+    line-height: 20px;
   }
 }
