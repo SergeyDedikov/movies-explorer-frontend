@@ -41,4 +41,10 @@
   .header {
     padding: 0 14px;
   }
+  .header__burger-menu {
+    right: 14px;
+    width: 40px;
+    height: 43px;
+    background-size: 95%;
+  }
 }
