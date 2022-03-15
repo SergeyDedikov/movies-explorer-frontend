@@ -120,6 +120,9 @@
 }
 
 @media screen and (max-width: 500px) {
+  .student {
+    padding: 70px 0;
+  }
   .student__title {
     font-size: 30px;
     line-height: 36px;
