@@ -22,7 +22,7 @@
 
 .profile__info-row {
   padding: 17px 0;
-  width: inherit;
+  width: 100%;
   font-size: 11px;
   line-height: 13px;
   display: flex;
@@ -70,5 +70,20 @@
   }
   .profile__info-container {
     margin: 97px 0 210px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .profile {
+    width: 100%;
+    padding: 70px 0 40px;
+  }
+  .profile__info-container {
+    margin: 80px auto 380px;
+    width: calc(100% - 2 * 30px);
+  }
+  .profile__button {
+    font-size: 12px;
+    line-height: 15px;
   }
 }
