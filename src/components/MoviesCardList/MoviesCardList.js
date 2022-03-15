@@ -54,6 +54,15 @@ function MoviesCardList({ movies, isSavedMovies }) {
     }
   }, [isLargeScreen, isMobilScreen]);
 
+  // изменим число отображаемых карточек
+  // в "Сохранённых фильмах"
+  // при узкой ширине экрана
+  useEffect(() => {
+    if (isSavedMovies && isMobilScreen) {
+      setMoviesList(movies.slice(0, 2));
+    }
+  }, [isSavedMovies, isMobilScreen]);
+
   return (
     <section className="movies-card-list" aria-label="Список фильмов">
       <ul className="movies__list">
