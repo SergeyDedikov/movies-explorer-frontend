@@ -44,12 +44,13 @@ function Register() {
         />
         <InputForm
           name="password"
-          value={inputValues.password}
+          value={12345678}
           onChange={handleChange}
           type="password"
           label="Пароль"
           nameform={"register"}
           message="Что-то пошло не так..."
+          isError={true}
         />
       </AuthForm>
       <div className="authentication__footer">
