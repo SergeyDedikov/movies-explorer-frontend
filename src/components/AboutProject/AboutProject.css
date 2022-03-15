@@ -89,7 +89,7 @@
   .description {
     margin-top: 60px;
     grid-template-columns: 1fr;
-    gap: 56px;
+    gap: 57px;
   }
 
   .description__title {
@@ -97,7 +97,7 @@
   }
 
   .description__paragraph {
-    margin-top: 16px;
+    margin-top: 17px;
     font-size: 11px;
     line-height: 16px;
   }
@@ -105,5 +105,11 @@
   .chrono {
     margin-top: 60px;
     grid-template-columns: 100px 1fr;
+    font-size: 11px;
+    line-height: 13px;
+  }
+
+  .chrono__description {
+    margin-top: 9px;
   }
 }
