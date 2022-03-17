@@ -19,6 +19,7 @@
 }
 
 .navigation__overlay {
+  display: none;
   content: "";
   width: 100vw;
   position: absolute;

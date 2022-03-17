@@ -33,17 +33,13 @@ function Navigation({ isBasePath, isLargeScreen, isVisibleMenu }) {
       <div
         className={`navigation ${!isVisibleMenu ? "navigation_hidden" : ""}`}
       >
-        <div
-          className={`navigation__overlay ${isLargeScreen ? "hidden" : ""}`}
-        ></div>
+        <div className={`navigation__overlay`}></div>
         <nav className={`navigation__movies`}>
           <ul className="navigation__links navigation__links_movies">
             <li>
               <NavLink
                 to="/"
-                className={`navigation__link navigation__link_main wide-medium button ${
-                  isLargeScreen ? "hidden" : ""
-                }`}
+                className={`navigation__link navigation__link_main wide-medium button`}
               >
                 Главная
               </NavLink>
@@ -51,9 +47,7 @@ function Navigation({ isBasePath, isLargeScreen, isVisibleMenu }) {
             <li>
               <NavLink
                 to="/movies"
-                className={`navigation__link navigation__link_movies button ${
-                  !isLargeScreen ? "wide-medium" : ""
-                }`}
+                className={`navigation__link navigation__link_movies button wide-medium`}
                 activeclassname="active"
               >
                 Фильмы
@@ -62,9 +56,7 @@ function Navigation({ isBasePath, isLargeScreen, isVisibleMenu }) {
             <li>
               <NavLink
                 to="/saved-movies"
-                className={`navigation__link navigation__link_saved-movies button ${
-                  !isLargeScreen ? "wide-medium" : ""
-                }`}
+                className={`navigation__link navigation__link_saved-movies button wide-medium`}
                 activeclassname="active"
               >
                 Сохранённые фильмы
@@ -90,17 +82,13 @@ function Navigation({ isBasePath, isLargeScreen, isVisibleMenu }) {
   } else {
     return (
       <div className={`navigation`}>
-        <div
-          className={`navigation__overlay ${isLargeScreen ? "hidden" : ""}`}
-        ></div>
+        <div className={`navigation__overlay hidden`}></div>
         <nav className={`navigation__movies`}>
           <ul className="navigation__links navigation__links_movies">
             <li>
               <NavLink
                 to="/movies"
-                className={`navigation__link navigation__link_movies button ${
-                  !isLargeScreen ? "wide-medium" : ""
-                }`}
+                className={`navigation__link navigation__link_movies button`}
               >
                 Фильмы
               </NavLink>
@@ -108,9 +96,7 @@ function Navigation({ isBasePath, isLargeScreen, isVisibleMenu }) {
             <li>
               <NavLink
                 to="/saved-movies"
-                className={`navigation__link navigation__link_saved-movies button ${
-                  !isLargeScreen ? "wide-medium" : ""
-                }`}
+                className={`navigation__link navigation__link_saved-movies button`}
               >
                 Сохранённые фильмы
               </NavLink>
