@@ -1,0 +1,19 @@
+// запрос к сервису beatfilm-movies
+const BASE_URL = "https://api.nomoreparties.co/beatfilm-movies";
+
+export default async function MoviesApi() {
+  const res = await fetch(BASE_URL, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (res.ok) {
+    return res.json();
+  } else {
+    return res.json().then((data) => {
+      const message = data.message || "При запросе списка фильмов произошла ошибка";
+      return Promise.reject(message);
+    });
+  }
+}
