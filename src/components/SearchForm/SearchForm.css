@@ -29,6 +29,8 @@
 .search-form__input {
   width: calc(100% - 2 * 10px);
   margin: 0 10px;
+  box-sizing: border-box;
+  padding: 8px 0;
   border: 0;
   box-sizing: border-box;
   background-color: transparent;
@@ -42,6 +44,11 @@
 
 .search-form__input::placeholder {
   color: #a0a0a0;
+}
+
+.search-form__input:focus,
+.search-form__input:hover {
+  border-bottom: 1px dotted #2be080;
 }
 
 .search-form__button {
