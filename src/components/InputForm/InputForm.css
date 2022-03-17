@@ -1,0 +1,39 @@
+.form__input-label {
+  position: relative;
+  width: inherit;
+  margin: 0 auto;
+  font-size: 10px;
+  line-height: 12px;
+  color: #a0a0a0;
+}
+
+.form__input-label:first-of-type {
+  margin-top: 0;
+}
+
+.form__input {
+  width: inherit;
+  min-height: 46px;
+  box-sizing: border-box;
+  margin: 10px 0 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  border: 0;
+  padding: 15px;
+  font-family: inherit;
+  outline-style: none;
+}
+
+.form__input_type_error {
+  color: #ee3465;
+}
+
+.form__error {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: #ee3465;
+}

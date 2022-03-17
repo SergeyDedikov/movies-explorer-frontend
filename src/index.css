@@ -1,0 +1,41 @@
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts/fonts.css);
+
+.page {
+  position: relative;
+  max-width: 1600px;
+  margin: 0 auto;
+  background-color: #fff;
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  mix-blend-mode: normal;
+  color: #000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -ms-font-feature-settings: "kern" 1;
+  font-feature-settings: "kern";
+}
+
+.button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  box-sizing: border-box;
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+
+.button:hover {
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.hidden {
+  display: none;
+  visibility: hidden;
+}
