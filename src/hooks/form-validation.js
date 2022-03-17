@@ -1,4 +1,4 @@
-import React, { useCallback } from "./react";
+import React, { useCallback } from "react";
 
 //хук управления формой
 export function useForm() {
@@ -38,5 +38,13 @@ export function useFormWithValidation() {
     [setValues, setErrors, setIsValid]
   );
 
-  return { values, handleChange, errors, isValid, resetForm };
+  return {
+    values,
+    handleChange,
+    errors,
+    isValid,
+    resetForm,
+    setValues,
+    setIsValid,
+  };
 }
