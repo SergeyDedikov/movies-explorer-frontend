@@ -1,6 +1,9 @@
 import "./MoviesCard.css";
 
 function MoviesCard({ movie, isSavedMovies }) {
+  const BASE_URL = "https://api.nomoreparties.co";
+  const posterURL = BASE_URL + movie.image.url;
+
   // преобразуем длительность фильма в часы с минутами
   function formatMinutes(value) {
     let minuteTime = value; // минуты
@@ -40,9 +43,15 @@ function MoviesCard({ movie, isSavedMovies }) {
           </p>
           <button className={`${movieLikeButtonClassName} button`}></button>
         </figcaption>
+        {/* <a
+          className="movies-card__image-link"
+          href={movie.trailerLink}
+          target="_blank"
+          rel="noreferrer"
+        ></a> */}
         <img
           className="movies-card__image"
-          src={movie.image}
+          src={posterURL}
           alt={movie.nameRU}
         />
       </figure>

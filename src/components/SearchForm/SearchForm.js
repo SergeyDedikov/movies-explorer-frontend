@@ -17,11 +17,10 @@ function SearchForm(props) {
   function handleSubmit(e) {
     e.preventDefault();
     if (!isValid) {
-      console.log('Нужно ввести ключевое слово');
+      console.log("Нужно ввести ключевое слово");
     } else {
-      console.log(values);
+      props.onSubmit(values.movie);
     }
-
   }
 
   return (
@@ -38,7 +37,7 @@ function SearchForm(props) {
           onChange={handleChange}
           className="search-form__input"
           type="search"
-          name="search-movie"
+          name="movie"
           placeholder="Фильм"
           required
         ></input>
