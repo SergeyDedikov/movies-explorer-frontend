@@ -43,17 +43,13 @@ function MoviesCard({ movie, isSavedMovies }) {
           </p>
           <button className={`${movieLikeButtonClassName} button`}></button>
         </figcaption>
-        {/* <a
-          className="movies-card__image-link"
-          href={movie.trailerLink}
-          target="_blank"
-          rel="noreferrer"
-        ></a> */}
-        <img
-          className="movies-card__image"
-          src={posterURL}
-          alt={movie.nameRU}
-        />
+        <a href={movie.trailerLink} target="_blank" rel="noreferrer">
+          <img
+            className="movies-card__image"
+            src={posterURL}
+            alt={movie.nameRU}
+          />
+        </a>
       </figure>
     </li>
   );
