@@ -5,12 +5,15 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import MoviesApi from "../../utils/MoviesApi";
+import ResultBox from "../ResultBox/ResultBox";
 
 function Movies() {
   const [movies, setMovies] = useState([]);
-  console.log(movies);
+  let sortedMovies;
   const [isLoading, setIsLoading] = useState(false);
-
+  const [isResult, setIsResult] = useState(true);
+  const [isError, setIsError] = useState(false);
+  console.log(isResult, isError);
   // получение списка найденных фильмов из localStorage
   useEffect(() => {
     if (localStorage.getItem("movies")) {
@@ -36,25 +39,41 @@ function Movies() {
     });
   }
 
+  function handleEndRequest() {
+    setIsLoading(false);
+    // меняем переменные результата поиска
+    if (sortedMovies && sortedMovies.length > 0) {
+      setMovies(sortedMovies);
+      setIsResult(true);
+    } else {
+      setIsResult(false);
+    }
+  }
+
   function onSubmit(query) {
+    setMovies([]);
     setIsLoading(true);
+    setIsError(false);
+
     MoviesApi()
       .then((data) => {
-        let sortedMovies = filterMovies(data, query);
-        setMovies(sortedMovies);
+        sortedMovies = filterMovies(data, query);
 
         // сохраним найденные фильмы в localStorage
         localStorage.setItem("movies", JSON.stringify(sortedMovies));
       })
-      .catch((err) => console.log(err))
-      .finally(() => {
-        setIsLoading(false);
-      });
+      .catch((err) => {
+        if (err) {
+          setIsError(true);
+        }
+      })
+      .finally(() => handleEndRequest());
   }
 
   return (
     <main className="movies">
       <SearchForm onSubmit={onSubmit} />
+      <ResultBox isResult={isResult} isError={isError} />
       <Preloader isLoading={isLoading} />
       <MoviesCardList movies={movies} />
     </main>
