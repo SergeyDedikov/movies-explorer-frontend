@@ -1,0 +1,11 @@
+.resultbox {
+width: 100%;
+}
+
+.resultbox__message {
+  width: 70%;
+  margin: 0 auto;
+  text-align: center;
+  color: #2be080;
+
+}

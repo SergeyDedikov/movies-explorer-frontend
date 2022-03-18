@@ -13,7 +13,7 @@ function Movies() {
   const [isLoading, setIsLoading] = useState(false);
   const [isResult, setIsResult] = useState(true);
   const [isError, setIsError] = useState(false);
-  console.log(isResult, isError);
+
   // получение списка найденных фильмов из localStorage
   useEffect(() => {
     if (localStorage.getItem("movies")) {
