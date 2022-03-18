@@ -54,6 +54,7 @@ function Movies() {
     setMovies([]);
     setIsLoading(true);
     setIsError(false);
+    setIsResult(true);
 
     MoviesApi()
       .then((data) => {
