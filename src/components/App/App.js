@@ -94,7 +94,18 @@ function App() {
             />
           }
         />
-        <Route path="/saved-movies" element={<SavedMovies movies={movies} />} />
+        <Route
+          path="/saved-movies"
+          element={
+            <SavedMovies
+              movies={movies}
+              onSearchMovies={onSearchMovies}
+              isSearchResult={isSearchResult}
+              isSearchError={isSearchError}
+              isLoading={isLoading}
+            />
+          }
+        />
         <Route path="/profile" element={<Profile />} />
         <Route path="/signin" element={<Login />} />
         <Route path="/signup" element={<Register />} />
