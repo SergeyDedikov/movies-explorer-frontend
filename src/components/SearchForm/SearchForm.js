@@ -2,7 +2,7 @@ import "./SearchForm.css";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import { useFormWithValidation } from "../../hooks/form-validation";
 
-function SearchForm(props) {
+function SearchForm({ onSearchMovies }) {
   // подключаем валидацию формы
   const {
     values,
@@ -19,7 +19,7 @@ function SearchForm(props) {
     if (!isValid) {
       console.log("Нужно ввести ключевое слово");
     } else {
-      props.onSubmit(values.movie);
+      onSearchMovies(values.movie);
     }
   }
 

@@ -1,7 +1,7 @@
 import "./ResultBox.css";
 
-export default function ResultBox({ isResult, isError }) {
-  if (isError) {
+export default function ResultBox({ isSearchResult, isSearchError }) {
+  if (isSearchError) {
     return (
       <div className="resultbox">
         <p className="resultbox__message">
@@ -12,7 +12,7 @@ export default function ResultBox({ isResult, isError }) {
       </div>
     );
   }
-  if (!isResult) {
+  if (!isSearchResult) {
     return (
       <div className="resultbox">
         <p className="resultbox__message">Ничего не найдено</p>

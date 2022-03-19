@@ -9,7 +9,7 @@ export default function InputForm(props) {
         onChange={props.onChange}
         id={`${props.name}-${props.nameform}`}
         className={`form__input ${
-          props.isError ? "form__input_type_error" : ""
+          props.isSearchError ? "form__input_type_error" : ""
         }`}
         type={props.type}
         name={props.name}

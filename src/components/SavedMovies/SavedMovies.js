@@ -1,9 +1,7 @@
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
-import { movies } from "../../utils/constants.js";
-
-function SavedMovies() {
+function SavedMovies({ movies }) {
   // создадим массив с "нашими" фильмами
   const savedMovies = movies.filter((item) => item.owner === 111);
 

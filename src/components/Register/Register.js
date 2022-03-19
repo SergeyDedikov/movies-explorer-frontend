@@ -50,7 +50,7 @@ function Register() {
           label="Пароль"
           nameform={"register"}
           message="Что-то пошло не так..."
-          isError={true}
+          isSearchError={true}
         />
       </AuthForm>
       <div className="authentication__footer">
