@@ -9,14 +9,14 @@ export default function InputForm(props) {
         onChange={props.onChange}
         id={`${props.name}-${props.nameform}`}
         className={`form__input ${
-          props.isSearchError ? "form__input_type_error" : ""
+          props.isError ? "form__input_type_error" : ""
         }`}
         type={props.type}
         name={props.name}
         required
       />
       <span id={`${props.name}-error`} className="form__error">
-        {props.message}
+        {props.messageError}
       </span>
     </label>
   );

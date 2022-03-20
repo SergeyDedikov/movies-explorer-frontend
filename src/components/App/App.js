@@ -13,6 +13,7 @@ import Login from "../Login/Login";
 import NotFound from "../NotFound/NotFound";
 import MoviesApi from "../../utils/MoviesApi";
 import api from "../../utils/MainApi";
+import auth from "../../utils/auth";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -134,6 +135,21 @@ function App() {
     }
   }
 
+  // -- Регистрация пользователя
+  function onRegister(data) {
+    console.log(data);
+    auth
+      .register(data)
+      .then((res) => {
+        if (res.statusCode !== 400) {
+          console.log("Авторизация успешна");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <>
       <Header />
@@ -168,7 +184,7 @@ function App() {
         />
         <Route path="/profile" element={<Profile />} />
         <Route path="/signin" element={<Login />} />
-        <Route path="/signup" element={<Register />} />
+        <Route path="/signup" element={<Register onSubmit={onRegister} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

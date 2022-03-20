@@ -5,54 +5,68 @@ import "./Register.css";
 import PageWithAuthForm from "../PageWithAuthForm/PageWithAuthForm";
 import AuthForm from "../AuthForm/AuthForm";
 import InputForm from "../InputForm/InputForm";
+import { useFormWithValidation } from "../../hooks/form-validation";
 
-function Register() {
-  const [inputValues, setInputValues] = useState({
-    name: "Виталий",
-    email: "pochta@yandex.ru",
-    password: "",
-  });
-
-  function handleChange(e) {
-    setInputValues((values) => {
-      return { ...values, [e.target.name]: e.target.value };
-    });
-  }
+function Register({ onSubmit }) {
+  // подключаем валидацию формы
+  const {
+    values,
+    handleChange,
+    errors,
+    isValid,
+    resetForm,
+    setValues,
+    setIsValid,
+  } = useFormWithValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!isValid) {
+      console.log(errors);
+    } else {
+      onSubmit({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      });
+    }
   }
 
   return (
     <PageWithAuthForm heading={"Добро пожаловать!"}>
-      <AuthForm onSubmit={handleSubmit} name={"register"}>
-        <InputForm
-          name="name"
-          value={inputValues.name}
-          onChange={handleChange}
-          type="text"
-          label="Имя"
-          nameform={"register"}
-        />
-        <InputForm
-          name="email"
-          value={inputValues.email}
-          onChange={handleChange}
-          type="email"
-          label="E-mail"
-          nameform={"register"}
-        />
-        <InputForm
-          name="password"
-          value={12345678}
-          onChange={handleChange}
-          type="password"
-          label="Пароль"
-          nameform={"register"}
-          message="Что-то пошло не так..."
-          isSearchError={true}
-        />
-      </AuthForm>
+      <form
+        onSubmit={handleSubmit}
+        id="register"
+        name="register"
+        className={`form form_register`}
+        noValidate
+      >
+        <fieldset className="form__input-container">
+          <InputForm
+            name="name"
+            onChange={handleChange}
+            type="text"
+            label="Имя"
+            nameform={"register"}
+          />
+          <InputForm
+            name="email"
+            onChange={handleChange}
+            type="email"
+            label="E-mail"
+            nameform={"register"}
+          />
+          <InputForm
+            name="password"
+            onChange={handleChange}
+            type="password"
+            label="Пароль"
+            nameform={"register"}
+            // messageError={}
+            // isError={}
+          />
+        </fieldset>
+      </form>
       <div className="authentication__footer">
         <button
           className={`form__button form__button_register button`}

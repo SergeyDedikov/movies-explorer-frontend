@@ -1,14 +1,9 @@
 import "./AuthForm.css";
 
-export default function AuthForm(props) {
+export default function AuthForm({ name, children }) {
   return (
-    <form
-      onSubmit={props.onSubmit}
-      name={props.name}
-      className={`form form_${props.name}`}
-    >
-      <fieldset className="form__input-container">{props.children}</fieldset>
-      
+    <form id={name} name={name} className={`form form_${name}`} noValidate>
+      <fieldset className="form__input-container">{children}</fieldset>
     </form>
   );
 }
