@@ -10,6 +10,8 @@ function Movies({
   isSearchError,
   isLoading,
   movies,
+  savedMovies,
+  onMovieLike,
 }) {
   return (
     <main className="movies">
@@ -19,7 +21,11 @@ function Movies({
         isSearchError={isSearchError}
       />
       <Preloader isLoading={isLoading} />
-      <MoviesCardList movies={movies} />
+      <MoviesCardList
+        movies={movies}
+        savedMovies={savedMovies}
+        onMovieLike={onMovieLike}
+      />
     </main>
   );
 }

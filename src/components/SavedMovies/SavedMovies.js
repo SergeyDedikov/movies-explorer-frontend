@@ -9,10 +9,8 @@ function SavedMovies({
   isSearchError,
   isLoading,
   movies,
+  onMovieLike,
 }) {
-  // создадим массив с "нашими" фильмами
-  const savedMovies = movies.filter((item) => item.owner === 111);
-
   return (
     <main className="saved-movies">
       <SearchForm onSearchMovies={onSearchMovies} />
@@ -21,7 +19,11 @@ function SavedMovies({
         isSearchError={isSearchError}
       />
       <Preloader isLoading={isLoading} />
-      <MoviesCardList movies={savedMovies} isSavedMovies={true} />
+      <MoviesCardList
+        movies={movies}
+        isSavedMovies={true}
+        onMovieLike={onMovieLike}
+      />
     </main>
   );
 }

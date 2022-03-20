@@ -4,7 +4,7 @@ import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import AddMoreMovies from "../AddMoreMovies/AddMoreMovies";
 
-function MoviesCardList({ movies, isSavedMovies }) {
+function MoviesCardList({ movies, isSavedMovies, savedMovies, onMovieLike }) {
   const [moviesList, setMoviesList] = useState([]);
 
   useEffect(() => {
@@ -76,7 +76,7 @@ function MoviesCardList({ movies, isSavedMovies }) {
   }, [movies, isLargeScreen, isMobilScreen]);
 
   // добавление новых карточек
-  function onAddMoreMovies(n) {
+  function handleAddMoreMovies(n) {
     // определим разницу длины массивов
     let delta;
     if (movies.length > 0) {
@@ -109,11 +109,13 @@ function MoviesCardList({ movies, isSavedMovies }) {
             key={movieItem.id}
             movie={movieItem}
             isSavedMovies={isSavedMovies}
+            savedMovies={savedMovies}
+            onMovieLike={onMovieLike}
           />
         ))}
       </ul>
       <AddMoreMovies
-        onAddMoreMovies={onAddMoreMovies}
+        onAddMoreMovies={handleAddMoreMovies}
         numberAddMovies={numberAddMovies}
         isMoreMovies={isMoreMovies}
       />

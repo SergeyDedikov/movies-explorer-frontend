@@ -58,8 +58,8 @@ class MainApi {
     }).then(this._checkResult);
   }
 
-  deleteMovie(movie) {
-    return fetch(`${this._url}/movies/${movie._id}`, {
+  deleteMovie(id) {
+    return fetch(`${this._url}/movies/${id}`, {
       method: "DELETE",
       headers: this._headers,
       credentials: this._credentials,

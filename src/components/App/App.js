@@ -12,9 +12,11 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import NotFound from "../NotFound/NotFound";
 import MoviesApi from "../../utils/MoviesApi";
+import api from "../../utils/MainApi";
 
 function App() {
   const [movies, setMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
   let sortedMovies;
   const [isLoading, setIsLoading] = useState(false);
   const [isSearchResult, setisSearchResult] = useState(true);
@@ -45,6 +47,7 @@ function App() {
     });
   }
 
+  // конечная обработка запроса
   function handleEndRequest() {
     setIsLoading(false);
     // меняем переменные результата поиска
@@ -56,7 +59,7 @@ function App() {
     }
   }
 
-  function onSearchMovies(query) {
+  function handleSearchMovies(query) {
     setMovies([]);
     setIsLoading(true);
     setisSearchError(false);
@@ -77,6 +80,60 @@ function App() {
       .finally(() => handleEndRequest());
   }
 
+  // Отправляем запрос в API на создание карточки фильма
+
+  function createMovie(data) {
+    console.log(data);
+    api
+      .createMovie(data)
+      .then((newMovie) => {
+        setSavedMovies((state) => state.push(newMovie));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  // удаление карточки из сохранённых фильмов
+
+  function handleMovieDelete(id) {
+    api
+      .deleteMovie(id)
+      .then(() => {
+        setSavedMovies((state) => state.filter((m) => m._id !== id));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  // установка/снятие лайка
+
+  function handleMovieLike(movie) {
+    // Проверяем, есть ли этот фильм среди сохранённых
+    const isLiked = savedMovies.some((i) => i.movieId === movie.id);
+
+    function getLikedMovie() {
+      let likedMovie;
+      savedMovies.forEach((item) => {
+        console.log(item);
+        if (item.movieId === movie.id) {
+          likedMovie = item;
+        } else {
+          return;
+        }
+      });
+      return likedMovie;
+    }
+    console.log(getLikedMovie());
+
+    if (!isLiked) {
+      createMovie(movie);
+    } else {
+      handleMovieDelete(getLikedMovie()._id);
+    }
+  }
+
   return (
     <>
       <Header />
@@ -87,10 +144,12 @@ function App() {
           element={
             <Movies
               movies={movies}
-              onSearchMovies={onSearchMovies}
+              savedMovies={savedMovies}
+              onSearchMovies={handleSearchMovies}
               isSearchResult={isSearchResult}
               isSearchError={isSearchError}
               isLoading={isLoading}
+              onMovieLike={handleMovieLike}
             />
           }
         />
@@ -98,11 +157,12 @@ function App() {
           path="/saved-movies"
           element={
             <SavedMovies
-              movies={movies}
-              onSearchMovies={onSearchMovies}
+              movies={savedMovies}
+              onSearchMovies={handleSearchMovies}
               isSearchResult={isSearchResult}
               isSearchError={isSearchError}
               isLoading={isLoading}
+              onMovieLike={handleMovieDelete}
             />
           }
         />

@@ -1,6 +1,6 @@
 import "./MoviesCard.css";
 
-function MoviesCard({ movie, isSavedMovies }) {
+function MoviesCard({ movie, isSavedMovies, savedMovies, onMovieLike }) {
   const BASE_URL = "https://api.nomoreparties.co";
   const posterURL = BASE_URL + movie.image.url;
 
@@ -25,13 +25,17 @@ function MoviesCard({ movie, isSavedMovies }) {
     return result;
   }
 
-  // временное условие для определения лайка
-  const isLiked = movie.owner === 111;
+  // определим есть ли фильм среди сохранённых
+  const isLiked = savedMovies.some((i) => i.movieId === movie.id);
 
   // переменная в `className` для кнопки лайка и удаления
   const movieLikeButtonClassName = `movies-card__button-like ${
     isLiked && "movies-card__button-like_active"
   } ${isSavedMovies && "movies-card__button-like_delete"}`;
+
+  function handleLikeClick() {
+    onMovieLike(movie);
+  }
 
   return (
     <li>
@@ -41,7 +45,10 @@ function MoviesCard({ movie, isSavedMovies }) {
           <p className="movies-card__duration">
             {formatMinutes(movie.duration)}
           </p>
-          <button className={`${movieLikeButtonClassName} button`}></button>
+          <button
+            onClick={handleLikeClick}
+            className={`${movieLikeButtonClassName} button`}
+          ></button>
         </figcaption>
         <a href={movie.trailerLink} target="_blank" rel="noreferrer">
           <img
