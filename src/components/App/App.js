@@ -33,6 +33,19 @@ function App() {
     }
   }, []);
 
+  // получение списка сохранённых фильмов из нашего АПИ
+
+  useEffect(() => {
+    api
+      .getMovies()
+      .then((data) => {
+        setSavedMovies(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const navigate = useNavigate();
 
   function goToMovies() {
@@ -93,11 +106,10 @@ function App() {
   // Отправляем запрос в API на создание карточки фильма
 
   function createMovie(data) {
-    console.log(data);
     api
       .createMovie(data)
       .then((newMovie) => {
-        setSavedMovies((state) => state.push(newMovie));
+        setSavedMovies([newMovie, ...savedMovies]);
       })
       .catch((err) => {
         console.log(err);
@@ -106,11 +118,11 @@ function App() {
 
   // удаление карточки из сохранённых фильмов
 
-  function handleMovieDelete(id) {
+  function handleMovieDelete(movie) {
     api
-      .deleteMovie(id)
+      .deleteMovie(movie._id)
       .then(() => {
-        setSavedMovies((state) => state.filter((m) => m._id !== id));
+        setSavedMovies((state) => state.filter((m) => m._id !== movie._id));
       })
       .catch((err) => {
         console.log(err);
@@ -118,7 +130,6 @@ function App() {
   }
 
   // установка/снятие лайка
-
   function handleMovieLike(movie) {
     // Проверяем, есть ли этот фильм среди сохранённых
     const isLiked = savedMovies.some((i) => i.movieId === movie.id);
@@ -126,7 +137,6 @@ function App() {
     function getLikedMovie() {
       let likedMovie;
       savedMovies.forEach((item) => {
-        console.log(item);
         if (item.movieId === movie.id) {
           likedMovie = item;
         } else {
@@ -135,12 +145,11 @@ function App() {
       });
       return likedMovie;
     }
-    console.log(getLikedMovie());
 
     if (!isLiked) {
       createMovie(movie);
     } else {
-      handleMovieDelete(getLikedMovie()._id);
+      handleMovieDelete(getLikedMovie());
     }
   }
 

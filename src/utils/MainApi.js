@@ -1,7 +1,7 @@
 const BASE_URL = "http://localhost:3001";
 // const BASE_URL = "https://api.movies-favorite.nomoredomains.work";
 
-const BASE_URL_MOVIES_API = "https://api.nomoreparties.co/beatfilm-movies";
+const BASE_URL_MOVIES_API = "https://api.nomoreparties.co";
 
 class MainApi {
   constructor(url) {

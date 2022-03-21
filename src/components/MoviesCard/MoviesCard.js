@@ -2,7 +2,6 @@ import "./MoviesCard.css";
 
 function MoviesCard({ movie, isSavedMovies, savedMovies, onMovieLike }) {
   const BASE_URL = "https://api.nomoreparties.co";
-  const posterURL = BASE_URL + movie.image.url;
 
   // преобразуем длительность фильма в часы с минутами
   function formatMinutes(value) {
@@ -25,8 +24,18 @@ function MoviesCard({ movie, isSavedMovies, savedMovies, onMovieLike }) {
     return result;
   }
 
-  // определим есть ли фильм среди сохранённых
-  const isLiked = savedMovies.some((i) => i.movieId === movie.id);
+  let isLiked;
+  let posterURL;
+
+  if (!isSavedMovies) {
+    // определим есть ли фильм среди сохранённых
+    // console.log(savedMovies, movie.id);
+    isLiked = savedMovies.some((i) => i.movieId === movie.id);
+    // изменим адрес ссылки постера
+    posterURL = BASE_URL + movie.image.url;
+  } else {
+    posterURL = movie.image;
+  }
 
   // переменная в `className` для кнопки лайка и удаления
   const movieLikeButtonClassName = `movies-card__button-like ${

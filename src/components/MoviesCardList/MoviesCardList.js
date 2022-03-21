@@ -106,7 +106,7 @@ function MoviesCardList({ movies, isSavedMovies, savedMovies, onMovieLike }) {
       <ul className="movies__list">
         {moviesList.map((movieItem) => (
           <MoviesCard
-            key={movieItem.id}
+            key={isSavedMovies ? movieItem._id : movieItem.id}
             movie={movieItem}
             isSavedMovies={isSavedMovies}
             savedMovies={savedMovies}
