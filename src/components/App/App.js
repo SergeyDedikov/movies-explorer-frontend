@@ -18,6 +18,7 @@ import NotFound from "../NotFound/NotFound";
 import MoviesApi from "../../utils/MoviesApi";
 import api from "../../utils/MainApi";
 import auth from "../../utils/auth";
+import { handlerMovieSearchQuery, convertDataMovies } from "../../utils/utils";
 
 function App() {
   // -- Переменная состояния авторизации
@@ -72,24 +73,6 @@ function App() {
     navigate("/movies");
   }
 
-  // фильтрация фильмов по запросу
-  function filterMovies(array, value) {
-    return array.filter(function (el) {
-      // создадим массив значений для поиска в них
-      const arrayValues = [
-        el.nameRU,
-        el.nameEN,
-        el.country,
-        el.director,
-        el.description,
-      ];
-      if (arrayValues.join(". ").toLowerCase().includes(value.toLowerCase())) {
-        return true;
-      }
-      return false;
-    });
-  }
-
   // конечная обработка запроса
   function handleEndRequest() {
     setIsLoading(false);
@@ -110,7 +93,7 @@ function App() {
 
     MoviesApi()
       .then((data) => {
-        sortedMovies = filterMovies(data, query);
+        sortedMovies = handlerMovieSearchQuery(data, query);
 
         // сохраним найденные фильмы в localStorage
         localStorage.setItem("movies", JSON.stringify(sortedMovies));
@@ -127,7 +110,7 @@ function App() {
 
   function createMovie(data) {
     api
-      .createMovie(data)
+      .createMovie(convertDataMovies(data))
       .then((newMovie) => {
         setSavedMovies([newMovie, ...savedMovies]);
       })
