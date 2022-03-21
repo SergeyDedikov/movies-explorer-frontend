@@ -57,7 +57,7 @@ class MainApi {
       headers: this._headers,
       credentials: this._credentials,
       body: JSON.stringify({
-        country: toString(data.country),
+        country: data.country,
         director: data.director,
         duration: data.duration,
         year: data.year,
