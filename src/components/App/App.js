@@ -27,6 +27,7 @@ function App() {
 
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  console.log(savedMovies);
   let sortedMovies;
   const [isLoading, setIsLoading] = useState(false);
   const [isSearchResult, setisSearchResult] = useState(true);
@@ -53,6 +54,17 @@ function App() {
         });
     }
   }, [loggedIn]);
+
+  useEffect(() => {
+    api
+      .getMovies()
+      .then((moviesData) => {
+        setSavedMovies(moviesData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const navigate = useNavigate();
 
