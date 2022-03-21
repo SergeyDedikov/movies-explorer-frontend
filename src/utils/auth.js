@@ -42,7 +42,16 @@ class Auth {
         password,
         email,
       }),
-    }).then(this._checkResult);
+    }).then((res) => {
+      if (res.ok) {
+        return res;
+      } else {
+        return res.json().then((data) => {
+          const message = data.message || "Что-то пошло не так!";
+          return Promise.reject(message);
+        });
+      }
+    });
   }
 
   logout() {

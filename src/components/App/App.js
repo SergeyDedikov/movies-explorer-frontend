@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import "./App.css";
@@ -16,6 +16,9 @@ import api from "../../utils/MainApi";
 import auth from "../../utils/auth";
 
 function App() {
+  // -- Переменная состояния авторизации
+  const [loggedIn, setLoggedIn] = useState(false);
+
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   let sortedMovies;
@@ -29,6 +32,12 @@ function App() {
       setMovies(JSON.parse(localStorage.getItem("movies")));
     }
   }, []);
+
+  const navigate = useNavigate();
+
+  function goToMovies() {
+    navigate("/movies");
+  }
 
   // фильтрация фильмов по запросу
   function filterMovies(array, value) {
@@ -135,19 +144,42 @@ function App() {
     }
   }
 
+  // -- Вход в систему
+  function onLogin(data) {
+    auth
+      .login(data)
+      .then((res) => {
+        console.log(res);
+        setLoggedIn(true);
+        console.log("Вход выполнен!");
+      })
+      .then(() => goToMovies()) // переходим на страницу Фильмы
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   // -- Регистрация пользователя
   function onRegister(data) {
     console.log(data);
     auth
       .register(data)
       .then((res) => {
+        console.log(res);
         if (res.statusCode !== 400) {
-          console.log("Авторизация успешна");
+          console.log("Регистрация успешна!");
+          onLogin(data);
         }
       })
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  // -- Выход из системы
+  function onSignOut() {
+    auth.logout();
+    setLoggedIn(false);
   }
 
   return (
@@ -182,8 +214,8 @@ function App() {
             />
           }
         />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/signin" element={<Login />} />
+        <Route path="/profile" element={<Profile onSignOut={onSignOut} />} />
+        <Route path="/signin" element={<Login onSubmit={onLogin} />} />
         <Route path="/signup" element={<Register onSubmit={onRegister} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
