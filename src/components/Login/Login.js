@@ -5,46 +5,82 @@ import "./Login.css";
 import PageWithAuthForm from "../PageWithAuthForm/PageWithAuthForm";
 import AuthForm from "../AuthForm/AuthForm";
 import InputForm from "../InputForm/InputForm";
+import { useFormWithValidation } from "../../hooks/form-validation";
 
-function Login() {
-  const [inputValues, setInputValues] = useState({
-    email: "pochta@yandex.ru",
-    password: "",
-  });
-
-  function handleChange(e) {
-    setInputValues((values) => {
-      return { ...values, [e.target.name]: e.target.value };
-    });
-  }
+function Login({ onSubmit }) {
+  // подключаем валидацию формы
+  const {
+    values,
+    handleChange,
+    errors,
+    isValid,
+    resetForm,
+    setValues,
+    setIsValid,
+  } = useFormWithValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!isValid) {
+      console.log(errors);
+    } else {
+      onSubmit({
+        email: values.email,
+        password: values.password,
+      });
+    }
   }
 
   return (
     <PageWithAuthForm heading={"Рады видеть!"}>
-      <AuthForm onSubmit={handleSubmit} name={"login"}>
-        <InputForm
-          name="email"
-          value={inputValues.email}
-          onChange={handleChange}
-          type="email"
-          label="E-mail"
-          nameform={"login"}
-        />
-        <InputForm
-          name="password"
-          value={inputValues.password}
-          onChange={handleChange}
-          type="password"
-          label="Пароль"
-          nameform={"login"}
-        />
-      </AuthForm>
+      <form
+        onSubmit={handleSubmit}
+        id="login"
+        name="login"
+        className={`form form_login`}
+        noValidate
+      >
+        <fieldset className="form__input-container">
+          <label className="form__input-label">
+            E-mail
+            <input
+              onChange={handleChange}
+              id="login-email"
+              className={`form__input ${
+                errors.email !== "" ? "form__input_type_error" : ""
+              }`}
+              type="email"
+              name="email"
+              required
+            />
+            <span id="name-error" className="form__error">
+              {errors.email}
+            </span>
+          </label>
+
+          <label className="form__input-label">
+            Пароль
+            <input
+              onChange={handleChange}
+              id="login-password"
+              className={`form__input ${
+                errors.password !== "" ? "form__input_type_error" : ""
+              }`}
+              type="password"
+              name="password"
+              required
+            />
+            <span id="name-error" className="form__error">
+              {errors.password}
+            </span>
+          </label>
+        </fieldset>
+      </form>
       <div className="authentication__footer authentication__footer_login">
         <button
-          className={`form__button form__button_login button`}
+          className={`form__button form__button_register button ${
+            !isValid ? "form__button_disabled" : ""
+          }`}
           type="submit"
           form="login"
         >
