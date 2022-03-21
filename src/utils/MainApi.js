@@ -1,6 +1,8 @@
 const BASE_URL = "http://localhost:3001";
 // const BASE_URL = "https://api.movies-favorite.nomoredomains.work";
 
+const BASE_URL_MOVIES_API = "https://api.nomoreparties.co/beatfilm-movies";
+
 class MainApi {
   constructor(url) {
     this._url = url;
@@ -54,7 +56,19 @@ class MainApi {
       method: "POST",
       headers: this._headers,
       credentials: this._credentials,
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        country: data.country,
+        director: data.director,
+        duration: data.duration,
+        year: data.year,
+        description: data.description,
+        image: BASE_URL_MOVIES_API + data.image.url,
+        trailerLink: data.trailerLink,
+        nameRU: data.nameRU,
+        nameEN: data.nameEN,
+        thumbnail: BASE_URL_MOVIES_API + data.image.formats.thumbnail.url,
+        movieId: data.id,
+      }),
     }).then(this._checkResult);
   }
 
