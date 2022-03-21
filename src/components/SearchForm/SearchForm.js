@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 import "./SearchForm.css";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import { useFormWithValidation } from "../../hooks/form-validation";
@@ -14,6 +16,8 @@ function SearchForm({ onSearchMovies }) {
     setIsValid,
   } = useFormWithValidation();
 
+  const inputRef = useRef(null); // прямой доступ к полю ввода
+
   function handleSubmit(e) {
     e.preventDefault();
     if (!isValid) {
@@ -21,6 +25,8 @@ function SearchForm({ onSearchMovies }) {
     } else {
       onSearchMovies(values.movie);
     }
+    resetForm();
+    inputRef.current.value = "";
   }
 
   return (
@@ -34,6 +40,7 @@ function SearchForm({ onSearchMovies }) {
       >
         <div className="search-form__icon"></div>
         <input
+          ref={inputRef}
           onChange={handleChange}
           className="search-form__input"
           type="search"
