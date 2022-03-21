@@ -42,34 +42,63 @@ function Register({ onSubmit }) {
         noValidate
       >
         <fieldset className="form__input-container">
-          <InputForm
-            name="name"
-            onChange={handleChange}
-            type="text"
-            label="Имя"
-            nameform={"register"}
-          />
-          <InputForm
-            name="email"
-            onChange={handleChange}
-            type="email"
-            label="E-mail"
-            nameform={"register"}
-          />
-          <InputForm
-            name="password"
-            onChange={handleChange}
-            type="password"
-            label="Пароль"
-            nameform={"register"}
-            // messageError={}
-            // isError={}
-          />
+          <label className="form__input-label">
+            Имя
+            <input
+              onChange={handleChange}
+              id="register-name"
+              className={`form__input ${
+                errors.name !== "" ? "form__input_type_error" : ""
+              }`}
+              type="text"
+              name="name"
+              required
+            />
+            <span id="name-error" className="form__error">
+              {errors.name}
+            </span>
+          </label>
+
+          <label className="form__input-label">
+            E-mail
+            <input
+              onChange={handleChange}
+              id="register-email"
+              className={`form__input ${
+                errors.email !== "" ? "form__input_type_error" : ""
+              }`}
+              type="email"
+              name="email"
+              required
+            />
+            <span id="name-error" className="form__error">
+              {errors.email}
+            </span>
+          </label>
+
+          <label className="form__input-label">
+            Пароль
+            <input
+              onChange={handleChange}
+              id="register-password"
+              className={`form__input ${
+                errors.password !== "" ? "form__input_type_error" : ""
+              }`}
+              type="password"
+              name="password"
+              required
+            />
+            <span id="name-error" className="form__error">
+              {errors.password}
+            </span>
+          </label>
         </fieldset>
       </form>
       <div className="authentication__footer">
         <button
-          className={`form__button form__button_register button`}
+          className={`form__button form__button_register button ${
+            !isValid ? "form__button_disabled" : ""
+          }`}
           type="submit"
           form="register"
         >

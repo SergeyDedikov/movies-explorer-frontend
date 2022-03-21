@@ -25,6 +25,16 @@
   border-radius: 3px;
 }
 
+.form__button_disabled {
+  opacity: 0.2;
+  color: #000;
+  background: #fff;
+  border: 1px solid #000;
+  pointer-events: none;
+
+
+}
+
 @media screen and (max-width: 500px) {
   .form {
     width: calc(100% - 2 * 30px);
