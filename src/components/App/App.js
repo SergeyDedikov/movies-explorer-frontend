@@ -1,6 +1,10 @@
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+import {
+  CurentUserContext,
+  defaultUser,
+} from "../../contexts/CurrentUserContext";
 import "./App.css";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
@@ -18,6 +22,8 @@ import auth from "../../utils/auth";
 function App() {
   // -- Переменная состояния авторизации
   const [loggedIn, setLoggedIn] = useState(false);
+  // -- Переменная состояния профиля
+  const [currentUser, setCurrentUser] = useState(defaultUser);
 
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
@@ -34,17 +40,19 @@ function App() {
   }, []);
 
   // получение списка сохранённых фильмов из нашего АПИ
-
+  // и данных пользователя
   useEffect(() => {
-    api
-      .getMovies()
-      .then((data) => {
-        setSavedMovies(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    if (loggedIn) {
+      Promise.all([api.getUserInfo(), api.getMovies()])
+        .then(([userData, moviesData]) => {
+          setCurrentUser(userData);
+          setSavedMovies(moviesData);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [loggedIn]);
 
   const navigate = useNavigate();
 
@@ -158,9 +166,10 @@ function App() {
     auth
       .login(data)
       .then((res) => {
-        console.log(res);
-        setLoggedIn(true);
-        console.log("Вход выполнен!");
+        if (res.ok) {
+          setLoggedIn(true);
+          console.log("Вход выполнен!");
+        }
       })
       .then(() => goToMovies()) // переходим на страницу Фильмы
       .catch((err) => {
@@ -192,7 +201,7 @@ function App() {
   }
 
   return (
-    <>
+    <CurentUserContext.Provider value={currentUser}>
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
@@ -229,7 +238,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
-    </>
+    </CurentUserContext.Provider>
   );
 }
 
