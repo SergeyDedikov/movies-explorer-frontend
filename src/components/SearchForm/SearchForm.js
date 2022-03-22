@@ -1,10 +1,12 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import "./SearchForm.css";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import { useFormWithValidation } from "../../hooks/form-validation";
 
 function SearchForm({ onSearchMovies }) {
+  const inputRef = useRef(null); // прямой доступ к полю ввода
+
   // подключаем валидацию формы
   const {
     values,
@@ -15,8 +17,6 @@ function SearchForm({ onSearchMovies }) {
     setValues,
     setIsValid,
   } = useFormWithValidation();
-
-  const inputRef = useRef(null); // прямой доступ к полю ввода
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -39,15 +39,22 @@ function SearchForm({ onSearchMovies }) {
         noValidate
       >
         <div className="search-form__icon"></div>
-        <input
-          ref={inputRef}
-          onChange={handleChange}
-          className="search-form__input"
-          type="search"
-          name="movie"
-          placeholder="Фильм"
-          required
-        ></input>
+        <label className="search-form__input-label">
+          <input
+            ref={inputRef}
+            onChange={handleChange}
+            id="search-movie"
+            className={`search-form__input`}
+            type="search"
+            name="movie"
+            placeholder="Фильм"
+            required
+          />
+          <span id="search-error" className="search-form__error">
+            {!isValid ? "Нужно ввести ключевое слово" : ""}
+          </span>
+        </label>
+
         <button className="search-form__button button" type="submit">
           {""}
         </button>

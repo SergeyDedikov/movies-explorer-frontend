@@ -51,6 +51,21 @@
   border-bottom: 1px dotted #2be080;
 }
 
+.search-form__input-label {
+  position: relative;
+  margin: 0 auto;
+  font-size: 10px;
+  line-height: 12px;
+  color: #a0a0a0;
+}
+
+.search-form__error {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 10px;
+  color: #ee3465;
+}
+
 .search-form__button {
   width: 80px;
   height: 34px;
