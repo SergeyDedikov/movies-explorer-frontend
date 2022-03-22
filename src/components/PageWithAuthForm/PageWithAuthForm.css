@@ -36,6 +36,15 @@
   color: #a0a0a0;
 }
 
+.authentication__text_error {
+  color: #ee3465;
+  margin: 0 auto 16px;
+}
+
+.authentication__text_hidden {
+  display: none;
+}
+
 .authentication__button {
   text-decoration: none;
   color: #2be080;

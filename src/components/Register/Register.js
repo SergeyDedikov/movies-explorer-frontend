@@ -7,7 +7,7 @@ import AuthForm from "../AuthForm/AuthForm";
 import InputForm from "../InputForm/InputForm";
 import { useFormWithValidation } from "../../hooks/form-validation";
 
-function Register({ onSubmit }) {
+function Register({ onSubmit, isApiError, message }) {
   // подключаем валидацию формы
   const {
     values,
@@ -99,6 +99,13 @@ function Register({ onSubmit }) {
         </fieldset>
       </form>
       <div className="authentication__footer">
+        <p
+          className={`authentication__text authentication__text_error ${
+            !isApiError ? "authentication__text_hidden" : ""
+          }`}
+        >
+          {message}
+        </p>
         <button
           className={`form__button form__button_register button ${
             !isValid ? "form__button_disabled" : ""

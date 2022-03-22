@@ -28,11 +28,13 @@ function App() {
 
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
-  console.log(savedMovies);
+
   let sortedMovies;
   const [isLoading, setIsLoading] = useState(false);
   const [isSearchResult, setisSearchResult] = useState(true);
   const [isSearchError, setisSearchError] = useState(false);
+  const [isApiError, setIsApiError] = useState(false);
+  const [message, setMessage] = useState("");
 
   // получение списка найденных фильмов из localStorage
   useEffect(() => {
@@ -158,6 +160,7 @@ function App() {
 
   // -- Вход в систему
   function onLogin(data) {
+    setIsApiError(false);
     auth
       .login(data)
       .then((res) => {
@@ -169,12 +172,14 @@ function App() {
       .then(() => goToMovies()) // переходим на страницу Фильмы
       .catch((err) => {
         console.log(err);
+        setIsApiError(true);
+        setMessage(err);
       });
   }
 
   // -- Регистрация пользователя
   function onRegister(data) {
-    console.log(data);
+    setIsApiError(false);
     auth
       .register(data)
       .then((res) => {
@@ -186,6 +191,8 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        setIsApiError(true);
+        setMessage(err);
       });
   }
 
@@ -228,8 +235,26 @@ function App() {
           }
         />
         <Route path="/profile" element={<Profile onSignOut={onSignOut} />} />
-        <Route path="/signin" element={<Login onSubmit={onLogin} />} />
-        <Route path="/signup" element={<Register onSubmit={onRegister} />} />
+        <Route
+          path="/signin"
+          element={
+            <Login
+              onSubmit={onLogin}
+              message={message}
+              isApiError={isApiError}
+            />
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <Register
+              onSubmit={onRegister}
+              message={message}
+              isApiError={isApiError}
+            />
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
