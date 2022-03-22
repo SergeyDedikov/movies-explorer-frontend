@@ -52,7 +52,11 @@ function Register({ onSubmit }) {
               }`}
               type="text"
               name="name"
+              minLength="2"
+              maxLength="30"
               required
+              pattern="[A-Za-zА-Яа-яЁё0-9- ]+"
+              title="Русские или латинские буквы, цифры, пробел, дефис"
             />
             <span id="name-error" className="form__error">
               {errors.name}
