@@ -53,7 +53,7 @@ function Login({ onSubmit, isApiError, message }) {
               name="email"
               required
             />
-            <span id="name-error" className="form__error">
+            <span id="email-error" className="form__error">
               {errors.email}
             </span>
           </label>
@@ -70,7 +70,7 @@ function Login({ onSubmit, isApiError, message }) {
               name="password"
               required
             />
-            <span id="name-error" className="form__error">
+            <span id="password-error" className="form__error">
               {errors.password}
             </span>
           </label>

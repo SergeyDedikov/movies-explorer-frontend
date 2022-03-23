@@ -58,7 +58,7 @@ function App() {
     }
   }, [loggedIn]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     api
       .getMovies()
       .then((moviesData) => {
@@ -67,12 +67,16 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, []); */
 
   const navigate = useNavigate();
 
   function goToMovies() {
     navigate("/movies");
+  }
+
+  function goToHome(){
+    navigate("/");
   }
 
   // конечная обработка запроса
@@ -158,6 +162,28 @@ function App() {
     }
   }
 
+  // -- Проверяем токен пользователя
+  function handleTokenCheck() {
+    api
+      .getUserInfo()
+      .then((res) => {
+        if (res) {
+          // меняем переменные состояния авторизации
+          setLoggedIn(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  // Проверка наличия токена
+  useEffect(() => {
+    if (!loggedIn) {
+      handleTokenCheck();
+    }
+  }, []);
+
   // -- Вход в систему
   function onLogin(data) {
     setIsApiError(false);
@@ -200,6 +226,7 @@ function App() {
   function onSignOut() {
     auth.logout();
     setLoggedIn(false);
+    goToHome();
   }
 
   return (
