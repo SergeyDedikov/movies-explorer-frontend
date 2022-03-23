@@ -75,7 +75,7 @@ function App() {
     navigate("/movies");
   }
 
-  function goToHome(){
+  function goToHome() {
     navigate("/");
   }
 
@@ -222,6 +222,22 @@ function App() {
       });
   }
 
+  // -- Редактирование данных пользователя
+  function handleUpdateUser(data) {
+    setIsApiError(false);
+    api
+      .setUserInfo(data)
+      .then((newData) => {
+        setMessage("Данные обновлены успешно!");
+        setCurrentUser(newData);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsApiError(true);
+        setMessage(err);
+      });
+  }
+
   // -- Выход из системы
   function onSignOut() {
     auth.logout();
@@ -261,7 +277,17 @@ function App() {
             />
           }
         />
-        <Route path="/profile" element={<Profile onSignOut={onSignOut} />} />
+        <Route
+          path="/profile"
+          element={
+            <Profile
+              onUpdateUser={handleUpdateUser}
+              message={message}
+              isApiError={isApiError}
+              onSignOut={onSignOut}
+            />
+          }
+        />
         <Route
           path="/signin"
           element={
