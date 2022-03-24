@@ -18,12 +18,19 @@ function SearchForm({ onSearchMovies }) {
     setIsValid,
   } = useFormWithValidation();
 
+  function handleChangeCheckbox(e) {
+    const target = e.target;
+    const name = target.name;
+    const checked = target.checked;
+    setValues({ ...values, [name]: checked });
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     if (!isValid) {
       console.log("Нужно ввести ключевое слово");
     } else {
-      onSearchMovies(values.movie);
+      onSearchMovies(values);
     }
     resetForm();
     inputRef.current.value = "";
@@ -58,7 +65,7 @@ function SearchForm({ onSearchMovies }) {
         <button className="search-form__button button" type="submit">
           {""}
         </button>
-        <FilterCheckbox />
+        <FilterCheckbox onChange={handleChangeCheckbox} />
       </form>
     </section>
   );
