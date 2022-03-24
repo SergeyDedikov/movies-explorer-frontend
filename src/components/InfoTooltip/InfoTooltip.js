@@ -1,9 +1,9 @@
-import './InfoTooltip.css';
+import "./InfoTooltip.css";
 
 function InfoTooltip(props) {
   // переменная для `className` содержимого попапа
-  const popupBackgroundClassName = `popup__container-background ${
-    props.isOk ? "popup__container-background_succes" : "popup__container-background_fail"
+  const popupIconMessageClassName = `popup__icon-message ${
+    props.isOk ? "popup__icon-message_succes" : "popup__icon-message_fail"
   }`;
 
   return (
@@ -13,7 +13,8 @@ function InfoTooltip(props) {
         ${props.isOpen ? "popup_opened" : ""}
       `}
     >
-      <div className={`popup__container ${popupBackgroundClassName}`}>
+      <div className="popup__container">
+        <div className={popupIconMessageClassName}></div>
         <p className="popup__message">{props.message}</p>
         <button
           onClick={props.onClose}

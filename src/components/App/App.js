@@ -15,6 +15,7 @@ import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import NotFound from "../NotFound/NotFound";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import MoviesApi from "../../utils/MoviesApi";
 import api from "../../utils/MainApi";
 import auth from "../../utils/auth";
@@ -35,6 +36,25 @@ function App() {
   const [isSearchError, setisSearchError] = useState(false);
   const [isApiError, setIsApiError] = useState(false);
   const [message, setMessage] = useState("");
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isOk, setIsOk] = useState(null);
+
+  // -- Функции попапов
+
+  function showInfoTooltip(set) {
+    // -- отобразим инфо-попап
+    setIsInfoTooltipOpen(true);
+    // -- выберем его тип
+    setIsOk(set);
+  }
+
+  function closeAllPopups() {
+    // -- установим значения по умолчанию
+    setIsInfoTooltipOpen(false);
+    setTimeout(() => {
+      setMessage("");
+    }, 1000);
+  }
 
   // получение списка найденных фильмов из localStorage
   useEffect(() => {
@@ -57,17 +77,6 @@ function App() {
         });
     }
   }, [loggedIn]);
-
-  /* useEffect(() => {
-    api
-      .getMovies()
-      .then((moviesData) => {
-        setSavedMovies(moviesData);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []); */
 
   const navigate = useNavigate();
 
@@ -230,10 +239,11 @@ function App() {
       .then((newData) => {
         setMessage("Данные обновлены успешно!");
         setCurrentUser(newData);
+        showInfoTooltip(true);
       })
       .catch((err) => {
         console.log(err);
-        setIsApiError(true);
+        showInfoTooltip(false);
         setMessage(err);
       });
   }
@@ -311,6 +321,12 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
+      <InfoTooltip
+        isOk={isOk}
+        isOpen={isInfoTooltipOpen}
+        message={message}
+        onClose={closeAllPopups}
+      />
     </CurentUserContext.Provider>
   );
 }

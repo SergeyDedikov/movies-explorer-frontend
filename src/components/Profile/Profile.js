@@ -4,7 +4,7 @@ import "./Profile.css";
 import { CurentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormWithValidation } from "../../hooks/form-validation";
 
-function Profile({ onUpdateUser, onSignOut, isApiError, message }) {
+function Profile({ onUpdateUser, onSignOut }) {
   // контекст пользователя
   const currentUser = useContext(CurentUserContext);
 
@@ -109,13 +109,7 @@ function Profile({ onUpdateUser, onSignOut, isApiError, message }) {
           </label>
         </fieldset>
       </form>
-      <p
-        className={`authentication__text authentication__text_error ${
-          !isApiError ? "authentication__text_hidden" : ""
-        }`}
-      >
-        {message}
-      </p>
+      
       <button
         disabled={isMatchesValue || !isValid}
         className="profile__button profile__button_edit button"
