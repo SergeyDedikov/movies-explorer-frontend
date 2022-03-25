@@ -5,6 +5,7 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import { useFormWithValidation } from "../../hooks/form-validation";
 
 function SearchForm({ onSearchMovies, onChangeCheckbox, isFilterMovies }) {
+  const [isVisibleError, setIsVisibleError] = useState(false);
   const inputRef = useRef(null); // прямой доступ к полю ввода
   const [isChecked, setIsChecked] = useState(isFilterMovies);
 
@@ -27,12 +28,14 @@ function SearchForm({ onSearchMovies, onChangeCheckbox, isFilterMovies }) {
   function handleSubmit(e) {
     e.preventDefault();
     if (!isValid) {
+      setIsVisibleError(true);
       console.log("Нужно ввести ключевое слово");
     } else {
       onSearchMovies({
         movie: values.movie,
         // filterMovies: isChecked,
       });
+      setIsVisibleError(false);
     }
     resetForm();
     inputRef.current.value = "";
@@ -60,7 +63,7 @@ function SearchForm({ onSearchMovies, onChangeCheckbox, isFilterMovies }) {
             required
           />
           <span id="search-error" className="search-form__error">
-            {!isValid ? "Нужно ввести ключевое слово" : ""}
+            {!isValid && isVisibleError ? "Нужно ввести ключевое слово" : ""}
           </span>
         </label>
 
