@@ -21,7 +21,7 @@ function SearchForm({ onSearchMovies, onChangeCheckbox, isFilterMovies }) {
 
   function handleChangeCheckbox(e) {
     setIsChecked(!isChecked);
-    onChangeCheckbox(!isChecked);
+    onChangeCheckbox();
   }
 
   function handleSubmit(e) {

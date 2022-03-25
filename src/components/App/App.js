@@ -36,7 +36,7 @@ function App() {
 
   let sortedMovies;
   const [isFilterMovies, setIsFilterMovies] = useState(
-    (localStorage.getItem("filterMovies"))
+    JSON.parse(localStorage.getItem("filterMovies"))
   );
   console.log(isFilterMovies);
   const [isLoading, setIsLoading] = useState(false);
@@ -80,7 +80,7 @@ function App() {
     let moviesLocal = localStorage.getItem("movies");
     if (moviesLocal) {
       // меняем отображение фильмов по фильтру
-      if (isFilterMovies === true) {
+      if (isFilterMovies) {
         setMovies(filterShortMovies(JSON.parse(moviesLocal)));
       } else {
         setMovies(JSON.parse(moviesLocal));
@@ -89,8 +89,8 @@ function App() {
   }, [isFilterMovies]);
 
   // управление фильтром чек-бокса
-  function handleChangeCheckbox(boolean) {
-    setIsFilterMovies(boolean);
+  function handleChangeCheckbox() {
+    setIsFilterMovies(!isFilterMovies);
   }
 
   // получение списка сохранённых фильмов из нашего АПИ
@@ -134,7 +134,7 @@ function App() {
         sortedMovies = handlerMovieSearchQuery(data, movie);
         // сохраним найденные фильмы и значение фильтра в localStorage
         localStorage.setItem("movies", JSON.stringify(sortedMovies));
-        localStorage.setItem("filterMovies", isFilterMovies);
+        localStorage.setItem("filterMovies", JSON.stringify(isFilterMovies));
       })
       .catch((err) => {
         if (err) {
