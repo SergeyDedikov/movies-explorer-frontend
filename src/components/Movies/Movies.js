@@ -6,6 +6,8 @@ import ResultBox from "../ResultBox/ResultBox";
 
 function Movies({
   onSearchMovies,
+  onChangeCheckbox,
+  isFilterMovies,
   isSearchResult,
   isSearchError,
   isLoading,
@@ -15,7 +17,11 @@ function Movies({
 }) {
   return (
     <main className="movies">
-      <SearchForm onSearchMovies={onSearchMovies} />
+      <SearchForm
+        onSearchMovies={onSearchMovies}
+        onChangeCheckbox={onChangeCheckbox}
+        isFilterMovies={isFilterMovies}
+      />
       <ResultBox
         isSearchResult={isSearchResult}
         isSearchError={isSearchError}

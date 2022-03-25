@@ -19,14 +19,18 @@ export function handlerMovieSearchQuery(arrayMovies, query) {
   });
 }
 
+// фильтрация по длительности фильма
+export function filterShortMovies(arrayMovies) {
+  return arrayMovies.filter((m) => m.duration <= 40);
+}
+
 // подстрахуемся от пустых значений
 export function convertDataMovies(data) {
-
   let newData = {
     country: data.country || "Нет данных",
     director: data.director || "Нет данных",
     duration: data.duration || 0,
-    year: data.year || '0000',
+    year: data.year || "0000",
     description: data.description,
     image: BASE_URL_MOVIES_API + data.image.url,
     trailerLink: data.trailerLink,
@@ -37,4 +41,3 @@ export function convertDataMovies(data) {
   };
   return newData;
 }
-

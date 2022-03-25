@@ -19,7 +19,11 @@ import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import MoviesApi from "../../utils/MoviesApi";
 import api from "../../utils/MainApi";
 import auth from "../../utils/auth";
-import { handlerMovieSearchQuery, convertDataMovies } from "../../utils/utils";
+import {
+  handlerMovieSearchQuery,
+  filterShortMovies,
+  convertDataMovies,
+} from "../../utils/utils";
 
 function App() {
   // -- Переменная состояния авторизации
@@ -31,6 +35,10 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
 
   let sortedMovies;
+  const [isFilterMovies, setIsFilterMovies] = useState(
+    (localStorage.getItem("filterMovies"))
+  );
+  console.log(isFilterMovies);
   const [isLoading, setIsLoading] = useState(false);
   const [isSearchResult, setisSearchResult] = useState(true);
   const [isSearchError, setisSearchError] = useState(false);
@@ -38,6 +46,17 @@ function App() {
   const [message, setMessage] = useState("");
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isOk, setIsOk] = useState(null);
+
+  // -- Навигация
+  const navigate = useNavigate();
+
+  function goToMovies() {
+    navigate("/movies");
+  }
+
+  function goToHome() {
+    navigate("/");
+  }
 
   // -- Функции попапов
 
@@ -58,10 +77,21 @@ function App() {
 
   // получение списка найденных фильмов из localStorage
   useEffect(() => {
-    if (localStorage.getItem("movies")) {
-      setMovies(JSON.parse(localStorage.getItem("movies")));
+    let moviesLocal = localStorage.getItem("movies");
+    if (moviesLocal) {
+      // меняем отображение фильмов по фильтру
+      if (isFilterMovies === true) {
+        setMovies(filterShortMovies(JSON.parse(moviesLocal)));
+      } else {
+        setMovies(JSON.parse(moviesLocal));
+      }
     }
-  }, []);
+  }, [isFilterMovies]);
+
+  // управление фильтром чек-бокса
+  function handleChangeCheckbox(boolean) {
+    setIsFilterMovies(boolean);
+  }
 
   // получение списка сохранённых фильмов из нашего АПИ
   // и данных пользователя
@@ -78,16 +108,6 @@ function App() {
     }
   }, [loggedIn]);
 
-  const navigate = useNavigate();
-
-  function goToMovies() {
-    navigate("/movies");
-  }
-
-  function goToHome() {
-    navigate("/");
-  }
-
   // конечная обработка запроса
   function handleEndRequest() {
     setIsLoading(false);
@@ -101,6 +121,9 @@ function App() {
   }
 
   function handleSearchMovies(query) {
+    const { movie, filterMovies } = query;
+    console.log(query);
+
     setMovies([]);
     setIsLoading(true);
     setisSearchError(false);
@@ -108,10 +131,10 @@ function App() {
 
     MoviesApi()
       .then((data) => {
-        sortedMovies = handlerMovieSearchQuery(data, query);
-
-        // сохраним найденные фильмы в localStorage
+        sortedMovies = handlerMovieSearchQuery(data, movie);
+        // сохраним найденные фильмы и значение фильтра в localStorage
         localStorage.setItem("movies", JSON.stringify(sortedMovies));
+        localStorage.setItem("filterMovies", isFilterMovies);
       })
       .catch((err) => {
         if (err) {
@@ -267,6 +290,8 @@ function App() {
               movies={movies}
               savedMovies={savedMovies}
               onSearchMovies={handleSearchMovies}
+              onChangeCheckbox={handleChangeCheckbox}
+              isFilterMovies={isFilterMovies}
               isSearchResult={isSearchResult}
               isSearchError={isSearchError}
               isLoading={isLoading}
@@ -280,6 +305,8 @@ function App() {
             <SavedMovies
               movies={savedMovies}
               onSearchMovies={handleSearchMovies}
+              onChangeCheckbox={handleChangeCheckbox}
+              isFilterMovies={isFilterMovies}
               isSearchResult={isSearchResult}
               isSearchError={isSearchError}
               isLoading={isLoading}

@@ -4,8 +4,9 @@ import "./SearchForm.css";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import { useFormWithValidation } from "../../hooks/form-validation";
 
-function SearchForm({ onSearchMovies }) {
+function SearchForm({ onSearchMovies, onChangeCheckbox, isFilterMovies }) {
   const inputRef = useRef(null); // прямой доступ к полю ввода
+  const [isChecked, setIsChecked] = useState(isFilterMovies);
 
   // подключаем валидацию формы
   const {
@@ -19,10 +20,8 @@ function SearchForm({ onSearchMovies }) {
   } = useFormWithValidation();
 
   function handleChangeCheckbox(e) {
-    const target = e.target;
-    const name = target.name;
-    const checked = target.checked;
-    setValues({ ...values, [name]: checked });
+    setIsChecked(!isChecked);
+    onChangeCheckbox(!isChecked);
   }
 
   function handleSubmit(e) {
@@ -30,7 +29,10 @@ function SearchForm({ onSearchMovies }) {
     if (!isValid) {
       console.log("Нужно ввести ключевое слово");
     } else {
-      onSearchMovies(values);
+      onSearchMovies({
+        movie: values.movie,
+        // filterMovies: isChecked,
+      });
     }
     resetForm();
     inputRef.current.value = "";
@@ -65,7 +67,7 @@ function SearchForm({ onSearchMovies }) {
         <button className="search-form__button button" type="submit">
           {""}
         </button>
-        <FilterCheckbox onChange={handleChangeCheckbox} />
+        <FilterCheckbox onChange={handleChangeCheckbox} isChecked={isChecked}/>
       </form>
     </section>
   );

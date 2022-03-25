@@ -1,6 +1,8 @@
 import "./FilterCheckbox.css";
 
-function FilterCheckbox({ onChange }) {
+function FilterCheckbox({ onChange, isChecked }) {
+  console.log(isChecked);
+
   return (
     <label className="checkbox__label" htmlFor="filter-movies">
       <input
@@ -9,7 +11,7 @@ function FilterCheckbox({ onChange }) {
         type="checkbox"
         className="checkbox__input-invisible"
         id="filter-movies"
-        defaultChecked={false}
+        defaultChecked={isChecked}
       />
       <span className="checkbox__input-track">
         <span className="checkbox__input-item"></span>
