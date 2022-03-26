@@ -31,13 +31,20 @@ function App() {
   // -- Переменная состояния профиля
   const [currentUser, setCurrentUser] = useState(defaultUser);
 
-  const [movies, setMovies] = useState([]);
-  const [savedMovies, setSavedMovies] = useState([]);
-  const [savedWithFilterMovies, setSavedWithFilterMovies] = useState([]);
-  let sortedMovies;
+  // -- Переменные состояния фильмов
   const [isFilterMovies, setIsFilterMovies] = useState(
-    JSON.parse(localStorage.getItem("filterMovies"))
+    localStorage.getItem("filterMovies")
+      ? JSON.parse(localStorage.getItem("filterMovies"))
+      : false
   );
+  const [allMovies, setAllMovies] = useState([]);
+  const [localFoundMovies, setLocalFoundMovies] = useState([]);
+  const [renderMovies, setRenderMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [renderSavedMovies, setRenderSavedMovies] = useState([]);
+  const [filterMovies, setFilterMovies] = useState([]);
+
+  // -- Переменные для запросов
   const [isLoading, setIsLoading] = useState(false);
   const [isSearchResult, setisSearchResult] = useState(true);
   const [isSearchError, setisSearchError] = useState(false);
@@ -74,79 +81,118 @@ function App() {
     }, 1000);
   }
 
-  // получение списка найденных фильмов из localStorage
+  // -- Получим все фильмы
+  useEffect(() => {
+    setIsLoading(true);
+    MoviesApi()
+      .then((data) => {
+        setAllMovies(data);
+        // localStorage.setItem("allMovies", JSON.stringify(data));
+      })
+      .catch((err) => {
+        setMessage(err);
+        showInfoTooltip(false);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
+
+  // -- Получим список найденных фильмов из localStorage
   useEffect(() => {
     let moviesLocal = localStorage.getItem("movies");
     if (moviesLocal) {
       // меняем отображение фильмов по фильтру
       if (isFilterMovies) {
-        setMovies(filterShortMovies(JSON.parse(moviesLocal)));
-        setSavedWithFilterMovies(filterShortMovies(savedMovies));
+        setLocalFoundMovies(filterShortMovies(JSON.parse(moviesLocal)));
       } else {
-        setMovies(JSON.parse(moviesLocal));
-        setSavedWithFilterMovies(savedMovies);
+        setLocalFoundMovies(JSON.parse(moviesLocal));
       }
+    } else {
+      // иначе сохраним все
+      setLocalFoundMovies(allMovies);
     }
-  }, [isFilterMovies, savedMovies]);
+  }, [allMovies]);
 
-  // управление фильтром чек-бокса
-  function handleChangeCheckbox() {
-    setIsFilterMovies(!isFilterMovies);
-  }
-
-  // получение списка сохранённых фильмов из нашего АПИ
+  // -- Получение списка сохранённых фильмов из нашего АПИ
   // и данных пользователя
   useEffect(() => {
     if (loggedIn) {
+      setIsLoading(true);
       Promise.all([api.getUserInfo(), api.getMovies()])
         .then(([userData, moviesData]) => {
           setCurrentUser(userData);
           setSavedMovies(moviesData);
+          // setRenderSavedMovies(moviesData);
         })
         .catch((err) => {
-          console.log(err);
+          setMessage(err);
+          showInfoTooltip(false);
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     }
   }, [loggedIn]);
 
-  // конечная обработка запроса
-  function handleEndRequest() {
+  // -- Отображение фильмов
+  useEffect(() => {
+    if (isFilterMovies) {
+      setRenderMovies(filterShortMovies(localFoundMovies));
+      setRenderSavedMovies(filterShortMovies(savedMovies));
+    } else {
+      setRenderMovies(localFoundMovies);
+      setRenderSavedMovies(savedMovies);
+    }
+  }, [localFoundMovies, savedMovies]);
+
+  // -- Отображение фильмов по фильтру чек-бокса
+  useEffect(() => {
+    if (isFilterMovies) {
+      setRenderMovies(filterShortMovies(localFoundMovies));
+      setRenderSavedMovies(filterShortMovies(savedMovies));
+    } else {
+      setRenderMovies(localFoundMovies);
+      setRenderSavedMovies(savedMovies);
+    }
+  }, [isFilterMovies]);
+
+  // -- Управление фильтром чек-бокса
+  function handleChangeCheckbox() {
+    setIsFilterMovies(!isFilterMovies);
+  }
+
+  function handleSearchMovies(query) {
+    const { movie } = query;
+
+    setIsLoading(true);
+    setisSearchError(false);
+    setisSearchResult(true);
+
+    setFilterMovies(handlerMovieSearchQuery(localFoundMovies, movie));
+    // сохраним найденные фильмы и значение фильтра в localStorage
+    localStorage.setItem("movies", JSON.stringify(filterMovies));
+    localStorage.setItem("filterMovies", JSON.stringify(isFilterMovies));
+
     setIsLoading(false);
     // меняем переменные результата поиска
-    if (sortedMovies && sortedMovies.length > 0) {
-      setMovies(sortedMovies);
+    if (filterMovies.length > 0) {
+      setLocalFoundMovies(filterMovies);
+      // меняем отображение фильмов по фильтру
+      if (isFilterMovies) {
+        setLocalFoundMovies(filterShortMovies(filterMovies));
+      } else {
+        setLocalFoundMovies(filterMovies);
+      }
       setisSearchResult(true);
     } else {
       setisSearchResult(false);
     }
   }
 
-  function handleSearchMovies(query) {
-    const { movie } = query;
-
-    setMovies([]);
-    setIsLoading(true);
-    setisSearchError(false);
-    setisSearchResult(true);
-
-    MoviesApi()
-      .then((data) => {
-        sortedMovies = handlerMovieSearchQuery(data, movie);
-        // сохраним найденные фильмы и значение фильтра в localStorage
-        localStorage.setItem("movies", JSON.stringify(sortedMovies));
-        localStorage.setItem("filterMovies", JSON.stringify(isFilterMovies));
-      })
-      .catch((err) => {
-        if (err) {
-          setisSearchError(true);
-        }
-      })
-      .finally(() => handleEndRequest());
-  }
-
   function handleSearchSavedMovies(query) {
     const { movie } = query;
-    setSavedWithFilterMovies(handlerMovieSearchQuery(savedMovies, movie));
+    setRenderSavedMovies(handlerMovieSearchQuery(savedMovies, movie));
   }
 
   // Отправляем запрос в API на создание карточки фильма
@@ -292,7 +338,7 @@ function App() {
           path="/movies"
           element={
             <Movies
-              movies={movies}
+              movies={renderMovies}
               savedMovies={savedMovies}
               onSearchMovies={handleSearchMovies}
               onChangeCheckbox={handleChangeCheckbox}
@@ -308,7 +354,7 @@ function App() {
           path="/saved-movies"
           element={
             <SavedMovies
-              movies={savedWithFilterMovies}
+              movies={renderSavedMovies}
               onSearchMovies={handleSearchSavedMovies}
               onChangeCheckbox={handleChangeCheckbox}
               isFilterMovies={isFilterMovies}
