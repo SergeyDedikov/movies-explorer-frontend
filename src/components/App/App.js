@@ -146,7 +146,7 @@ function App() {
 
   function handleSearchSavedMovies(query) {
     const { movie } = query;
-    handlerMovieSearchQuery(savedMovies, movie);
+    setSavedWithFilterMovies(handlerMovieSearchQuery(savedMovies, movie));
   }
 
   // Отправляем запрос в API на создание карточки фильма
