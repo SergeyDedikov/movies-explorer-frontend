@@ -46,6 +46,7 @@ function Header() {
           isBasePath={isBasePath}
           isLargeScreen={isLargeScreen}
           isVisibleMenu={isVisibleMenu}
+          onClick={onChangeVisibleMenu}
         />
         <button
           onClick={onChangeVisibleMenu}

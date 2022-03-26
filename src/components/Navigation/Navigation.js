@@ -2,7 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 
 import "./Navigation.css";
 
-function Navigation({ isBasePath, isLargeScreen, isVisibleMenu }) {
+function Navigation({ isBasePath, isLargeScreen, isVisibleMenu, onClick }) {
   if (isBasePath) {
     return (
       <div className="navigation-main">
@@ -38,6 +38,7 @@ function Navigation({ isBasePath, isLargeScreen, isVisibleMenu }) {
           <ul className="navigation__links navigation__links_movies">
             <li>
               <NavLink
+                onClick={onClick}
                 to="/"
                 className={`navigation__link navigation__link_main wide-medium button`}
               >
@@ -46,6 +47,7 @@ function Navigation({ isBasePath, isLargeScreen, isVisibleMenu }) {
             </li>
             <li>
               <NavLink
+                onClick={onClick}
                 to="/movies"
                 className={`navigation__link navigation__link_movies button wide-medium`}
                 activeclassname="active"
@@ -55,6 +57,7 @@ function Navigation({ isBasePath, isLargeScreen, isVisibleMenu }) {
             </li>
             <li>
               <NavLink
+                onClick={onClick}
                 to="/saved-movies"
                 className={`navigation__link navigation__link_saved-movies button wide-medium`}
                 activeclassname="active"
@@ -68,6 +71,7 @@ function Navigation({ isBasePath, isLargeScreen, isVisibleMenu }) {
           <ul className="navigation__links navigation__links_profile">
             <li>
               <Link
+                onClick={onClick}
                 to="/profile"
                 className="navigation__link navigation__link_profile button"
               >
