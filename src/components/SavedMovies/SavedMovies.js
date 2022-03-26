@@ -5,6 +5,8 @@ import Preloader from "../Preloader/Preloader";
 
 function SavedMovies({
   onSearchMovies,
+  onChangeCheckbox,
+  isFilterMovies,
   isSearchResult,
   isSearchError,
   isLoading,
@@ -13,7 +15,11 @@ function SavedMovies({
 }) {
   return (
     <main className="saved-movies">
-      <SearchForm onSearchMovies={onSearchMovies} />
+      <SearchForm
+        onSearchMovies={onSearchMovies}
+        onChangeCheckbox={onChangeCheckbox}
+        isFilterMovies={isFilterMovies}
+      />
       <ResultBox
         isSearchResult={isSearchResult}
         isSearchError={isSearchError}

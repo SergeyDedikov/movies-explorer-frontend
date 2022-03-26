@@ -33,12 +33,11 @@ function App() {
 
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
-
+  const [savedWithFilterMovies, setSavedWithFilterMovies] = useState([]);
   let sortedMovies;
   const [isFilterMovies, setIsFilterMovies] = useState(
     JSON.parse(localStorage.getItem("filterMovies"))
   );
-  console.log(isFilterMovies);
   const [isLoading, setIsLoading] = useState(false);
   const [isSearchResult, setisSearchResult] = useState(true);
   const [isSearchError, setisSearchError] = useState(false);
@@ -82,11 +81,13 @@ function App() {
       // меняем отображение фильмов по фильтру
       if (isFilterMovies) {
         setMovies(filterShortMovies(JSON.parse(moviesLocal)));
+        setSavedWithFilterMovies(filterShortMovies(savedMovies));
       } else {
         setMovies(JSON.parse(moviesLocal));
+        setSavedWithFilterMovies(savedMovies);
       }
     }
-  }, [isFilterMovies]);
+  }, [isFilterMovies, savedMovies]);
 
   // управление фильтром чек-бокса
   function handleChangeCheckbox() {
@@ -121,8 +122,7 @@ function App() {
   }
 
   function handleSearchMovies(query) {
-    const { movie, filterMovies } = query;
-    console.log(query);
+    const { movie } = query;
 
     setMovies([]);
     setIsLoading(true);
@@ -142,6 +142,11 @@ function App() {
         }
       })
       .finally(() => handleEndRequest());
+  }
+
+  function handleSearchSavedMovies(query) {
+    const { movie } = query;
+    handlerMovieSearchQuery(savedMovies, movie);
   }
 
   // Отправляем запрос в API на создание карточки фильма
@@ -303,8 +308,8 @@ function App() {
           path="/saved-movies"
           element={
             <SavedMovies
-              movies={savedMovies}
-              onSearchMovies={handleSearchMovies}
+              movies={savedWithFilterMovies}
+              onSearchMovies={handleSearchSavedMovies}
               onChangeCheckbox={handleChangeCheckbox}
               isFilterMovies={isFilterMovies}
               isSearchResult={isSearchResult}
