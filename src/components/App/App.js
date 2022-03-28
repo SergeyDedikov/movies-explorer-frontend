@@ -32,14 +32,10 @@ function App() {
   const [currentUser, setCurrentUser] = useState(defaultUser);
 
   // -- Переменные состояния фильмов
-  const [allMovies, setAllMovies] = useState([]);
   const [foundMovies, setFoundMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [renderSavedMovies, setRenderSavedMovies] = useState([]);
 
-  // -- Переменные наличия данных в localstorage
-  // let isAllMovies = localStorage.getItem("beatfilm-movies");
-  // let isFoundMovies = localStorage.getItem("found-movies");
   const [isFilterMovies, setIsFilterMovies] = useState(
     localStorage.getItem("filter-movies")
       ? JSON.parse(localStorage.getItem("filter-movies"))
@@ -206,12 +202,15 @@ function App() {
   // -- Отображение сохранённых фильмов
   useEffect(() => {
     localStorage.setItem("saved-movies", JSON.stringify(savedMovies));
-    if (isFilterMovies) {
-      setRenderSavedMovies(filterShortMovies(savedMovies));
-    } else {
-      setRenderSavedMovies(savedMovies);
+    let savedMoviesLocal = localStorage.getItem("saved-movies");
+    if (savedMoviesLocal) {
+      if (isFilterMovies) {
+        setRenderSavedMovies(filterShortMovies(savedMovies));
+      } else {
+        setRenderSavedMovies(savedMovies);
+      }
     }
-  }, [savedMovies]);
+  }, [savedMovies, isFilterMovies]);
 
   // -- Отображение фильмов по чек-боксу
   useEffect(() => {
@@ -221,14 +220,6 @@ function App() {
         setFoundMovies(filterShortMovies(getLocalFoundMovies()));
       } else {
         setFoundMovies(getLocalFoundMovies());
-      }
-    }
-    let savedMoviesLocal = localStorage.getItem("saved-movies");
-    if (savedMoviesLocal) {
-      if (isFilterMovies) {
-        setRenderSavedMovies(filterShortMovies(getLocalSavedMovies()));
-      } else {
-        setRenderSavedMovies(getLocalSavedMovies());
       }
     }
   }, [isFilterMovies]);
@@ -270,7 +261,6 @@ function App() {
     setIsLoading(true);
     MoviesApi()
       .then((data) => {
-        setAllMovies(data);
         // сохраним в localStorage
         localStorage.setItem("beatfilm-movies", JSON.stringify(data));
       })
@@ -297,6 +287,7 @@ function App() {
 
   function handleSearchSavedMovies(query) {
     const { movie } = query;
+    setRenderSavedMovies([]);
     setIsSearchError(false);
     setIsSearchResult(true);
     let filterMovies = handlerMovieSearchQuery(getLocalSavedMovies(), movie);
