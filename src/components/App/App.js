@@ -168,39 +168,6 @@ function App() {
     goToHome();
   }
 
-  // -- Получим все фильмы из АПИ
-  function getAllMovies() {
-    setIsLoading(true);
-    MoviesApi()
-      .then((data) => {
-        setAllMovies(data);
-        // сохраним в localStorage
-        localStorage.setItem("beatfilm-movies", JSON.stringify(data));
-      })
-      .catch((err) => {
-        setMessage(err);
-        showInfoTooltip(false);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }
-
-  // -- Получим список всех фильмов из localStorage
-  function getLocalAllMovies() {
-    return JSON.parse(localStorage.getItem("beatfilm-movies"));
-  }
-
-  // -- Получим список найденных фильмов из localStorage
-  function getLocalFoundMovies() {
-    return JSON.parse(localStorage.getItem("found-movies"));
-  }
-
-  // -- Получим список сохранённых фильмов из localStorage
-  function getLocalSavedMovies() {
-    return JSON.parse(localStorage.getItem("saved-movies"));
-  }
-
   // -- Получение сохранённых фильмов из нашего АПИ
   useEffect(() => {
     if (loggedIn) {
@@ -219,6 +186,21 @@ function App() {
         });
     }
   }, [loggedIn]);
+
+  // -- Получим список всех фильмов из localStorage
+  function getLocalAllMovies() {
+    return JSON.parse(localStorage.getItem("beatfilm-movies"));
+  }
+
+  // -- Получим список найденных фильмов из localStorage
+  function getLocalFoundMovies() {
+    return JSON.parse(localStorage.getItem("found-movies"));
+  }
+
+  // -- Получим список сохранённых фильмов из localStorage
+  function getLocalSavedMovies() {
+    return JSON.parse(localStorage.getItem("saved-movies"));
+  }
 
   // -- Сохранение фильмов в localStorage
   // -- Отображение сохранённых фильмов
@@ -256,25 +238,18 @@ function App() {
     setIsFilterMovies(!isFilterMovies);
   }
 
-  function handleSearchMovies(query) {
-    const { movie } = query;
+  // -- Поиск фильмов --
 
+  function handleSearch(query) {
+    const { movie } = query;
     setFoundMovies([]);
-    setIsLoading(true);
     setIsSearchError(false);
     setIsSearchResult(true);
-
-    if (!localStorage.getItem("beatfilm-movies")) {
-      getAllMovies();
-    }
-
     let filterMovies = handlerMovieSearchQuery(getLocalAllMovies(), movie);
-    console.log(filterMovies);
     // сохраним найденные фильмы и значение фильтра в localStorage
     localStorage.setItem("found-movies", JSON.stringify(filterMovies));
     localStorage.setItem("filter-movies", JSON.stringify(isFilterMovies));
 
-    setIsLoading(false);
     // меняем переменные результата поиска
     if (filterMovies && filterMovies.length > 0) {
       setFoundMovies(filterMovies);
@@ -290,9 +265,53 @@ function App() {
     }
   }
 
+  // -- Получим все фильмы из АПИ
+  function getAllMovies(query) {
+    setIsLoading(true);
+    MoviesApi()
+      .then((data) => {
+        setAllMovies(data);
+        // сохраним в localStorage
+        localStorage.setItem("beatfilm-movies", JSON.stringify(data));
+      })
+      .then(() => handleSearch(query))
+      .catch((err) => {
+        setMessage(err);
+        showInfoTooltip(false);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
+
+  function handleSearchMovies(query) {
+    // загрузим все фильмы при первом поиске
+    if (!localStorage.getItem("beatfilm-movies")) {
+      getAllMovies(query);
+    } else {
+      handleSearch(query);
+    }
+  }
+
+  // -- Поиск среди сохранённых фильмов
+
   function handleSearchSavedMovies(query) {
     const { movie } = query;
-    setRenderSavedMovies(handlerMovieSearchQuery(getLocalSavedMovies(), movie));
+    setIsSearchError(false);
+    setIsSearchResult(true);
+    let filterMovies = handlerMovieSearchQuery(getLocalSavedMovies(), movie);
+    if (filterMovies && filterMovies.length > 0) {
+      setRenderSavedMovies(filterMovies);
+      setIsSearchResult(true);
+      // меняем отображение фильмов по фильтру
+      if (isFilterMovies) {
+        setRenderSavedMovies(filterShortMovies(filterMovies));
+      } else {
+        setRenderSavedMovies(filterMovies);
+      }
+    } else {
+      setIsSearchResult(false);
+    }
   }
 
   // Отправляем запрос в API на создание карточки фильма
