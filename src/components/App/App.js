@@ -35,6 +35,7 @@ function App() {
   const [allMovies, setAllMovies] = useState([]);
   const [foundMovies, setFoundMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [renderSavedMovies, setRenderSavedMovies] = useState([]);
 
   // -- Переменные наличия данных в localstorage
   // let isAllMovies = localStorage.getItem("beatfilm-movies");
@@ -200,48 +201,35 @@ function App() {
     return JSON.parse(localStorage.getItem("saved-movies"));
   }
 
-  // -- Сохранение фильмов в localStorage
-  function setLocalSavedMovies(data) {
-    localStorage.setItem("saved-movies", JSON.stringify(data));
-  }
-
   // -- Получение сохранённых фильмов из нашего АПИ
-  function getSavedMovies() {
-    setIsLoading(true);
-    api
-      .getMovies()
-      .then((movies) => {
-        setSavedMovies(movies);
-        setLocalSavedMovies(movies);
-      })
-      .catch((err) => {
-        setMessage(err);
-        showInfoTooltip(false);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }
-
-  //console.log(isFoundMovies);
-  console.log(getLocalFoundMovies());
-  // console.log(getLocalSavedMovies());
-
-  // -- Рендер фильмов при авторизации
   useEffect(() => {
     if (loggedIn) {
-      getSavedMovies();
-      let moviesLocal = localStorage.getItem("found-movies");
-      if (moviesLocal) {
-        // меняем отображение фильмов по фильтру
-        if (isFilterMovies) {
-          setFoundMovies(filterShortMovies(getLocalFoundMovies()));
-        } else {
-          setFoundMovies(getLocalFoundMovies());
-        }
-      }
+      setIsLoading(true);
+      api
+        .getMovies()
+        .then((movies) => {
+          setSavedMovies(movies);
+        })
+        .catch((err) => {
+          setMessage(err);
+          showInfoTooltip(false);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
   }, [loggedIn]);
+
+  // -- Сохранение фильмов в localStorage
+  // -- Отображение сохранённых фильмов
+  useEffect(() => {
+    localStorage.setItem("saved-movies", JSON.stringify(savedMovies));
+    if (isFilterMovies) {
+      setRenderSavedMovies(filterShortMovies(savedMovies));
+    } else {
+      setRenderSavedMovies(savedMovies);
+    }
+  }, [savedMovies]);
 
   // -- Отображение фильмов по чек-боксу
   useEffect(() => {
@@ -256,9 +244,9 @@ function App() {
     let savedMoviesLocal = localStorage.getItem("saved-movies");
     if (savedMoviesLocal) {
       if (isFilterMovies) {
-        setSavedMovies(filterShortMovies(getLocalSavedMovies()));
+        setRenderSavedMovies(filterShortMovies(getLocalSavedMovies()));
       } else {
-        setSavedMovies(getLocalSavedMovies());
+        setRenderSavedMovies(getLocalSavedMovies());
       }
     }
   }, [isFilterMovies]);
@@ -271,6 +259,7 @@ function App() {
   function handleSearchMovies(query) {
     const { movie } = query;
 
+    setFoundMovies([]);
     setIsLoading(true);
     setIsSearchError(false);
     setIsSearchResult(true);
@@ -291,11 +280,11 @@ function App() {
       setFoundMovies(filterMovies);
       setIsSearchResult(true);
       // меняем отображение фильмов по фильтру
-      /* if (isFilterMovies) {
+      if (isFilterMovies) {
         setFoundMovies(filterShortMovies(filterMovies));
       } else {
         setFoundMovies(filterMovies);
-      } */
+      }
     } else {
       setIsSearchResult(false);
     }
@@ -303,50 +292,33 @@ function App() {
 
   function handleSearchSavedMovies(query) {
     const { movie } = query;
-    setSavedMovies(handlerMovieSearchQuery(getLocalSavedMovies(), movie));
+    setRenderSavedMovies(handlerMovieSearchQuery(getLocalSavedMovies(), movie));
   }
 
   // Отправляем запрос в API на создание карточки фильма
-
   function createMovie(data) {
-    setIsLoading(true);
     api
       .createMovie(convertDataMovies(data))
       .then((newMovie) => {
         setSavedMovies([newMovie, ...savedMovies]);
       })
-      .then(() => {
-        // сохраним обновлённые данные в localStorage
-        setLocalSavedMovies(savedMovies);
-      })
       .catch((err) => {
         setMessage(err);
         showInfoTooltip(false);
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
   }
 
   // удаление карточки из сохранённых фильмов
 
   function handleMovieDelete(movie) {
-    setIsLoading(true);
     api
       .deleteMovie(movie._id)
       .then(() => {
         setSavedMovies((state) => state.filter((m) => m._id !== movie._id));
       })
-      .then(() => {
-        // сохраним обновлённые данные в localStorage
-        setLocalSavedMovies(savedMovies);
-      })
       .catch((err) => {
         setMessage(err);
         showInfoTooltip(false);
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
   }
 
@@ -399,7 +371,7 @@ function App() {
           path="/saved-movies"
           element={
             <SavedMovies
-              movies={savedMovies}
+              movies={renderSavedMovies}
               onSearchMovies={handleSearchSavedMovies}
               onChangeCheckbox={handleChangeCheckbox}
               isFilterMovies={isFilterMovies}
