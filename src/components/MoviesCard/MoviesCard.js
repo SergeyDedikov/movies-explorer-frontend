@@ -1,38 +1,16 @@
+import { BASE_URL_MOVIES_API } from "../../utils/constants";
+import { formatMinutes } from "../../utils/utils";
 import "./MoviesCard.css";
 
 function MoviesCard({ movie, isSavedMovies, savedMovies, onMovieLike }) {
-  const BASE_URL = "https://api.nomoreparties.co";
-
-  // преобразуем длительность фильма в часы с минутами
-  function formatMinutes(value) {
-    let minuteTime = value; // минуты
-    let hourTime = 0; // часы
-
-    if (minuteTime > 60) {
-      hourTime = parseInt(minuteTime / 60); // получим часы
-      minuteTime = parseInt(minuteTime % 60); // остаток минут
-    }
-
-    let result;
-
-    if (minuteTime > 0) {
-      result = minuteTime + "м";
-    }
-    if (hourTime > 0) {
-      result = hourTime + "ч " + result;
-    }
-    return result;
-  }
-
   let isLiked;
   let posterURL;
-
   if (!isSavedMovies) {
     // определим есть ли фильм среди сохранённых
     // console.log(savedMovies, movie.id);
     isLiked = savedMovies.some((i) => i.movieId === movie.id);
     // изменим адрес ссылки постера
-    posterURL = BASE_URL + movie.image.url;
+    posterURL = BASE_URL_MOVIES_API + movie.image.url;
   } else {
     posterURL = movie.image;
   }

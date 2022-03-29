@@ -41,3 +41,24 @@ export function convertDataMovies(data) {
   };
   return newData;
 }
+
+// преобразуем длительность фильма в часы с минутами
+export function formatMinutes(value) {
+  let minuteTime = value; // минуты
+  let hourTime = 0; // часы
+
+  if (minuteTime > 60) {
+    hourTime = parseInt(minuteTime / 60); // получим часы
+    minuteTime = parseInt(minuteTime % 60); // остаток минут
+  }
+
+  let result;
+
+  if (minuteTime > 0) {
+    result = minuteTime + "м";
+  }
+  if (hourTime > 0) {
+    result = hourTime + "ч " + result;
+  }
+  return result;
+}
