@@ -28,8 +28,7 @@ import {
 
 function App() {
   // -- Переменная состояния авторизации
-  const [loggedIn, setLoggedIn] = useState(false);
-  console.log(loggedIn);
+  const [loggedIn, setLoggedIn] = useState(undefined);
   // -- Переменная состояния профиля
   const [currentUser, setCurrentUser] = useState(defaultUser);
 
