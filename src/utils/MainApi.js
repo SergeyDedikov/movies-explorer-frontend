@@ -1,5 +1,6 @@
+import { BASE_URL_MAIN_API } from "./constants";
+
 const BASE_URL = "http://localhost:3001";
-// const BASE_URL = "https://api.movies-favorite.nomoredomains.work";
 
 class MainApi {
   constructor(url) {

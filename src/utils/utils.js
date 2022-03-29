@@ -1,4 +1,4 @@
-const BASE_URL_MOVIES_API = "https://api.nomoreparties.co";
+import { BASE_URL_MOVIES_API } from "./constants";
 
 export function handlerMovieSearchQuery(arrayMovies, query) {
 

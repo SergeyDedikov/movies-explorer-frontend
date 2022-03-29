@@ -1,8 +1,7 @@
-// запрос к сервису beatfilm-movies
-const BASE_URL = "https://api.nomoreparties.co/beatfilm-movies";
+import { BASE_URL_MOVIES_API } from "./constants";
 
 export default function MoviesApi() {
-  return fetch(BASE_URL, {
+  return fetch(`${BASE_URL_MOVIES_API}/beatfilm-movies`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
