@@ -1,7 +1,5 @@
 import { BASE_URL_MAIN_API } from "./constants";
 
-const BASE_URL = "http://localhost:3001";
-
 class Auth {
   constructor(url) {
     this._url = url;
@@ -64,6 +62,6 @@ class Auth {
   }
 }
 
-const auth = new Auth(BASE_URL);
+const auth = new Auth(BASE_URL_MAIN_API);
 
 export default auth;
