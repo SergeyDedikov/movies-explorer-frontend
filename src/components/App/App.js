@@ -110,7 +110,7 @@ function App() {
       .login(data)
       .then((res) => {
         if (res.ok) {
-          setLoggedIn(true);
+          handleTokenCheck();
           console.log("Вход выполнен!");
         }
       })

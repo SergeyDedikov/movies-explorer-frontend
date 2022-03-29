@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef } from "react";
 
 import "./Profile.css";
-import '../PageWithAuthForm/PageWithAuthForm.css'
+import "../PageWithAuthForm/PageWithAuthForm.css";
 import { CurentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormWithValidation } from "../../hooks/form-validation";
 
@@ -10,13 +10,8 @@ function Profile({ onUpdateUser, onSignOut }) {
   const currentUser = useContext(CurentUserContext);
 
   // подключаем валидацию формы
-  const {
-    values,
-    handleChange,
-    errors,
-    isValid,
-    setValues,
-  } = useFormWithValidation();
+  const { values, handleChange, errors, isValid, setValues } =
+    useFormWithValidation();
 
   // прямой доступ к полям формы
   const inputName = useRef(null);
