@@ -30,6 +30,7 @@
 }
 
 .header__burger-menu_type_close {
+  position: fixed;
   top: 16px;
   right: 17px;
   background-image: url(../../images/icon-close-big.svg);
