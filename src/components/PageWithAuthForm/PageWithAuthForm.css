@@ -50,6 +50,82 @@
   color: #2be080;
 }
 
+.form {
+  width: 100%;
+  margin: 0 auto;
+  justify-self: flex-start;
+}
+
+.form__input-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.form__button {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #fff;
+  height: 45px;
+  width: 100%;
+  background-color: #2be080;
+  border-radius: 3px;
+}
+
+.form__button_disabled {
+  opacity: 0.2;
+  color: #000;
+  background: #fff;
+  border: 1px solid #000;
+  pointer-events: none;
+}
+
+.form__input-label {
+  position: relative;
+  width: inherit;
+  margin: 0 auto;
+  font-size: 10px;
+  line-height: 12px;
+  color: #a0a0a0;
+}
+
+.form__input-label:first-of-type {
+  margin-top: 0;
+}
+
+.form__input {
+  width: inherit;
+  min-height: 46px;
+  box-sizing: border-box;
+  margin: 10px 0 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  border: 0;
+  padding: 15px;
+  font-family: inherit;
+  outline-style: none;
+}
+
+.form__input_type_error {
+  color: #ee3465;
+}
+
+.form__error {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: #ee3465;
+}
+
+
 @media screen and (max-width: 500px) {
   .authentication {
     justify-content: space-between;
@@ -71,6 +147,13 @@
     padding: 157px 30px 30px;
   }
   .authentication__text {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .form {
+    width: calc(100% - 2 * 30px);
+  }
+  .form__button {
     font-size: 12px;
     line-height: 15px;
   }

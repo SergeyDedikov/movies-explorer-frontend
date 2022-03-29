@@ -1,23 +1,12 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./Login.css";
 import PageWithAuthForm from "../PageWithAuthForm/PageWithAuthForm";
-import AuthForm from "../AuthForm/AuthForm";
-import InputForm from "../InputForm/InputForm";
 import { useFormWithValidation } from "../../hooks/form-validation";
 
 function Login({ onSubmit, isApiError, message }) {
   // подключаем валидацию формы
-  const {
-    values,
-    handleChange,
-    errors,
-    isValid,
-    resetForm,
-    setValues,
-    setIsValid,
-  } = useFormWithValidation();
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
 
   function handleSubmit(e) {
     e.preventDefault();

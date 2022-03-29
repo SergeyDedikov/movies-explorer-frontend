@@ -163,6 +163,7 @@ function App() {
     auth.logout();
     setLoggedIn(false);
     goToHome();
+    setCurrentUser(defaultUser);
   }
 
   // -- Получение сохранённых фильмов из нашего АПИ

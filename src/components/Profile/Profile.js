@@ -1,6 +1,7 @@
-import { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 
 import "./Profile.css";
+import '../PageWithAuthForm/PageWithAuthForm.css'
 import { CurentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormWithValidation } from "../../hooks/form-validation";
 
@@ -14,9 +15,7 @@ function Profile({ onUpdateUser, onSignOut }) {
     handleChange,
     errors,
     isValid,
-    resetForm,
     setValues,
-    setIsValid,
   } = useFormWithValidation();
 
   // прямой доступ к полям формы
@@ -109,7 +108,7 @@ function Profile({ onUpdateUser, onSignOut }) {
           </label>
         </fieldset>
       </form>
-      
+
       <button
         disabled={isMatchesValue || !isValid}
         className="profile__button profile__button_edit button"
