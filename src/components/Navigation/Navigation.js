@@ -77,7 +77,7 @@ function Navigation({
                 <li>
                   <NavLink
                     to="/movies"
-                    className={`navigation__link navigation__link_movies button`}
+                    className={`navigation__link navigation__link_theme_dark navigation__link_movies button`}
                   >
                     Фильмы
                   </NavLink>
@@ -85,7 +85,7 @@ function Navigation({
                 <li>
                   <NavLink
                     to="/saved-movies"
-                    className={`navigation__link navigation__link_saved-movies button`}
+                    className={`navigation__link navigation__link_theme_dark navigation__link_saved-movies button`}
                   >
                     Сохранённые фильмы
                   </NavLink>
@@ -97,7 +97,7 @@ function Navigation({
                 <li>
                   <Link
                     to="/profile"
-                    className="navigation__link navigation__link_profile button"
+                    className="navigation__link navigation__link_theme_dark navigation__link_profile button"
                   >
                     Аккаунт
                     <div className="navigation__link_profile-button"></div>
