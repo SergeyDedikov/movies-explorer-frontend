@@ -1,4 +1,4 @@
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Routes, Route, Link, useNavigate, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import {
@@ -6,6 +6,7 @@ import {
   defaultUser,
 } from "../../contexts/CurrentUserContext";
 import "./App.css";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -364,7 +365,9 @@ function App() {
         <Route
           path="/movies"
           element={
-            <Movies
+            <ProtectedRoute
+              loggedIn={loggedIn}
+              component={Movies}
               movies={foundMovies}
               savedMovies={savedMovies}
               onSearchMovies={handleSearchMovies}
@@ -380,7 +383,9 @@ function App() {
         <Route
           path="/saved-movies"
           element={
-            <SavedMovies
+            <ProtectedRoute
+              loggedIn={loggedIn}
+              component={SavedMovies}
               movies={renderSavedMovies}
               onSearchMovies={handleSearchSavedMovies}
               onChangeCheckbox={handleChangeCheckbox}
@@ -395,7 +400,9 @@ function App() {
         <Route
           path="/profile"
           element={
-            <Profile
+            <ProtectedRoute
+              loggedIn={loggedIn}
+              component={Profile}
               onUpdateUser={handleUpdateUser}
               message={message}
               isApiError={isApiError}
