@@ -43,11 +43,11 @@ function MoviesCardList({ movies, isSavedMovies, savedMovies, onMovieLike }) {
 
   // слушатель переменной для широкого экрана
   mediaLargeScreen.addEventListener("change", (e) =>
-    handleLargeScreenChange(e)
+    setTimeout(handleLargeScreenChange(e), 500)
   );
   // слушатель переменной для узкого экрана
   mediaMobilScreen.addEventListener("change", (e) =>
-    handleMobilScreenChange(e)
+    setTimeout(handleMobilScreenChange(e), 500)
   );
 
   // изменим число отображаемых и добавляемых карточек при разной ширине экрана
