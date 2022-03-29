@@ -24,10 +24,16 @@
   background-color: #fff;
 }
 
-.header__burger-menu_close {
+.header__burger-menu_place_main {
+  background-image: url(../../images/icon-burger-menu-white.svg);
+  background-color: #5c5c5c;
+}
+
+.header__burger-menu_type_close {
   top: 16px;
   right: 17px;
   background-image: url(../../images/icon-close-big.svg);
+  background-color: #fff;
 }
 
 @media screen and (max-width: 1000px) {
@@ -46,7 +52,7 @@
     height: 43px;
     background-size: 95%;
   }
-  .header__burger-menu_close {
+  .header__burger-menu_type_close {
     top: 8px;
     right: 9px;
     background-size: 80%;

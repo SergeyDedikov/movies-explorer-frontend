@@ -5,7 +5,7 @@ import "./Header.css";
 import Navigation from "../Navigation/Navigation";
 import Logo from "../Logo/Logo";
 
-function Header() {
+function Header({ loggedIn }) {
   const { pathname } = useLocation();
 
   const isBasePath = pathname === "/";
@@ -38,11 +38,18 @@ function Header() {
     handleWidthScreenChange(e)
   );
 
+  const burgerMenuClassName = `header__burger-menu button ${
+    isLargeScreen || (pathname === "/" && !loggedIn) ? "hidden" : ""
+  } ${isVisibleMenu ? "header__burger-menu_type_close" : ""}
+  ${loggedIn && pathname === "/" ? "header__burger-menu_place_main" : ""}
+  `;
+
   if (isHeaderPath) {
     return (
       <header className={`header ${!isBasePath && "header_background_none"}`}>
         <Logo place="header" />
         <Navigation
+          loggedIn={loggedIn}
           isBasePath={isBasePath}
           isLargeScreen={isLargeScreen}
           isVisibleMenu={isVisibleMenu}
@@ -50,9 +57,7 @@ function Header() {
         />
         <button
           onClick={onChangeVisibleMenu}
-          className={`header__burger-menu button ${
-            isLargeScreen || pathname === "/" ? "hidden" : ""
-          } ${isVisibleMenu ? "header__burger-menu_close" : ""}`}
+          className={burgerMenuClassName}
           type="button"
         ></button>
       </header>
