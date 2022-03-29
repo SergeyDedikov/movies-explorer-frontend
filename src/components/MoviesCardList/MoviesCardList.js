@@ -19,8 +19,11 @@ function MoviesCardList({ movies, isSavedMovies, savedMovies, onMovieLike }) {
   const [isLargeScreen, setIsLargeScreen] = useState(mediaLargeScreen.matches);
   const [isMobilScreen, setIsMobilScreen] = useState(mediaMobilScreen.matches);
 
-  // условие для отображения кнопки Ещё
-  const isMoreMovies = movies.length > moviesList.length;
+  // условие для отображения кнопки Ещё (исключим страницу с сохранёнными фильмами)
+  const isMoreMovies = movies.length > moviesList.length && !isSavedMovies;
+
+  // число добавляемых карточек
+  const [numberAddMovies, setNumberAddMovies] = useState(0);
 
   function handleLargeScreenChange(evt) {
     if (evt.matches) {
@@ -47,21 +50,10 @@ function MoviesCardList({ movies, isSavedMovies, savedMovies, onMovieLike }) {
     handleMobilScreenChange(e)
   );
 
-  // изменим число отображаемых карточек
-  // в "Сохранённых фильмах"
-  // при узкой ширине экрана
-  useEffect(() => {
-    if (isSavedMovies && isMobilScreen) {
-      setMoviesList(movies.slice(0, 2));
-    }
-  }, [movies, isSavedMovies, isMobilScreen]);
-
-  // число добавляемых карточек
-  const [numberAddMovies, setNumberAddMovies] = useState(0);
-
   // изменим число отображаемых и добавляемых карточек при разной ширине экрана
+  // (исключим страницу с сохранёнными фильмами)
   useEffect(() => {
-    if (movies.length > 0) {
+    if (!isSavedMovies && movies.length > 0) {
       if (isLargeScreen) {
         setMoviesList(movies.slice(0, 12));
         setNumberAddMovies(3);
