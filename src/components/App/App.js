@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate, } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import {
@@ -28,9 +28,13 @@ import {
 
 function App() {
   // -- Переменная состояния авторизации
-  const [loggedIn, setLoggedIn] = useState(undefined);
+  const sessionStorageAuth = JSON.parse(sessionStorage.getItem("loggedIn"));
+  const [loggedIn, setLoggedIn] = useState(sessionStorageAuth);
   // -- Переменная состояния профиля
-  const [currentUser, setCurrentUser] = useState(defaultUser);
+  const sessionStorageUser = JSON.parse(sessionStorage.getItem("currentUser"));
+  const [currentUser, setCurrentUser] = useState(
+    sessionStorageUser ? sessionStorageUser : defaultUser
+  );
 
   // -- Переменные состояния фильмов
   const [foundMovies, setFoundMovies] = useState([]);
@@ -55,10 +59,6 @@ function App() {
   // -- Навигация
   const navigate = useNavigate();
 
-  function goToMovies() {
-    navigate("/movies");
-  }
-
   function goToHome() {
     navigate("/");
   }
@@ -81,14 +81,16 @@ function App() {
   }
 
   // -- Проверяем токен пользователя
-  function handleTokenCheck() {
-    api
+  async function handleTokenCheck() {
+    await api
       .getUserInfo()
       .then((res) => {
         if (res) {
-          // меняем переменные состояния авторизации
+          // меняем переменные состояния авторизации и пользователя
           setLoggedIn(true);
+          sessionStorage.setItem("loggedIn", "true");
           setCurrentUser(res);
+          sessionStorage.setItem("currentUser", JSON.stringify(res));
         }
       })
       .catch((err) => {
@@ -110,11 +112,17 @@ function App() {
       .login(data)
       .then((res) => {
         if (res.ok) {
-          handleTokenCheck();
-          console.log("Вход выполнен!");
+          handleTokenCheck()
+            .then(() => {
+              // переходим на страницу Фильмы
+              console.log("Вход выполнен!");
+              navigate("/movies");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         }
       })
-      .then(() => goToMovies()) // переходим на страницу Фильмы
       .catch((err) => {
         console.log(err);
         setIsApiError(true);
@@ -164,6 +172,8 @@ function App() {
     setLoggedIn(false);
     goToHome();
     setCurrentUser(defaultUser);
+    localStorage.clear();
+    sessionStorage.clear();
   }
 
   // -- Получение сохранённых фильмов из нашего АПИ
