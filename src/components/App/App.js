@@ -37,16 +37,53 @@ function App() {
     sessionStorageUser ? sessionStorageUser : defaultUser
   );
 
-  // -- Переменные состояния фильмов
-  const [foundMovies, setFoundMovies] = useState([]);
-  const [savedMovies, setSavedMovies] = useState([]);
-  const [renderSavedMovies, setRenderSavedMovies] = useState([]);
+  // -- Переменные состояния для страницы Фильмы
+  const [allMovies, setAllMovies] = useState([]);
+  // const [foundMovies, setFoundMovies] = useState([]);
+  const [filteredFoundMovies, setFilteredFoundMovies] = useState([]);
+  const [keyWordFoundMovies, setKeyWordFoundMovies] = useState("");
+  const [isFilterFoundMovies, setIsFilterFoundMovies] = useState(false);
+  console.log(keyWordFoundMovies, isFilterFoundMovies);
 
-  const [isFilterMovies, setIsFilterMovies] = useState(
-    localStorage.getItem("filter-movies")
-      ? JSON.parse(localStorage.getItem("filter-movies"))
-      : false
-  );
+  // -- Переменные состояния для страницы Сохранённые фильмы
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
+  const [keyWordSavedMovies, setKeyWordSavedMovies] = useState("");
+  const [isFilterSavedMovies, setIsFilterSavedMovies] = useState(false);
+
+  // -- Функции обновления состояний переменных страницы Фильмы
+  const updateAllMovies = (movies) => {
+    setAllMovies(movies);
+    localStorage.setItem("beatfilm-movies", JSON.stringify(movies));
+  };
+  const updateFilteredFoundMovies = (movies) => {
+    setFilteredFoundMovies(movies);
+    localStorage.setItem("filtered-found-movies", JSON.stringify(movies));
+  };
+  const updateKeyWordFoundMovies = (keyWord) => {
+    setKeyWordFoundMovies(keyWord);
+    localStorage.setItem("keyword-found-movies", keyWord);
+  };
+  const updateFilterFoundMovies = (boolean) => {
+    setIsFilterFoundMovies(boolean);
+    localStorage.setItem("filter-found-movies", boolean);
+  };
+
+  // -- Обновление состояний при первом рендере
+  useEffect(() => {
+    updateAllMovies(
+      JSON.parse(localStorage.getItem("beatfilm-movies") || "[]")
+    );
+    updateFilteredFoundMovies(
+      JSON.parse(localStorage.getItem("filtered-found-movies") || "[]")
+    );
+    updateKeyWordFoundMovies(
+      localStorage.getItem("keyword-found-movies") || ""
+    );
+    updateFilterFoundMovies(
+      JSON.parse(localStorage.getItem("filter-found-movies") || false)
+    );
+  }, []);
 
   // -- Переменные для запросов
   const [isLoading, setIsLoading] = useState(false);
@@ -211,71 +248,79 @@ function App() {
     return JSON.parse(localStorage.getItem("saved-movies"));
   }
 
-  // -- Сохранение фильмов в localStorage
+  /* // -- Сохранение фильмов в localStorage
   // -- Отображение сохранённых фильмов
   useEffect(() => {
     localStorage.setItem("saved-movies", JSON.stringify(savedMovies));
     let savedMoviesLocal = localStorage.getItem("saved-movies");
     if (savedMoviesLocal) {
-      if (isFilterMovies) {
-        setRenderSavedMovies(filterShortMovies(savedMovies));
+      if (isFilterFoundMovies) {
+        setFilteredSavedMovies(filterShortMovies(savedMovies));
       } else {
-        setRenderSavedMovies(savedMovies);
+        setFilteredSavedMovies(savedMovies);
       }
     }
-  }, [savedMovies, isFilterMovies]);
+  }, [savedMovies, isFilterFoundMovies]); */
 
-  // -- Отображение фильмов по чек-боксу
+  /* // -- Отображение фильмов по чек-боксу
   useEffect(() => {
     let moviesLocal = localStorage.getItem("found-movies");
     if (moviesLocal) {
-      if (isFilterMovies) {
+      if (isFilterFoundMovies) {
         setFoundMovies(filterShortMovies(getLocalFoundMovies()));
       } else {
         setFoundMovies(getLocalFoundMovies());
       }
     }
-  }, [isFilterMovies]);
+  }, [isFilterFoundMovies]);
+ */
 
-  // -- Управление фильтром чек-бокса
-  function handleChangeCheckbox() {
-    setIsFilterMovies(!isFilterMovies);
+  // -- Управление фильтром чек-бокса Фильмы
+  function handleChangeCheckboxFoundMovies() {
+    updateFilterFoundMovies(!isFilterFoundMovies);
+  }
+
+  // -- Управление фильтром чек-бокса Фильмы
+  function handleChangeCheckboxSavedMovies() {
+    setIsFilterSavedMovies(!isFilterSavedMovies);
   }
 
   // -- Поиск фильмов --
 
   function handleSearch(query) {
+    setIsLoading(true);
+
     const { movie } = query;
-    setFoundMovies([]);
+    setFilteredFoundMovies([]);
     setIsSearchError(false);
     setIsSearchResult(true);
     let filterMovies = handlerMovieSearchQuery(getLocalAllMovies(), movie);
-    // сохраним найденные фильмы и значение фильтра в localStorage
-    localStorage.setItem("found-movies", JSON.stringify(filterMovies));
-    localStorage.setItem("filter-movies", JSON.stringify(isFilterMovies));
-
+    
     // меняем переменные результата поиска
     if (filterMovies && filterMovies.length > 0) {
-      setFoundMovies(filterMovies);
+      console.log("Обновление переменных");
+      updateFilteredFoundMovies(filterMovies);
+      updateKeyWordFoundMovies(movie);
       setIsSearchResult(true);
-      // меняем отображение фильмов по фильтру
-      if (isFilterMovies) {
-        setFoundMovies(filterShortMovies(filterMovies));
+      /* // меняем отображение фильмов по фильтру
+      if (isFilterFoundMovies) {
+        updateFilteredFoundMovies(filterShortMovies(filterMovies));
       } else {
-        setFoundMovies(filterMovies);
-      }
+        updateFilteredFoundMovies(filterMovies);
+      } */
     } else {
       setIsSearchResult(false);
     }
+    setIsLoading(false);
   }
 
   // -- Получим все фильмы из АПИ
-  function getAllMovies(query) {
+  async function getAllMovies(query) {
     setIsLoading(true);
-    MoviesApi()
+    await MoviesApi()
       .then((data) => {
         // сохраним в localStorage
-        localStorage.setItem("beatfilm-movies", JSON.stringify(data));
+        updateAllMovies(data);
       })
       .then(() => handleSearch(query))
       .catch((err) => {
@@ -289,10 +334,12 @@ function App() {
 
   function handleSearchMovies(query) {
     // загрузим все фильмы при первом поиске
-    if (!localStorage.getItem("beatfilm-movies")) {
+    if (!allMovies.length || allMovies.length === 0) {
       getAllMovies(query);
+      console.log("Первый поиск");
     } else {
       handleSearch(query);
+      console.log("Следующие поиски");
     }
   }
 
@@ -300,18 +347,18 @@ function App() {
 
   function handleSearchSavedMovies(query) {
     const { movie } = query;
-    setRenderSavedMovies([]);
+    setFilteredSavedMovies([]);
     setIsSearchError(false);
     setIsSearchResult(true);
     let filterMovies = handlerMovieSearchQuery(getLocalSavedMovies(), movie);
     if (filterMovies && filterMovies.length > 0) {
-      setRenderSavedMovies(filterMovies);
+      setFilteredSavedMovies(filterMovies);
       setIsSearchResult(true);
       // меняем отображение фильмов по фильтру
-      if (isFilterMovies) {
-        setRenderSavedMovies(filterShortMovies(filterMovies));
+      if (isFilterFoundMovies) {
+        setFilteredSavedMovies(filterShortMovies(filterMovies));
       } else {
-        setRenderSavedMovies(filterMovies);
+        setFilteredSavedMovies(filterMovies);
       }
     } else {
       setIsSearchResult(false);
@@ -380,11 +427,11 @@ function App() {
             <ProtectedRoute
               loggedIn={loggedIn}
               component={Movies}
-              movies={foundMovies}
+              movies={filteredFoundMovies}
               savedMovies={savedMovies}
               onSearchMovies={handleSearchMovies}
-              onChangeCheckbox={handleChangeCheckbox}
-              isFilterMovies={isFilterMovies}
+              onChangeCheckbox={handleChangeCheckboxFoundMovies}
+              isFilterMovies={isFilterFoundMovies}
               isSearchResult={isSearchResult}
               isSearchError={isSearchError}
               isLoading={isLoading}
@@ -398,10 +445,10 @@ function App() {
             <ProtectedRoute
               loggedIn={loggedIn}
               component={SavedMovies}
-              movies={renderSavedMovies}
+              movies={filteredSavedMovies}
               onSearchMovies={handleSearchSavedMovies}
-              onChangeCheckbox={handleChangeCheckbox}
-              isFilterMovies={isFilterMovies}
+              onChangeCheckbox={handleChangeCheckboxSavedMovies}
+              isFilterMovies={isFilterSavedMovies}
               isSearchResult={isSearchResult}
               isSearchError={isSearchError}
               isLoading={isLoading}
