@@ -7,6 +7,7 @@ import {
 } from "../../contexts/CurrentUserContext";
 import "./App.css";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import ProtectedAuthRoute from "../ProtectedAuthRoute/ProtectedAuthRoute";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -424,7 +425,9 @@ function App() {
         <Route
           path="/signin"
           element={
-            <Login
+            <ProtectedAuthRoute
+              loggedIn={loggedIn}
+              component={Login}
               onSubmit={onLogin}
               message={message}
               isApiError={isApiError}
@@ -434,7 +437,9 @@ function App() {
         <Route
           path="/signup"
           element={
-            <Register
+            <ProtectedAuthRoute
+              loggedIn={loggedIn}
+              component={Register}
               onSubmit={onRegister}
               message={message}
               isApiError={isApiError}
