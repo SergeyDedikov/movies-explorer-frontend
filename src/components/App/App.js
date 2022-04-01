@@ -234,6 +234,8 @@ function App() {
     setLoggedIn(false);
     goToHome();
     setCurrentUser(defaultUser);
+    setFilteredSavedMovies([]);
+    setSavedMovies([]);
     localStorage.clear();
     sessionStorage.clear();
   }
