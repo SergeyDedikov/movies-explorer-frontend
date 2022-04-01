@@ -39,10 +39,14 @@ function App() {
 
   // -- Переменные состояния для страницы Фильмы
   const [allMovies, setAllMovies] = useState([]);
-  // const [foundMovies, setFoundMovies] = useState([]);
+  const [foundMovies, setFoundMovies] = useState([]);
   const [filteredFoundMovies, setFilteredFoundMovies] = useState([]);
   const [keyWordFoundMovies, setKeyWordFoundMovies] = useState("");
-  const [isFilterFoundMovies, setIsFilterFoundMovies] = useState(false);
+  const [isFilterFoundMovies, setIsFilterFoundMovies] = useState(
+    localStorage.getItem("filter-found-movies")
+      ? JSON.parse(localStorage.getItem("filter-found-movies"))
+      : false
+  );
   console.log(keyWordFoundMovies, isFilterFoundMovies);
 
   // -- Переменные состояния для страницы Сохранённые фильмы
@@ -55,6 +59,10 @@ function App() {
   const updateAllMovies = (movies) => {
     setAllMovies(movies);
     localStorage.setItem("beatfilm-movies", JSON.stringify(movies));
+  };
+  const updateFoundMovies = (movies) => {
+    setFoundMovies(movies);
+    localStorage.setItem("found-movies", JSON.stringify(movies));
   };
   const updateFilteredFoundMovies = (movies) => {
     setFilteredFoundMovies(movies);
@@ -73,6 +81,9 @@ function App() {
   useEffect(() => {
     updateAllMovies(
       JSON.parse(localStorage.getItem("beatfilm-movies") || "[]")
+    );
+    updateFoundMovies(
+      JSON.parse(localStorage.getItem("found-movies") || "[]")
     );
     updateFilteredFoundMovies(
       JSON.parse(localStorage.getItem("filtered-found-movies") || "[]")
@@ -262,25 +273,24 @@ function App() {
     }
   }, [savedMovies, isFilterFoundMovies]); */
 
-  /* // -- Отображение фильмов по чек-боксу
+  // -- Отображение найденных фильмов по чек-боксу
   useEffect(() => {
     let moviesLocal = localStorage.getItem("found-movies");
     if (moviesLocal) {
       if (isFilterFoundMovies) {
-        setFoundMovies(filterShortMovies(getLocalFoundMovies()));
+        updateFilteredFoundMovies(filterShortMovies(getLocalFoundMovies()));
       } else {
-        setFoundMovies(getLocalFoundMovies());
+        updateFilteredFoundMovies(getLocalFoundMovies());
       }
     }
   }, [isFilterFoundMovies]);
- */
 
   // -- Управление фильтром чек-бокса Фильмы
   function handleChangeCheckboxFoundMovies() {
     updateFilterFoundMovies(!isFilterFoundMovies);
   }
 
-  // -- Управление фильтром чек-бокса Фильмы
+  // -- Управление фильтром чек-бокса Сохранённые фильмы
   function handleChangeCheckboxSavedMovies() {
     setIsFilterSavedMovies(!isFilterSavedMovies);
   }
@@ -291,23 +301,22 @@ function App() {
     setIsLoading(true);
 
     const { movie } = query;
-    setFilteredFoundMovies([]);
+    // setFilteredFoundMovies([]);
     setIsSearchError(false);
     setIsSearchResult(true);
     let filterMovies = handlerMovieSearchQuery(getLocalAllMovies(), movie);
-    
+
     // меняем переменные результата поиска
     if (filterMovies && filterMovies.length > 0) {
-      console.log("Обновление переменных");
-      updateFilteredFoundMovies(filterMovies);
+      updateFoundMovies(filterMovies);
       updateKeyWordFoundMovies(movie);
       setIsSearchResult(true);
-      /* // меняем отображение фильмов по фильтру
+      // меняем отображение фильмов по фильтру
       if (isFilterFoundMovies) {
         updateFilteredFoundMovies(filterShortMovies(filterMovies));
       } else {
         updateFilteredFoundMovies(filterMovies);
-      } */
+      }
     } else {
       setIsSearchResult(false);
     }
@@ -336,10 +345,8 @@ function App() {
     // загрузим все фильмы при первом поиске
     if (!allMovies.length || allMovies.length === 0) {
       getAllMovies(query);
-      console.log("Первый поиск");
     } else {
       handleSearch(query);
-      console.log("Следующие поиски");
     }
   }
 
