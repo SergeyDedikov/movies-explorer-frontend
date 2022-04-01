@@ -16,7 +16,7 @@ function SearchForm({
 
   // -- Выведем в поле поиска предыдущее значение
   useEffect(() => {
-    inputRef.current.value = keyWordFoundMovies;
+    inputRef.current.value = keyWordFoundMovies || '';
   }, [keyWordFoundMovies]);
 
   // подключаем валидацию формы
