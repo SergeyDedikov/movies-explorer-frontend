@@ -3,6 +3,14 @@ import { useEffect, useState } from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import AddMoreMovies from "../AddMoreMovies/AddMoreMovies";
+import {
+  NUMBER_ADDED_CARDS_MIDDLE_SCREEN,
+  NUMBER_ADDED_CARDS_MOBIL_SCREEN,
+  NUMBER_ADDED_CARDS_WIDE_SCREEN,
+  NUMBER_CARDS_MIDDLE_SCREEN,
+  NUMBER_CARDS_MOBIL_SCREEN,
+  NUMBER_CARDS_WIDE_SCREEN,
+} from "../../utils/constants";
 
 function MoviesCardList({ movies, isSavedMovies, savedMovies, onMovieLike }) {
   const [moviesList, setMoviesList] = useState([]);
@@ -55,20 +63,20 @@ function MoviesCardList({ movies, isSavedMovies, savedMovies, onMovieLike }) {
   useEffect(() => {
     if (!isSavedMovies && movies.length > 0) {
       if (isLargeScreen) {
-        setMoviesList(movies.slice(0, 12));
-        setNumberAddMovies(3);
+        setMoviesList(movies.slice(0, NUMBER_CARDS_WIDE_SCREEN));
+        setNumberAddMovies(NUMBER_ADDED_CARDS_WIDE_SCREEN);
       } else if (!isMobilScreen) {
-        setMoviesList(movies.slice(0, 8));
-        setNumberAddMovies(2);
+        setMoviesList(movies.slice(0, NUMBER_CARDS_MIDDLE_SCREEN));
+        setNumberAddMovies(NUMBER_ADDED_CARDS_MIDDLE_SCREEN);
       } else {
-        setMoviesList(movies.slice(0, 5));
-        setNumberAddMovies(2);
+        setMoviesList(movies.slice(0, NUMBER_CARDS_MOBIL_SCREEN));
+        setNumberAddMovies(NUMBER_ADDED_CARDS_MOBIL_SCREEN);
       }
     }
   }, [movies, isLargeScreen, isMobilScreen]);
 
   // добавление новых карточек
-  function handleAddMoreMovies(n) {
+  function handleAddMoreMovies(numberCards) {
     // определим разницу длины массивов
     let delta;
     if (movies.length > 0) {
@@ -78,17 +86,20 @@ function MoviesCardList({ movies, isSavedMovies, savedMovies, onMovieLike }) {
     // вычленим добавляемые карточки в отдельный массив
     let addMovies = [];
 
-    function sliceAddMovies(m) {
-      addMovies = movies.slice(moviesList.length, moviesList.length + m);
+    function sliceAddMovies(newNumber) {
+      addMovies = movies.slice(
+        moviesList.length,
+        moviesList.length + newNumber
+      );
     }
 
     if (movies.length === 0 && moviesList.length === 0 && delta === 0) {
       return;
-    } else if (delta < n) {
-      n = delta;
+    } else if (delta < numberCards) {
+      numberCards = delta;
     }
 
-    sliceAddMovies(n);
+    sliceAddMovies(numberCards);
     // добавим новый массив в стейт
     setMoviesList((state) => state.concat(addMovies));
   }
