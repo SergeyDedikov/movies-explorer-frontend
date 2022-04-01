@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import {
@@ -47,15 +47,18 @@ function App() {
       ? JSON.parse(localStorage.getItem("filter-found-movies"))
       : false
   );
-  console.log(keyWordFoundMovies, isFilterFoundMovies);
 
   // -- Переменные состояния для страницы Сохранённые фильмы
   const [savedMovies, setSavedMovies] = useState([]);
   const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
   const [keyWordSavedMovies, setKeyWordSavedMovies] = useState("");
-  const [isFilterSavedMovies, setIsFilterSavedMovies] = useState(false);
+  const [isFilterSavedMovies, setIsFilterSavedMovies] = useState(
+    localStorage.getItem("filter-saved-movies")
+      ? JSON.parse(localStorage.getItem("filter-saved-movies"))
+      : false
+  );
 
-  // -- Функции обновления состояний переменных страницы Фильмы
+  // -- Функции обновления состояний переменных фильмов
   const updateAllMovies = (movies) => {
     setAllMovies(movies);
     localStorage.setItem("beatfilm-movies", JSON.stringify(movies));
@@ -76,15 +79,17 @@ function App() {
     setIsFilterFoundMovies(boolean);
     localStorage.setItem("filter-found-movies", boolean);
   };
+  const updateSavedMovies = (movies) => {
+    setSavedMovies(movies);
+    localStorage.setItem("saved-movies", JSON.stringify(movies));
+  };
 
   // -- Обновление состояний при первом рендере
   useEffect(() => {
     updateAllMovies(
       JSON.parse(localStorage.getItem("beatfilm-movies") || "[]")
     );
-    updateFoundMovies(
-      JSON.parse(localStorage.getItem("found-movies") || "[]")
-    );
+    updateFoundMovies(JSON.parse(localStorage.getItem("found-movies") || "[]"));
     updateFilteredFoundMovies(
       JSON.parse(localStorage.getItem("filtered-found-movies") || "[]")
     );
@@ -106,6 +111,7 @@ function App() {
   const [isOk, setIsOk] = useState(null);
 
   // -- Навигация
+  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   function goToHome() {
@@ -136,6 +142,7 @@ function App() {
       .then((res) => {
         if (res) {
           // меняем переменные состояния авторизации и пользователя
+          // TODO: вынести в отдельные функции update
           setLoggedIn(true);
           sessionStorage.setItem("loggedIn", "true");
           setCurrentUser(res);
@@ -232,7 +239,7 @@ function App() {
       api
         .getMovies()
         .then((movies) => {
-          setSavedMovies(movies);
+          updateSavedMovies(movies);
         })
         .catch((err) => {
           setMessage(err);
@@ -259,19 +266,19 @@ function App() {
     return JSON.parse(localStorage.getItem("saved-movies"));
   }
 
-  /* // -- Сохранение фильмов в localStorage
+  // -- Сохранение фильмов в localStorage
   // -- Отображение сохранённых фильмов
   useEffect(() => {
-    localStorage.setItem("saved-movies", JSON.stringify(savedMovies));
+    updateSavedMovies(savedMovies);
     let savedMoviesLocal = localStorage.getItem("saved-movies");
     if (savedMoviesLocal) {
-      if (isFilterFoundMovies) {
+      if (isFilterSavedMovies) {
         setFilteredSavedMovies(filterShortMovies(savedMovies));
       } else {
         setFilteredSavedMovies(savedMovies);
       }
     }
-  }, [savedMovies, isFilterFoundMovies]); */
+  }, [savedMovies, isFilterSavedMovies]);
 
   // -- Отображение найденных фильмов по чек-боксу
   useEffect(() => {
@@ -299,17 +306,15 @@ function App() {
 
   function handleSearch(query) {
     setIsLoading(true);
-
-    const { movie } = query;
-    // setFilteredFoundMovies([]);
+    updateFilteredFoundMovies([]);
     setIsSearchError(false);
     setIsSearchResult(true);
+    const { movie } = query;
     let filterMovies = handlerMovieSearchQuery(getLocalAllMovies(), movie);
-
+    updateFoundMovies(filterMovies);
+    updateKeyWordFoundMovies(movie);
     // меняем переменные результата поиска
     if (filterMovies && filterMovies.length > 0) {
-      updateFoundMovies(filterMovies);
-      updateKeyWordFoundMovies(movie);
       setIsSearchResult(true);
       // меняем отображение фильмов по фильтру
       if (isFilterFoundMovies) {
@@ -322,6 +327,12 @@ function App() {
     }
     setIsLoading(false);
   }
+
+  // -- Сброс результатов поиска
+  useEffect(() => {
+    setIsSearchResult(true);
+    setIsSearchError(false);
+  }, [pathname]);
 
   // -- Получим все фильмы из АПИ
   async function getAllMovies(query) {
@@ -362,7 +373,7 @@ function App() {
       setFilteredSavedMovies(filterMovies);
       setIsSearchResult(true);
       // меняем отображение фильмов по фильтру
-      if (isFilterFoundMovies) {
+      if (isFilterSavedMovies) {
         setFilteredSavedMovies(filterShortMovies(filterMovies));
       } else {
         setFilteredSavedMovies(filterMovies);
