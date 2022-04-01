@@ -51,7 +51,7 @@ function App() {
   // -- Переменные состояния для страницы Сохранённые фильмы
   const [savedMovies, setSavedMovies] = useState([]);
   const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
-  const [keyWordSavedMovies, setKeyWordSavedMovies] = useState("");
+  // const [keyWordSavedMovies, setKeyWordSavedMovies] = useState("");
   const [isFilterSavedMovies, setIsFilterSavedMovies] = useState(
     localStorage.getItem("filter-saved-movies")
       ? JSON.parse(localStorage.getItem("filter-saved-movies"))
@@ -149,7 +149,6 @@ function App() {
       .then((res) => {
         if (res) {
           // меняем переменные состояния авторизации и пользователя
-          // TODO: вынести в отдельные функции update
           setLoggedIn(true);
           sessionStorage.setItem("loggedIn", "true");
           setCurrentUser(res);
@@ -457,6 +456,7 @@ function App() {
               onSearchMovies={handleSearchMovies}
               onChangeCheckbox={handleChangeCheckboxFoundMovies}
               isFilterMovies={isFilterFoundMovies}
+              keyWordFoundMovies={keyWordFoundMovies}
               isSearchResult={isSearchResult}
               isSearchError={isSearchError}
               isLoading={isLoading}

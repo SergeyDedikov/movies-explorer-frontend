@@ -4,21 +4,23 @@ import "./SearchForm.css";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import { useFormWithValidation } from "../../hooks/form-validation";
 
-function SearchForm({ onSearchMovies, onChangeCheckbox, isFilterMovies }) {
+function SearchForm({
+  onSearchMovies,
+  onChangeCheckbox,
+  isFilterMovies,
+  keyWordFoundMovies,
+}) {
   const [isVisibleError, setIsVisibleError] = useState(false);
   const inputRef = useRef(null); // прямой доступ к полю ввода
   const [isChecked, setIsChecked] = useState(isFilterMovies);
 
+  // -- Выведем в поле поиска предыдущее значение
+  useEffect(() => {
+    inputRef.current.value = keyWordFoundMovies;
+  }, [keyWordFoundMovies]);
+
   // подключаем валидацию формы
-  const {
-    values,
-    handleChange,
-    errors,
-    isValid,
-    resetForm,
-    setValues,
-    setIsValid,
-  } = useFormWithValidation();
+  const { values, handleChange, isValid } = useFormWithValidation();
 
   function handleChangeCheckbox(e) {
     setIsChecked(!isChecked);
@@ -33,12 +35,9 @@ function SearchForm({ onSearchMovies, onChangeCheckbox, isFilterMovies }) {
     } else {
       onSearchMovies({
         movie: values.movie,
-        // filterMovies: isChecked,
       });
       setIsVisibleError(false);
     }
-    resetForm();
-    inputRef.current.value = "";
   }
 
   return (
@@ -70,7 +69,7 @@ function SearchForm({ onSearchMovies, onChangeCheckbox, isFilterMovies }) {
         <button className="search-form__button button" type="submit">
           {""}
         </button>
-        <FilterCheckbox onChange={handleChangeCheckbox} isChecked={isChecked}/>
+        <FilterCheckbox onChange={handleChangeCheckbox} isChecked={isChecked} />
       </form>
     </section>
   );

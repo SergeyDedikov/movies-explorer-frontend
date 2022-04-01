@@ -8,6 +8,7 @@ function Movies({
   onSearchMovies,
   onChangeCheckbox,
   isFilterMovies,
+  keyWordFoundMovies,
   isSearchResult,
   isSearchError,
   isLoading,
@@ -21,6 +22,7 @@ function Movies({
         onSearchMovies={onSearchMovies}
         onChangeCheckbox={onChangeCheckbox}
         isFilterMovies={isFilterMovies}
+        keyWordFoundMovies={keyWordFoundMovies}
       />
       <ResultBox
         isSearchResult={isSearchResult}
