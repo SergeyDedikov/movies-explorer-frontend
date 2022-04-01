@@ -51,7 +51,6 @@ function App() {
   // -- Переменные состояния для страницы Сохранённые фильмы
   const [savedMovies, setSavedMovies] = useState([]);
   const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
-  // const [keyWordSavedMovies, setKeyWordSavedMovies] = useState("");
   const [isFilterSavedMovies, setIsFilterSavedMovies] = useState(
     localStorage.getItem("filter-saved-movies")
       ? JSON.parse(localStorage.getItem("filter-saved-movies"))
@@ -231,13 +230,18 @@ function App() {
   // -- Выход из системы
   function onSignOut() {
     auth.logout();
-    setLoggedIn(false);
-    goToHome();
-    setCurrentUser(defaultUser);
-    setFilteredSavedMovies([]);
-    setSavedMovies([]);
     localStorage.clear();
     sessionStorage.clear();
+    setLoggedIn(false);
+    goToHome();
+    setCurrentUser({});
+    setAllMovies([]);
+    setFoundMovies([]);
+    setFilteredFoundMovies([]);
+    setIsFilterFoundMovies(false);
+    setKeyWordFoundMovies('');
+    setSavedMovies([]);
+    setFilteredSavedMovies([]);
   }
 
   // -- Получение сохранённых фильмов из нашего АПИ
