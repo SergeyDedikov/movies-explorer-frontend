@@ -1,7 +1,6 @@
-import { BASE_URL_MOVIES_API } from "./constants";
+import { BASE_URL_MOVIES_API, DURATION_SHORT_MOVIES } from "./constants";
 
 export function handlerMovieSearchQuery(arrayMovies, query) {
-
   // фильтрация фильмов по запросу
   return arrayMovies.filter(function (el) {
     // создадим массив значений для поиска в них
@@ -21,7 +20,7 @@ export function handlerMovieSearchQuery(arrayMovies, query) {
 
 // фильтрация по длительности фильма
 export function filterShortMovies(arrayMovies) {
-  return arrayMovies.filter((m) => m.duration <= 40);
+  return arrayMovies.filter((m) => m.duration <= DURATION_SHORT_MOVIES);
 }
 
 // подстрахуемся от пустых значений
