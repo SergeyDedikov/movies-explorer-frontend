@@ -83,6 +83,10 @@ function App() {
     setSavedMovies(movies);
     localStorage.setItem("saved-movies", JSON.stringify(movies));
   };
+  const updateFilteredSavedMovies = (movies) => {
+    setFilteredSavedMovies(movies);
+    localStorage.setItem("filtered-saved-movies", JSON.stringify(movies));
+  };
 
   // -- Обновление состояний при первом рендере
   useEffect(() => {
@@ -99,6 +103,9 @@ function App() {
     updateFilterFoundMovies(
       JSON.parse(localStorage.getItem("filter-found-movies") || false)
     );
+    updateFilteredSavedMovies(
+      JSON.parse(localStorage.getItem("saved-movies") || "[]")
+    )
   }, []);
 
   // -- Переменные для запросов
@@ -270,15 +277,15 @@ function App() {
   // -- Отображение сохранённых фильмов
   useEffect(() => {
     updateSavedMovies(savedMovies);
-    let savedMoviesLocal = localStorage.getItem("saved-movies");
-    if (savedMoviesLocal) {
+    let moviesLocal = localStorage.getItem("saved-movies");
+    if (moviesLocal) {
       if (isFilterSavedMovies) {
-        setFilteredSavedMovies(filterShortMovies(savedMovies));
+        updateFilteredSavedMovies(filterShortMovies(getLocalSavedMovies()));
       } else {
-        setFilteredSavedMovies(savedMovies);
+        updateFilteredSavedMovies(getLocalSavedMovies());
       }
     }
-  }, [savedMovies, isFilterSavedMovies]);
+  }, [savedMovies, isFilterSavedMovies, pathname]);
 
   // -- Отображение найденных фильмов по чек-боксу
   useEffect(() => {
@@ -365,12 +372,12 @@ function App() {
 
   function handleSearchSavedMovies(query) {
     const { movie } = query;
-    setFilteredSavedMovies([]);
+    updateFilteredSavedMovies([]);
     setIsSearchError(false);
     setIsSearchResult(true);
     let filterMovies = handlerMovieSearchQuery(getLocalSavedMovies(), movie);
+    updateFilteredSavedMovies(filterMovies);
     if (filterMovies && filterMovies.length > 0) {
-      setFilteredSavedMovies(filterMovies);
       setIsSearchResult(true);
       // меняем отображение фильмов по фильтру
       if (isFilterSavedMovies) {
