@@ -3,9 +3,21 @@ import { useEffect, useState } from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import AddMoreMovies from "../AddMoreMovies/AddMoreMovies";
+import {
+  NUMBER_ADDED_CARDS_MIDDLE_SCREEN,
+  NUMBER_ADDED_CARDS_MOBIL_SCREEN,
+  NUMBER_ADDED_CARDS_WIDE_SCREEN,
+  NUMBER_CARDS_MIDDLE_SCREEN,
+  NUMBER_CARDS_MOBIL_SCREEN,
+  NUMBER_CARDS_WIDE_SCREEN,
+} from "../../utils/constants";
 
-function MoviesCardList({ movies, isSavedMovies }) {
-  const [moviesList, setMoviesList] = useState(movies);
+function MoviesCardList({ movies, isSavedMovies, savedMovies, onMovieLike }) {
+  const [moviesList, setMoviesList] = useState([]);
+
+  useEffect(() => {
+    setMoviesList(movies);
+  }, [movies]);
 
   // созданим переменную для широкого экрана
   const mediaLargeScreen = window.matchMedia("(min-width: 1000px)");
@@ -14,6 +26,12 @@ function MoviesCardList({ movies, isSavedMovies }) {
 
   const [isLargeScreen, setIsLargeScreen] = useState(mediaLargeScreen.matches);
   const [isMobilScreen, setIsMobilScreen] = useState(mediaMobilScreen.matches);
+
+  // условие для отображения кнопки Ещё (исключим страницу с сохранёнными фильмами)
+  const isMoreMovies = movies.length > moviesList.length && !isSavedMovies;
+
+  // число добавляемых карточек
+  const [numberAddMovies, setNumberAddMovies] = useState(0);
 
   function handleLargeScreenChange(evt) {
     if (evt.matches) {
@@ -33,48 +51,77 @@ function MoviesCardList({ movies, isSavedMovies }) {
 
   // слушатель переменной для широкого экрана
   mediaLargeScreen.addEventListener("change", (e) =>
-    handleLargeScreenChange(e)
+    setTimeout(handleLargeScreenChange(e), 500)
   );
   // слушатель переменной для узкого экрана
   mediaMobilScreen.addEventListener("change", (e) =>
-    handleMobilScreenChange(e)
+    setTimeout(handleMobilScreenChange(e), 500)
   );
 
-  // условие для отображения кнопки Ещё (временное)
-  const isMoreMovies = movies.length > 11;
-
-  // изменим число отображаемых карточек при разной ширине экрана
+  // изменим число отображаемых и добавляемых карточек при разной ширине экрана
+  // (исключим страницу с сохранёнными фильмами)
   useEffect(() => {
-    if (isLargeScreen) {
-      setMoviesList(movies.slice(0, 12));
-    } else if (!isMobilScreen) {
-      setMoviesList(movies.slice(0, 8));
-    } else {
-      setMoviesList(movies.slice(0, 5));
+    if (!isSavedMovies && movies.length > 0) {
+      if (isLargeScreen) {
+        setMoviesList(movies.slice(0, NUMBER_CARDS_WIDE_SCREEN));
+        setNumberAddMovies(NUMBER_ADDED_CARDS_WIDE_SCREEN);
+      } else if (!isMobilScreen) {
+        setMoviesList(movies.slice(0, NUMBER_CARDS_MIDDLE_SCREEN));
+        setNumberAddMovies(NUMBER_ADDED_CARDS_MIDDLE_SCREEN);
+      } else {
+        setMoviesList(movies.slice(0, NUMBER_CARDS_MOBIL_SCREEN));
+        setNumberAddMovies(NUMBER_ADDED_CARDS_MOBIL_SCREEN);
+      }
     }
-  }, [isLargeScreen, isMobilScreen]);
+  }, [movies, isLargeScreen, isMobilScreen]);
 
-  // изменим число отображаемых карточек
-  // в "Сохранённых фильмах"
-  // при узкой ширине экрана
-  useEffect(() => {
-    if (isSavedMovies && isMobilScreen) {
-      setMoviesList(movies.slice(0, 2));
+  // добавление новых карточек
+  function handleAddMoreMovies(numberCards) {
+    // определим разницу длины массивов
+    let delta;
+    if (movies.length > 0) {
+      delta = movies.length - moviesList.length;
     }
-  }, [isSavedMovies, isMobilScreen]);
+
+    // вычленим добавляемые карточки в отдельный массив
+    let addMovies = [];
+
+    function sliceAddMovies(newNumber) {
+      addMovies = movies.slice(
+        moviesList.length,
+        moviesList.length + newNumber
+      );
+    }
+
+    if (movies.length === 0 && moviesList.length === 0 && delta === 0) {
+      return;
+    } else if (delta < numberCards) {
+      numberCards = delta;
+    }
+
+    sliceAddMovies(numberCards);
+    // добавим новый массив в стейт
+    setMoviesList((state) => state.concat(addMovies));
+  }
 
   return (
     <section className="movies-card-list" aria-label="Список фильмов">
       <ul className="movies__list">
         {moviesList.map((movieItem) => (
           <MoviesCard
-            key={movieItem.movieId}
+            key={isSavedMovies ? movieItem._id : movieItem.id}
             movie={movieItem}
             isSavedMovies={isSavedMovies}
+            savedMovies={savedMovies}
+            onMovieLike={onMovieLike}
           />
         ))}
       </ul>
-      <AddMoreMovies isMoreMovies={isMoreMovies} />
+      <AddMoreMovies
+        onAddMoreMovies={handleAddMoreMovies}
+        numberAddMovies={numberAddMovies}
+        isMoreMovies={isMoreMovies}
+      />
     </section>
   );
 }

@@ -15,12 +15,19 @@
   line-height: 29px;
 }
 
-.profile__info-container {
+.profile__input-container {
   width: inherit;
   margin: 123px 0 220px;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
 }
 
-.profile__info-row {
+.profile__input-label {
+  position: relative;
+  margin: 0;
+  font-weight: 500;
+  text-align: left;
   padding: 17px 0;
   width: 100%;
   font-size: 11px;
@@ -31,23 +38,34 @@
   align-items: center;
 }
 
-.profile__info-row:first-of-type {
+.profile__input-label:first-of-type {
   padding-top: 0;
 }
 
-.profile__info-row:last-of-type {
+.profile__input-label:last-of-type {
   padding-bottom: 0;
   border: none;
 }
 
-.profile__label {
+.profile__input {
   margin: 0;
-  font-weight: 500;
-  text-align: left;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+  text-align: right;
+  font-weight: 400;
+  outline-style: none;
 }
 
-.profile__data {
-  margin: 0;
+.profile__input_type_error {
+  color: #ee3465;
+}
+
+.profile__error {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  color: #ee3465;
   text-align: right;
 }
 
@@ -56,6 +74,10 @@
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
+}
+
+.profile__button:disabled {
+  pointer-events: none;
 }
 
 .profile__button_exit {
@@ -68,7 +90,7 @@
   .profile {
     padding-top: 235px;
   }
-  .profile__info-container {
+  .profile__input-container {
     margin: 97px 0 210px;
   }
 }
@@ -78,7 +100,7 @@
     width: 100%;
     padding: 70px 0 40px;
   }
-  .profile__info-container {
+  .profile__input-container {
     margin: 80px auto 380px;
     width: calc(100% - 2 * 30px);
   }

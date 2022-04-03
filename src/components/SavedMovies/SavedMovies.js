@@ -1,16 +1,35 @@
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import ResultBox from "../ResultBox/ResultBox";
+import Preloader from "../Preloader/Preloader";
 
-import { movies } from "../../utils/constants.js";
-
-function SavedMovies() {
-  // создадим массив с "нашими" фильмами
-  const savedMovies = movies.filter((item) => item.owner === 111);
-
+function SavedMovies({
+  onSearchMovies,
+  onChangeCheckbox,
+  isFilterMovies,
+  isSearchResult,
+  isSearchError,
+  isLoading,
+  movies,
+  onMovieLike,
+}) {
   return (
     <main className="saved-movies">
-      <SearchForm />
-      <MoviesCardList movies={savedMovies} isSavedMovies={true} />
+      <SearchForm
+        onSearchMovies={onSearchMovies}
+        onChangeCheckbox={onChangeCheckbox}
+        isFilterMovies={isFilterMovies}
+      />
+      <ResultBox
+        isSearchResult={isSearchResult}
+        isSearchError={isSearchError}
+      />
+      <Preloader isLoading={isLoading} />
+      <MoviesCardList
+        movies={movies}
+        isSavedMovies={true}
+        onMovieLike={onMovieLike}
+      />
     </main>
   );
 }

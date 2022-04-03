@@ -1,34 +1,28 @@
+import { BASE_URL_MOVIES_API } from "../../utils/constants";
+import { formatMinutes } from "../../utils/utils";
 import "./MoviesCard.css";
 
-function MoviesCard({ movie, isSavedMovies }) {
-  // преобразуем длительность фильма в часы с минутами
-  function formatMinutes(value) {
-    let minuteTime = value; // минуты
-    let hourTime = 0; // часы
-
-    if (minuteTime > 60) {
-      hourTime = parseInt(minuteTime / 60); // получим часы
-      minuteTime = parseInt(minuteTime % 60); // остаток минут
-    }
-
-    let result;
-
-    if (minuteTime > 0) {
-      result = minuteTime + "м";
-    }
-    if (hourTime > 0) {
-      result = hourTime + "ч " + result;
-    }
-    return result;
+function MoviesCard({ movie, isSavedMovies, savedMovies, onMovieLike }) {
+  let isLiked;
+  let posterURL;
+  if (!isSavedMovies) {
+    // определим есть ли фильм среди сохранённых
+    // console.log(savedMovies, movie.id);
+    isLiked = savedMovies.some((i) => i.movieId === movie.id);
+    // изменим адрес ссылки постера
+    posterURL = BASE_URL_MOVIES_API + movie.image.url;
+  } else {
+    posterURL = movie.image;
   }
-
-  // временное условие для определения лайка
-  const isLiked = movie.owner === 111;
 
   // переменная в `className` для кнопки лайка и удаления
   const movieLikeButtonClassName = `movies-card__button-like ${
     isLiked && "movies-card__button-like_active"
   } ${isSavedMovies && "movies-card__button-like_delete"}`;
+
+  function handleLikeClick() {
+    onMovieLike(movie);
+  }
 
   return (
     <li>
@@ -38,13 +32,18 @@ function MoviesCard({ movie, isSavedMovies }) {
           <p className="movies-card__duration">
             {formatMinutes(movie.duration)}
           </p>
-          <button className={`${movieLikeButtonClassName} button`}></button>
+          <button
+            onClick={handleLikeClick}
+            className={`${movieLikeButtonClassName} button`}
+          ></button>
         </figcaption>
-        <img
-          className="movies-card__image"
-          src={movie.image}
-          alt={movie.nameRU}
-        />
+        <a href={movie.trailerLink} target="_blank" rel="noreferrer">
+          <img
+            className="movies-card__image"
+            src={posterURL}
+            alt={movie.nameRU}
+          />
+        </a>
       </figure>
     </li>
   );

@@ -1,61 +1,104 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./Register.css";
 import PageWithAuthForm from "../PageWithAuthForm/PageWithAuthForm";
-import AuthForm from "../AuthForm/AuthForm";
-import InputForm from "../InputForm/InputForm";
+import { useFormWithValidation } from "../../hooks/form-validation";
 
-function Register() {
-  const [inputValues, setInputValues] = useState({
-    name: "Виталий",
-    email: "pochta@yandex.ru",
-    password: "",
-  });
-
-  function handleChange(e) {
-    setInputValues((values) => {
-      return { ...values, [e.target.name]: e.target.value };
-    });
-  }
+function Register({ onSubmit, isApiError, message }) {
+  // подключаем валидацию формы
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!isValid) {
+      console.log(errors);
+    } else {
+      onSubmit({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      });
+    }
   }
 
   return (
     <PageWithAuthForm heading={"Добро пожаловать!"}>
-      <AuthForm onSubmit={handleSubmit} name={"register"}>
-        <InputForm
-          name="name"
-          value={inputValues.name}
-          onChange={handleChange}
-          type="text"
-          label="Имя"
-          nameform={"register"}
-        />
-        <InputForm
-          name="email"
-          value={inputValues.email}
-          onChange={handleChange}
-          type="email"
-          label="E-mail"
-          nameform={"register"}
-        />
-        <InputForm
-          name="password"
-          value={12345678}
-          onChange={handleChange}
-          type="password"
-          label="Пароль"
-          nameform={"register"}
-          message="Что-то пошло не так..."
-          isError={true}
-        />
-      </AuthForm>
+      <form
+        onSubmit={handleSubmit}
+        id="register"
+        name="register"
+        className={`form form_register`}
+        noValidate
+      >
+        <fieldset className="form__input-container">
+          <label className="form__input-label">
+            Имя
+            <input
+              onChange={handleChange}
+              id="register-name"
+              className={`form__input ${
+                errors.name !== "" ? "form__input_type_error" : ""
+              }`}
+              type="text"
+              name="name"
+              minLength="2"
+              maxLength="30"
+              required
+              pattern="[A-Za-zА-Яа-яЁё0-9- ]+"
+              title="Русские или латинские буквы, цифры, пробел, дефис"
+            />
+            <span id="name-error" className="form__error">
+              {errors.name}
+            </span>
+          </label>
+
+          <label className="form__input-label">
+            E-mail
+            <input
+              onChange={handleChange}
+              id="register-email"
+              className={`form__input ${
+                errors.email !== "" ? "form__input_type_error" : ""
+              }`}
+              type="email"
+              name="email"
+              required
+            />
+            <span id="email-error" className="form__error">
+              {errors.email}
+            </span>
+          </label>
+
+          <label className="form__input-label">
+            Пароль
+            <input
+              onChange={handleChange}
+              id="register-password"
+              className={`form__input ${
+                errors.password !== "" ? "form__input_type_error" : ""
+              }`}
+              type="password"
+              name="password"
+              required
+            />
+            <span id="password-error" className="form__error">
+              {errors.password}
+            </span>
+          </label>
+        </fieldset>
+      </form>
       <div className="authentication__footer">
+        <p
+          className={`authentication__text authentication__text_error ${
+            !isApiError ? "authentication__text_hidden" : ""
+          }`}
+        >
+          {message}
+        </p>
         <button
-          className={`form__button form__button_register button`}
+          className={`form__button form__button_register button ${
+            !isValid ? "form__button_disabled" : ""
+          }`}
           type="submit"
           form="register"
         >
