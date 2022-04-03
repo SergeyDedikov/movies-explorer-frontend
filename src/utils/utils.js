@@ -53,6 +53,9 @@ export function formatMinutes(value) {
 
   let result;
 
+  if (minuteTime === 0) {
+    result = '';
+  }
   if (minuteTime > 0) {
     result = minuteTime + "м";
   }
