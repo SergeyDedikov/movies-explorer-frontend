@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d6fbfa93.css",
+    "main.js": "/static/js/main.8eb37def.js",
+    "static/js/787.5fef94a4.chunk.js": "/static/js/787.5fef94a4.chunk.js",
+    "static/media/Inter-Medium.woff": "/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
+    "static/media/Inter-Regular.woff": "/static/media/Inter-Regular.8c206db99195777c6769.woff",
+    "static/media/Inter-Medium.woff2": "/static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
+    "static/media/Inter-Regular.woff2": "/static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
+    "static/media/student-photo.jpg": "/static/media/student-photo.359fa295280ab75b5ce6.jpg",
+    "static/media/landing-logo.svg": "/static/media/landing-logo.0b0563459964b6034a50.svg",
+    "index.html": "/index.html",
+    "static/media/icon-infotooltip-ok.svg": "/static/media/icon-infotooltip-ok.e78ac8d93969dd2df5e5.svg",
+    "static/media/icon-infotooltip-fail.svg": "/static/media/icon-infotooltip-fail.064903fa82fa6f9cfef5.svg",
+    "static/media/icon-profile.svg": "/static/media/icon-profile.6637075a36750901d563.svg",
+    "static/media/logo.svg": "/static/media/logo.850b8127181b621e85b5.svg",
+    "static/media/icon-find-gray.svg": "/static/media/icon-find-gray.dddd71f696357bcca12b.svg",
+    "static/media/icon-find-white.svg": "/static/media/icon-find-white.6ae759e0d8378711e2e2.svg",
+    "static/media/icon-close.svg": "/static/media/icon-close.7bdb02a40bfc7ebfa6f1.svg",
+    "static/media/icon-favoritemovie-active.svg": "/static/media/icon-favoritemovie-active.2efe23e2157868c6ed87.svg",
+    "static/media/icon-favoritemovie-notactive.svg": "/static/media/icon-favoritemovie-notactive.2616f0d48510e0800ab1.svg",
+    "static/media/icon-close-big.svg": "/static/media/icon-close-big.ac35c61cf8822c942651.svg",
+    "static/media/icon-link-portfolio.svg": "/static/media/icon-link-portfolio.cb5b52288a81e45695ee.svg",
+    "static/media/icon-burger-menu-white.svg": "/static/media/icon-burger-menu-white.dc720b067be895850bde.svg",
+    "static/media/icon-burger-menu.svg": "/static/media/icon-burger-menu.94b8696076647dbc5cde.svg",
+    "main.d6fbfa93.css.map": "/static/css/main.d6fbfa93.css.map",
+    "main.8eb37def.js.map": "/static/js/main.8eb37def.js.map",
+    "787.5fef94a4.chunk.js.map": "/static/js/787.5fef94a4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d6fbfa93.css",
+    "static/js/main.8eb37def.js"
+  ]
+}
